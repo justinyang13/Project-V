@@ -1,5 +1,5 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Music — Video-Zen1</title><style>:root{--bg:#fbfaf8;--card:#ffffff;--ink:#1d2129;--mute:#5f6875;--line:#e3e0da;--accent:#2f6f8f;--accent-ink:#ffffff;--code:#f2efe9;--ok:#1f7a4d;--ok-bg:#e3f3ea;--warn:#8a5a00;--warn-bg:#fdf1d6;--claude:#7a4fb5;--script:#2f6f8f;--user:#b5561f}
+<title>Music — Project-V</title><style>:root{--bg:#fbfaf8;--card:#ffffff;--ink:#1d2129;--mute:#5f6875;--line:#e3e0da;--accent:#2f6f8f;--accent-ink:#ffffff;--code:#f2efe9;--ok:#1f7a4d;--ok-bg:#e3f3ea;--warn:#8a5a00;--warn-bg:#fdf1d6;--claude:#7a4fb5;--script:#2f6f8f;--user:#b5561f}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#14171c;--card:#1b1f26;--ink:#e8e6e1;--mute:#98a1ad;--line:#2b313a;--accent:#7ab6d3;--accent-ink:#0d1a22;--code:#222730;--ok:#63c790;--ok-bg:#183326;--warn:#e8b95a;--warn-bg:#3a2f14;--claude:#b79be0;--script:#7ab6d3;--user:#eb9a6c}}
 :root[data-theme="dark"]{--bg:#14171c;--card:#1b1f26;--ink:#e8e6e1;--mute:#98a1ad;--line:#2b313a;--accent:#7ab6d3;--accent-ink:#0d1a22;--code:#222730;--ok:#63c790;--ok-bg:#183326;--warn:#e8b95a;--warn-bg:#3a2f14;--claude:#b79be0;--script:#7ab6d3;--user:#eb9a6c}
 *{box-sizing:border-box}
@@ -34,23 +34,29 @@ hr{border:0;border-top:1px solid var(--line);margin:2em 0}
 .kick{position:relative}
 @media (max-width:600px){h1{font-size:1.6rem}}
 </style></head><body>
-<header class="top"><nav><span class="brand">Video-Zen1</span><a href="index.html">Home</a><a href="spec.html">Spec</a><a href="runbook.html">Runbook</a><a href="lessons.html">Lessons</a><a href="music.html" class=on>Music</a><a href="models.html">Models</a><a href="posting-plan.html">Posting plan</a><a href="job-001.html">Job 001 log</a></nav></header><main><h1 id="music-and-ambience-playbook-local-free-instrumental">Music and ambience playbook (local, free, instrumental)</h1>
+<header class="top"><nav><span class="brand">Project-V</span><a href="index.html">Home</a><a href="spec.html">Spec</a><a href="runbook.html">Runbook</a><a href="lessons.html">Lessons</a><a href="music.html" class=on>Music</a><a href="models.html">Models</a><a href="posting-plan.html">Posting plan</a><a href="video-zen1.html">Video-Zen1</a></nav></header><main><h1 id="music-and-ambience-playbook-local-free-instrumental">Music and ambience playbook (local, free, instrumental)</h1>
+<p>The process is stage 3 (samples, approval) and stage 8 (full hour, softness check, listening pack) of <a href="spec.html">SPEC.md</a>; commands in <a href="runbook.html">runbook.md</a> §3, §8, §M.</p>
 <p>Used for job 001 (<code>output/001-snow-tea/001-snow-tea_1hr.mp4</code>). All local: no cloud, no third-party tracks, no licence questions beyond the model's (ACE-Step 1.5 is MIT-licensed).</p>
 <h2 id="stack">Stack</h2>
 <ul>
 <li><strong>ACE-Step 1.5</strong> (text-to-music) in <code>tools/ACE-Step-1.5</code>, API on <code>127.0.0.1:8001</code>. Start: <code>cd tools/ACE-Step-1.5 &amp;&amp; ACESTEP_CHECKPOINTS_DIR=/Volumes/SSD-4T-LR/AI/Models/ACE-Step ./start_api_server_macos.sh</code>. Weights (9.6 GB) live on the SSD; <code>tools/ACE-Step-1.5/checkpoints</code> is a symlink to <code>/Volumes/SSD-4T-LR/AI/Models/ACE-Step</code> (the <code>.env</code> setting alone did NOT redirect downloads).</li>
 <li><code>scripts/music_gen.py</code> — one piece via the API (<code>--dur</code>, <code>--bpm</code>, <code>--key</code>, <code>--prompt</code>, <code>--seed</code>).</li>
 <li><code>scripts/ambience.py</code> — procedural fire hum + soft wind + gentle crackles (no samples).</li>
-<li><code>scripts/music_build.py</code> — builds the long track: N pieces → per-piece filter + loudness match → equal-power crossfades → slow leveler → ambience mixed under → fades → AAC. Resumable; restarts the music server and retries if it crashes.</li>
+<li><code>scripts/music_build.py</code> — builds the long track: N pieces → filter → <strong>softness check with retakes</strong> → loudness match → equal-power crossfades → slow leveler → ambience mixed under → fades → AAC → final check + listening pack. Resumable; restarts the music server and retries if it crashes. Style comes from <code>--prompt/--keys/--bpms</code>.</li>
 </ul>
 <h2 id="recipe-60-minutes">Recipe (60 minutes)</h2>
 <pre style="line-height: 125%;"><span></span><code><span># music server running, then:</span>
-.venv/bin/python<span> </span>scripts/music_build.py<span> </span>--minutes<span> </span><span>60</span><span> </span>--out<span> </span>output/&lt;job&gt;/music_60min<span>       </span><span># ~15 min total</span>
-ffmpeg<span> </span>-stream_loop<span> </span><span>359</span><span> </span>-i<span> </span>output/&lt;job&gt;/&lt;job&gt;_loop10s_1080p24.mp4<span> </span>-i<span> </span>output/&lt;job&gt;/music_60min.m4a<span> </span><span>\</span>
-<span>  </span>-map<span> </span><span>0</span>:v<span> </span>-map<span> </span><span>1</span>:a<span> </span>-c<span> </span>copy<span> </span>-t<span> </span><span>3600</span><span> </span>-movflags<span> </span>+faststart<span> </span>output/&lt;job&gt;/&lt;job&gt;_1hr.mp4<span>        </span><span># seconds, no re-encode</span>
+<span>(</span>see<span> </span>the<span> </span>runbook<span> </span>§8-§9:<span> </span>music_build.py<span> </span>→<span> </span>listening<span> </span>pack<span> </span>→<span> </span>ffmpeg<span> </span>mux,<span> </span>all<span> </span>from<span> </span>the<span> </span>video<span> </span>folder<span>)</span>
 </code></pre>
 
 <p>Result: 1.1 GB, 3600.000 s, 86,400 video frames (exactly 24 × 3600), music ≈ −22.5 LUFS, ambience ≈ −36 LUFS (14 dB under the music).</p>
+<h2 id="softness-check-scriptsaudio_qcpy-added-after-the-first-hour-had-screechyscratchy-moments">Softness check (<code>scripts/audio_qc.py</code>) — added after the first hour had screechy/scratchy moments</h2>
+<ul>
+<li>Runs on every generated piece (after the softening filters) and on the finished hour. A piece with <strong>any</strong> harsh event is regenerated with a new seed (up to 4 takes).</li>
+<li>Looks for: sustained high-pitched tone (screech/whistle), harsh brightness, scratch/static (spectral flatness), sudden crackle/glitch bursts, clicks/pops, clipping, dropouts; warns about sudden loud notes.</li>
+<li><code>--excerpts N</code> cuts 8 s clips of the worst moments; <code>--pack</code> builds the <strong>listening pack</strong> for the user (6 riskiest moments spread over the hour + 3 random spots, about 72 s, with a timestamp list).</li>
+<li>Claude can't hear: the script finds candidates, the <strong>user's ears confirm</strong>. Limits were calibrated on the first hour; if the user still hears something the check passed (or it flags what the user finds fine), tune <code>LIMITS</code> and record it in <a href="lessons.html">lessons.md</a>.</li>
+</ul>
 <h2 id="what-we-learned">What we learned</h2>
 <ul>
 <li><strong>Set tempo and key yourself</strong> (<code>--bpm 44 --key "D minor"</code>). With the model's built-in planner on, it ignored "slow" in the prompt and picked 91–120 BPM.</li>

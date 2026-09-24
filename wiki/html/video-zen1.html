@@ -1,0 +1,370 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Video-Zen1 — Project-V</title><style>:root{--bg:#fbfaf8;--card:#ffffff;--ink:#1d2129;--mute:#5f6875;--line:#e3e0da;--accent:#2f6f8f;--accent-ink:#ffffff;--code:#f2efe9;--ok:#1f7a4d;--ok-bg:#e3f3ea;--warn:#8a5a00;--warn-bg:#fdf1d6;--claude:#7a4fb5;--script:#2f6f8f;--user:#b5561f}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#14171c;--card:#1b1f26;--ink:#e8e6e1;--mute:#98a1ad;--line:#2b313a;--accent:#7ab6d3;--accent-ink:#0d1a22;--code:#222730;--ok:#63c790;--ok-bg:#183326;--warn:#e8b95a;--warn-bg:#3a2f14;--claude:#b79be0;--script:#7ab6d3;--user:#eb9a6c}}
+:root[data-theme="dark"]{--bg:#14171c;--card:#1b1f26;--ink:#e8e6e1;--mute:#98a1ad;--line:#2b313a;--accent:#7ab6d3;--accent-ink:#0d1a22;--code:#222730;--ok:#63c790;--ok-bg:#183326;--warn:#e8b95a;--warn-bg:#3a2f14;--claude:#b79be0;--script:#7ab6d3;--user:#eb9a6c}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+header.top{position:sticky;top:0;z-index:5;background:var(--card);border-bottom:1px solid var(--line)}
+header.top nav{max-width:1000px;margin:0 auto;padding:10px 16px;display:flex;gap:6px 18px;flex-wrap:wrap;align-items:center}
+header.top .brand{font-weight:700;margin-right:auto}
+header.top a{color:var(--mute);text-decoration:none;font-size:14px}
+header.top a:hover,header.top a.on{color:var(--accent);text-decoration:underline}
+main{max-width:1000px;margin:0 auto;padding:24px 16px 80px}
+h1{font-size:2rem;line-height:1.2;margin:.2em 0 .4em}h2{margin-top:2.2em;padding-top:.4em;border-top:1px solid var(--line);font-size:1.4rem}h3{margin-top:1.6em;font-size:1.1rem}
+a{color:var(--accent)}
+code{background:var(--code);padding:.1em .35em;border-radius:4px;font:13.5px/1.4 ui-monospace,SFMono-Regular,Menlo,monospace}
+pre{background:var(--code);border:1px solid var(--line);border-radius:8px;padding:12px 14px;overflow:auto;position:relative}pre code{background:none;padding:0;font-size:13px;white-space:pre}
+table{border-collapse:collapse;width:100%;margin:1em 0;font-size:14.5px;display:block;overflow-x:auto}
+th,td{border:1px solid var(--line);padding:7px 10px;text-align:left;vertical-align:top}th{background:var(--code)}
+blockquote{margin:1em 0;padding:.6em 1em;border-left:4px solid var(--accent);background:var(--code);border-radius:0 8px 8px 0}
+hr{border:0;border-top:1px solid var(--line);margin:2em 0}
+.badge{display:inline-block;padding:0 .5em;border-radius:99px;font-size:.78em;font-weight:600;white-space:nowrap}
+.badge.unv{background:var(--warn-bg);color:var(--warn)}.badge.ver{background:var(--ok-bg);color:var(--ok)}
+.copy{position:absolute;top:6px;right:6px;font-size:12px;padding:3px 9px;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:6px;cursor:pointer}
+.lede{font-size:1.15rem;color:var(--mute);max-width:70ch}
+.hero{padding:8px 0 4px}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:12px;margin:14px 0}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.card h3{margin:.1em 0 .3em;font-size:1.02rem}.card p{margin:.3em 0;font-size:14.5px;color:var(--mute)}
+.card .num{display:inline-grid;place-items:center;width:26px;height:26px;border-radius:50%;background:var(--accent);color:var(--accent-ink);font-weight:700;font-size:13px;margin-right:8px}
+.tag{display:inline-block;font-size:12px;font-weight:600;padding:1px 8px;border-radius:99px;border:1px solid currentColor;margin:2px 4px 0 0}
+.tag.c{color:var(--claude)}.tag.s{color:var(--script)}.tag.u{color:var(--user)}
+.gate{font-size:13.5px;border-top:1px dashed var(--line);margin-top:8px;padding-top:6px;color:var(--ink)}
+.out{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
+.kick{position:relative}
+@media (max-width:600px){h1{font-size:1.6rem}}
+</style></head><body>
+<header class="top"><nav><span class="brand">Project-V</span><a href="index.html">Home</a><a href="spec.html">Spec</a><a href="runbook.html">Runbook</a><a href="lessons.html">Lessons</a><a href="music.html">Music</a><a href="models.html">Models</a><a href="posting-plan.html">Posting plan</a><a href="video-zen1.html" class=on>Video-Zen1</a></nav></header><main><h1 id="run-log-001-snow-tea">Run log — 001-snow-tea</h1>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Source</td>
+<td><code>input/001-snow-tea.webp</code> (1728×960, WebP)</td>
+</tr>
+<tr>
+<td>Job</td>
+<td><code>jobs/001-snow-tea/job.json</code>, <code>jobs/001-snow-tea/prompts.md</code></td>
+</tr>
+<tr>
+<td>Target</td>
+<td>10 s, 1920×1080, 24 fps, seamless loop; snow falls, fire flickers, tea steams</td>
+</tr>
+<tr>
+<td>Status</td>
+<td><strong>DONE (2026-09-23)</strong> — loop approved by you. Files in <code>output/001-snow-tea/</code>; report in <code>output/001-snow-tea/qc_report.md</code>.</td>
+</tr>
+</tbody>
+</table>
+<p>Legend: ✅ done · ⏳ pending · ❌ failed · ↩ redone</p>
+<hr />
+<h2 id="step-0-requirements-and-decisions-2026-09-23">Step 0 — Requirements and decisions ✅ (2026-09-23)</h2>
+<p>What you asked for: animate snow, the fire (realistic even though it's blurred), and the tea steam. About 10 s, loopable with an invisible seam. Draw Things local models (Wan, LTX). Check quality and iterate.</p>
+<p>Decisions from Q&amp;A:
+| Question | Answer |
+|---|---|
+| Scope of this pass | Plan docs + prompts only. You run execution later with the kickoff prompt. |
+| Draw Things access | HTTP API server |
+| Models available | Wan 2.2 I2V A14B, LTX-2 |
+| Output | YouTube ambient loop: 10 s master at 1080p24, later looped to hours; no audio |</p>
+<p>Decisions Claude made (see SPEC §3 for why):
+- Hybrid pipeline: AI video only inside masks; the room is locked to the source pixels.
+- Loop by crossfade (1 s) of a ≥ 11 s continuous clip, not first/last-frame conditioning.
+- Round 1 A/B tests Wan 2.2 A14B against LTX-2 before committing.
+- Final format 24 fps (LTX native; Wan interpolated with RIFE).</p>
+<p><strong>Validate:</strong> Read SPEC §1–3 and check it matches what you want.</p>
+<p>Decision added later (2026-09-23): <strong>local-first execution.</strong> Local LLMs (Ollama/OpenCode) and scripts do as much as possible to save Claude tokens; Claude decides only what's listed in SPEC §12.2. Local models found on the machine: <code>qwen3-coder:30b</code> (scripts), <code>qwen3.5:35B</code> and <code>qwen3.8:27b</code> (vision, for QC scoring), <code>gpt-oss:120b</code> (65 GB, excluded because of memory). OpenCode was already configured for Ollama. The Draw Things API server was off when checked.</p>
+<h2 id="step-1-image-analysis-and-masks-v0-2026-09-23">Step 1 — Image analysis and masks v0 ✅ (2026-09-23)</h2>
+<p>What was done:
+1. Copied the image to <code>input/001-snow-tea.webp</code> and confirmed it's 1728×960.
+2. Drew candidate boxes over a 100 px grid to locate the doorway, fire, steam, cup, and lamp.
+3. Built polygon masks with Pillow and checked them on a full overlay plus a 2× zoom of the cup, table, and blanket. Adjusted twice:
+   - Moved the blanket/table lock up 6 px so the blanket fuzz is locked.
+   - Moved the cup lock up to the rim (y = 616) so the rim can't warp. Steam starts just above it.</p>
+<p>Result: <code>jobs/001-snow-tea/mask_overlay_v0.png</code> (cyan = animated; orange = table/blanket lock; magenta = cup lock; yellow = steam box; red = fire QC box).</p>
+<table>
+<thead>
+<tr>
+<th>Region</th>
+<th>Source px</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>exterior (animated)</td>
+<td>x 318–1200, y 0–712</td>
+<td>Edges sit exactly on the shoji frames and sill</td>
+</tr>
+<tr>
+<td>steam (animated)</td>
+<td>x 975–1110, y 380–620</td>
+<td>Covers the tallest wisp (~445) with headroom</td>
+</tr>
+<tr>
+<td>lock_table_blanket</td>
+<td>polygon, y ≥ 636–712</td>
+<td>Blanket top ~643, table back edge ~642</td>
+</tr>
+<tr>
+<td>lock_cup</td>
+<td>x 958–1118, y 616–706</td>
+<td>Cup, handle, saucer</td>
+</tr>
+<tr>
+<td>fire_qc</td>
+<td>x 1105–1195, y 295–405</td>
+<td>Flame at ~(1145, 350)</td>
+</tr>
+</tbody>
+</table>
+<p>Observations:
+- The still has frozen "snow" specks on the blanket and the floor to the right. They're locked, so they won't animate.
+- The garden is shallow-focus, so 720p AI output upscaled to 1080p will be acceptable there. The room stays at source resolution.</p>
+<p><strong>Validate:</strong> Open <code>mask_overlay_v0.png</code>. Does cyan stop exactly at the door frames and the table and blanket edges?</p>
+<h2 id="step-2-prompts-v1-2026-09-23">Step 2 — Prompts v1 ✅ (2026-09-23)</h2>
+<p>Written in <code>jobs/001-snow-tea/prompts.md</code>: P1 (Wan 2.2), P2 (LTX-2), shared negatives, a symptom → knob table, and fallback region-pass prompts for fire and steam.</p>
+<p><strong>Validate:</strong> Read P1/P2. Is the motion described the way you picture it (snow speed, steam thickness)?</p>
+<hr />
+<h2 id="step-3-stage-0-environment-and-dt-api-probe-2026-09-23">Step 3 — Stage 0: environment and DT API probe ✅ (2026-09-23)</h2>
+<p>Your answers: downloads OK if a model isn't already on disk; 24 fps OK; RIFE OK if needed (not needed: LTX-2.3 only). Models now live flat in <code>/Volumes/SSD-4T-LR/AI/Models</code> (see <code>wiki/models.md</code>).</p>
+<p>What was done and learned:
+- <code>.venv</code> created (Python 3.14; numpy, opencv-python-headless, pillow, requests).
+- <strong>DT API:</strong> <code>GET http://127.0.0.1:7860/</code> returns the app's current config. Image-to-video is <code>POST /sdapi/v1/img2img</code> with JSON: config keys + <code>prompt</code>, <code>negative_prompt</code>, <code>init_images: [base64 PNG]</code>. Response: <code>{"images": ["&lt;base64 PNG&gt;", ...]}</code>, one entry per frame.
+- <strong>Gotcha 1:</strong> posting the full config that <code>GET /</code> returns fails with HTTP 422 (fields like <code>original_width: 0</code>, <code>tea_cache_end: -1</code>, and several duplicate-key errors such as "More than one key for Compression Artifacts"). <strong>Send a minimal whitelist instead:</strong> model, steps, guidance_scale, sampler, shift, strength, seed, start_frame_guidance, guidance_embed, resolution_dependent_shift, speed_up_with_guidance_embed, width, height, num_frames, prompt, negative_prompt, init_images (see <code>scripts/dt_probe.py</code>). This worked first try.
+- <strong>Gotcha 2:</strong> the model is selected by the <code>model</code> key in the request, so the app's current selection doesn't matter (the app was on LTX-2 19B; the request asked for LTX-2.3 22B and got it).
+- <strong>Gotcha 3:</strong> output size is <strong>rounded down to a multiple of 64</strong>. I asked for 640×352 and got 640×320, which squashed the picture. Use sizes that are multiples of 64: <strong>1024×576</strong> is exactly 16:9.
+- <strong>Probe result</strong> (LTX-2.3 22B distilled, 8 steps, 640×320, 25 frames, first call incl. model load): <strong>102 s</strong>, HTTP 200, 25 frames. Contact sheet <code>work/probe/sheet.png</code>: image follows the source well; snow and steam visible; brazier glow present. Not yet judged for loop quality (only 1 s long).</p>
+<p>Decision: LTX-2.3 only for job 001 (no Wan I2V installed, no RIFE).</p>
+<h2 id="step-4-stage-1-dt-base-configs">Step 4 — Stage 1: DT base configs ⏳</h2>
+<ul>
+<li>LTX 2.3: done (<code>jobs/_dt_base/ltx2_i2v.json</code>; only the whitelisted keys are sent, see Step 3).</li>
+<li>Wan: skipped (see Step 3).</li>
+</ul>
+<h2 id="step-5-round-1-drafts-camera-drift-fix-2026-09-23">Step 5 — Round 1: drafts, camera-drift fix ↩ (2026-09-23)</h2>
+<p>Model: <strong>LTX-2.3 22B distilled</strong> only (Wan I2V not installed). Draft = 1024×576, 8 steps, seeds as listed. Render times: 73 frames ≈ 2 min, 121 frames ≈ 2.5–3 min. Metrics from <code>scripts/qc_drift.py</code> (camera zoom/shift of the room, features tracked on shoji/lamp areas; limit ≤ 0.7 px) and <code>scripts/qc_motion.py</code> (motion in snow/steam/fire regions).</p>
+<table>
+<thead>
+<tr>
+<th>Clip</th>
+<th>Prompt</th>
+<th>Frames</th>
+<th>Camera drift</th>
+<th>Verdict</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ltx_s101</td>
+<td>P2 (long descriptive)</td>
+<td>121</td>
+<td>zoom +15 %, shift 124 px</td>
+<td>❌ camera pushes in</td>
+</tr>
+<tr>
+<td>p3_s101 / s202</td>
+<td>P3 ("never zooms, never pushes in")</td>
+<td>73</td>
+<td>zoom +20 % / +25 %, 96–133 px</td>
+<td>❌ worse: naming the camera move primes it</td>
+</tr>
+<tr>
+<td>p3_cfg2_s101</td>
+<td>P3 + guidance_scale 2</td>
+<td>73</td>
+<td>identical to p3_s101</td>
+<td>the guidance override had no effect</td>
+</tr>
+<tr>
+<td>p4_s101</td>
+<td>P4 (cinemagraph)</td>
+<td>73</td>
+<td>+2 %, 11 px</td>
+<td>❌ better, not enough</td>
+</tr>
+<tr>
+<td>p4_s202 / s303</td>
+<td>P4</td>
+<td>121</td>
+<td>+11 % / +12 %</td>
+<td>❌ seed-dependent</td>
+</tr>
+<tr>
+<td><strong>p5_s101</strong></td>
+<td><strong>P5 (strict cinemagraph)</strong></td>
+<td>121</td>
+<td><strong>0.1 px</strong></td>
+<td>✅</td>
+</tr>
+<tr>
+<td><strong>p5_s202</strong></td>
+<td>P5</td>
+<td>121</td>
+<td><strong>0.1 px</strong></td>
+<td>✅</td>
+</tr>
+<tr>
+<td>p5_s303</td>
+<td>P5</td>
+<td>121</td>
+<td>~1.1 px shift, luma std 2.1</td>
+<td>⚠ borderline</td>
+</tr>
+</tbody>
+</table>
+<p>P5 motion (p5_s101): snow moves down 98 % of moving pixels; steam rises 92 %; fire changes shape frame to frame with a warm glow. Sheets: <code>work/001-snow-tea/r01/p5_s101/sheet_{full,steam,fire}.png</code>. Fire has a few faint smoky wisps at the lower left in late frames (to watch).</p>
+<p>Lessons:
+- <strong>Never write "camera does not zoom/push in" for LTX-2.3.</strong> Describe a still photograph ("cinemagraph … framing identical in every frame … pixel-still") and list only what moves.
+- Distilled model at CFG 1 ignores the negative prompt.
+- Drift is seed-dependent: always measure it, don't trust one seed.
+- <strong>Draw Things caps one request at 201 frames</strong> (8.4 s at 24 fps); asking for 265 gives HTTP 422 "Number of Frames must be between 1 and 201". A ≥ 11 s single clip is impossible, so the loop is built from two clips (Step 6 plan).
+- Mistake to avoid: probing the frame limit with a valid number (201) starts a real render that can't be cancelled from the API. Probe with an invalid number, or accept the wait.</p>
+<p>Decision: hero prompt = P5, LTX-2.3.</p>
+<h2 id="step-6-round-2-full-loop-r02-approved-2026-09-23">Step 6 — Round 2: full loop (r02) ✅ APPROVED (2026-09-23)</h2>
+<p>Method: two clips from the same still, P5 prompt, LTX-2.3, 1024×576, 145 frames each (seeds 101 and 202; 163 s and 189 s to render). <code>scripts/loop_build.py</code> builds a 240-frame (10.0 s @ 24 fps) loop: A → 1 s crossfade → B → 1 s crossfade → A. AI pixels are used only inside the animated mask (doorway/garden + steam); the room, table, cup, blanket and lamp are the original image at 1920×1080. Output: <code>output/001-snow-tea/r02/001-snow-tea_loop10s_1080p24.mp4</code> (+ <code>_preview60s.mp4</code>, <code>sheet_seam.png</code>, <code>qc_final.json</code>).</p>
+<table>
+<thead>
+<tr>
+<th>Check</th>
+<th>Result</th>
+<th>Limit</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Seam ratio (frame 239→0 vs typical frame step)</td>
+<td>0.97</td>
+<td>≤ 1.3 ✅</td>
+</tr>
+<tr>
+<td>Locked pixels identical to source (4 frames checked)</td>
+<td>true</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Largest brightness jump</td>
+<td>0.48</td>
+<td>≤ 1.5 ✅</td>
+</tr>
+<tr>
+<td>Camera drift of both clips</td>
+<td>0.1 px</td>
+<td>≤ 0.7 ✅</td>
+</tr>
+<tr>
+<td>Snow down / steam up</td>
+<td>97–98 % / 92–94 %</td>
+<td>≥ 65 % / ≥ 60 % ✅</td>
+</tr>
+<tr>
+<td>Brightness steadiness (<code>luma_std_detrended</code>)</td>
+<td>first reported 10.1 = my metric bug (moving average edge effect); fixed to a circular average → <strong>0.16</strong></td>
+<td>≤ 1.0 ✅</td>
+</tr>
+</tbody>
+</table>
+<p>Visual check by Claude (frame 60 at full size + seam sheet frames 232→7): room identical to source, no visible mask edges at the shoji frames, snow and steam present, seam frames look continuous. Not yet verified: how the motion looks in playback (Claude can't watch video).</p>
+<p><strong>Your review:</strong> (1) loop point visible? <strong>No.</strong> (2) fire natural? <strong>Yes.</strong> (3) steam thin and attached? <strong>Yes.</strong> (4) snow speed/density right? <strong>Yes.</strong> → approved.</p>
+<h2 id="step-7-iterations">Step 7 — Iterations ✅</h2>
+<p>Camera-drift fix took 4 prompt rounds (Step 5). Nothing further needed after r02; no more iterations.</p>
+<h2 id="step-8-delivery-and-sign-off-2026-09-23">Step 8 — Delivery and sign-off ✅ (2026-09-23)</h2>
+<ul>
+<li>[x] <code>output/001-snow-tea/001-snow-tea_loop10s_1080p24.mp4</code> (verified 240 frames, 10.000 s)</li>
+<li>[x] <code>output/001-snow-tea/001-snow-tea_loop10s_1080p24_prores422hq.mov</code></li>
+<li>[x] <code>output/001-snow-tea/001-snow-tea_preview60s.mp4</code> — you watched it; loop point not visible</li>
+<li>[x] <code>output/001-snow-tea/qc_report.md</code></li>
+</ul>
+<p>Total generation time for the winning recipe: about 6 minutes of GPU (2 × ~3 min). Total including all failed tests: about 50 minutes.</p>
+<h2 id="step-9-music-ambience-and-the-1-hour-video-built-2026-09-23-awaiting-your-listen">Step 9 — Music, ambience and the 1-hour video ✅ built (2026-09-23), awaiting your listen</h2>
+<ul>
+<li>Style chosen by you after A/B of 3 clips: soft piano (v3b), then ambience approved. Method and lessons: <code>wiki/music.md</code>.</li>
+<li>Output: <code>output/001-snow-tea/001-snow-tea_1hr.mp4</code> (1.1 GB, 3600.000 s, 1080p24, AAC 256 kbps), plus <code>music_60min.m4a</code> / <code>.wav</code>.</li>
+<li>Checks: 86,400 video frames = exactly 24×3600; audio ≈ −22.5 LUFS, peak 0.67, no near-silent stretches; slow leveler reduced loudness swings (std 3.8 → 2.7 dB).</li>
+<li>Excerpts to listen to: <code>output/music/full_excerpt_first_join.mp3</code> (a crossfade between pieces), <code>full_excerpt_midpoint.mp3</code>, <code>full_excerpt_video_first_join.mp4</code>.</li>
+<li>Note: the earlier version (before the leveler) is in <code>work/old_v1/</code> and can be deleted.</li>
+</ul>
+<h2 id="step-10-clean-up-generic-spec-docs-github-2026-09-23">Step 10 — Clean-up, generic spec, docs, GitHub (2026-09-23)</h2>
+<ul>
+<li>Kept only the three final files in <code>output/001-snow-tea/</code> (renamed): <code>001-snow-tea_1hr_1080p24.mp4</code>, <code>001-snow-tea_audio_60min.m4a</code>, <code>001-snow-tea_loop10s_1080p24_silent.mp4</code>. Deleted ProRes master, previews, frames, sample audio, and the whole <code>work/</code> scratch folder (3.8 GB). File names in earlier steps above refer to the pre-cleanup names.</li>
+<li>Rewrote <code>SPEC.md</code> as a generic image-to-1-hour spec (v2); old job-specific spec archived in <code>wiki/archive/</code>. New <code>wiki/runbook.md</code>, <code>wiki/lessons.md</code>; <code>scripts/mask_preview.py</code> and <code>scripts/build_docs.py</code> added; HTML docs in <code>docs/</code> (open <code>docs/index.html</code>).</li>
+<li>User decisions: docs only (scripts not generalized, CLI not yet tested); new private GitHub repo.</li>
+</ul>
+<h2 id="lessons-for-the-playbook">Lessons for the playbook</h2>
+<p>Copied into <code>wiki/README.md</code> → Gotchas and Recipe.</p>
+<hr />
+<h1 id="qc-report-001-snow-tea-final-r02">QC report — 001-snow-tea (final: r02)</h1>
+<p>Deliverables (this folder):
+- <code>001-snow-tea_loop10s_1080p24.mp4</code> — H.264, 1920×1080, 24 fps, 240 frames = 10.000 s (verified with ffprobe)
+- <code>001-snow-tea_loop10s_1080p24_prores422hq.mov</code> — ProRes 422 HQ master (221 MB)
+- <code>001-snow-tea_preview60s.mp4</code> — 6 loops back to back (for checking the seam by eye)
+- <code>r02/</code> — frames, mask, plate, seam sheet, raw <code>qc_final.json</code></p>
+<table>
+<thead>
+<tr>
+<th>Check</th>
+<th>Result</th>
+<th>Limit</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Duration / size / fps</td>
+<td>240 frames, 10.000 s, 1920×1080, 24 fps</td>
+<td>exact</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Seam ratio (frame 239→0 vs typical step)</td>
+<td>0.97</td>
+<td>≤ 1.3</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Locked pixels identical to source (frames 0, 57, 130, 239)</td>
+<td>true</td>
+<td>true</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Largest frame-to-frame brightness jump</td>
+<td>0.48</td>
+<td>≤ 1.5</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Brightness steadiness (circular detrended std)</td>
+<td>0.16</td>
+<td>≤ 1.0</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Camera drift of the source clips</td>
+<td>0.1 px</td>
+<td>≤ 0.7 px</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Snow moving down / steam moving up</td>
+<td>97–98 % / 92–94 %</td>
+<td>≥ 65 % / ≥ 60 %</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Human review (you)</td>
+<td>no visible loop point; fire, steam and snow all look right</td>
+<td>—</td>
+<td>✅</td>
+</tr>
+</tbody>
+</table>
+<p>Recipe: LTX-2.3 22B distilled via Draw Things API, prompt P5, 1024×576, 8 steps, two 145-frame clips (seeds 101, 202) → <code>scripts/loop_build.py</code>.
+Known limits: AI region is generated at 1024×576 and upscaled to 1080p (the garden is out of focus so this isn't visible); snow crossing the mask edge at the door frames was not seen as a problem.</p></main>
+<script>document.querySelectorAll('pre').forEach(function(p){var b=document.createElement('button');b.className='copy';b.textContent='Copy';
+b.onclick=function(){navigator.clipboard&&navigator.clipboard.writeText(p.innerText.replace(/Copy$/,'').trim());b.textContent='Copied';setTimeout(function(){b.textContent='Copy'},1200)};p.appendChild(b)});</script>
+</body></html>

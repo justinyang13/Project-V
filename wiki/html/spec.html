@@ -1,0 +1,618 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Spec — Project-V</title><style>:root{--bg:#fbfaf8;--card:#ffffff;--ink:#1d2129;--mute:#5f6875;--line:#e3e0da;--accent:#2f6f8f;--accent-ink:#ffffff;--code:#f2efe9;--ok:#1f7a4d;--ok-bg:#e3f3ea;--warn:#8a5a00;--warn-bg:#fdf1d6;--claude:#7a4fb5;--script:#2f6f8f;--user:#b5561f}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#14171c;--card:#1b1f26;--ink:#e8e6e1;--mute:#98a1ad;--line:#2b313a;--accent:#7ab6d3;--accent-ink:#0d1a22;--code:#222730;--ok:#63c790;--ok-bg:#183326;--warn:#e8b95a;--warn-bg:#3a2f14;--claude:#b79be0;--script:#7ab6d3;--user:#eb9a6c}}
+:root[data-theme="dark"]{--bg:#14171c;--card:#1b1f26;--ink:#e8e6e1;--mute:#98a1ad;--line:#2b313a;--accent:#7ab6d3;--accent-ink:#0d1a22;--code:#222730;--ok:#63c790;--ok-bg:#183326;--warn:#e8b95a;--warn-bg:#3a2f14;--claude:#b79be0;--script:#7ab6d3;--user:#eb9a6c}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+header.top{position:sticky;top:0;z-index:5;background:var(--card);border-bottom:1px solid var(--line)}
+header.top nav{max-width:1000px;margin:0 auto;padding:10px 16px;display:flex;gap:6px 18px;flex-wrap:wrap;align-items:center}
+header.top .brand{font-weight:700;margin-right:auto}
+header.top a{color:var(--mute);text-decoration:none;font-size:14px}
+header.top a:hover,header.top a.on{color:var(--accent);text-decoration:underline}
+main{max-width:1000px;margin:0 auto;padding:24px 16px 80px}
+h1{font-size:2rem;line-height:1.2;margin:.2em 0 .4em}h2{margin-top:2.2em;padding-top:.4em;border-top:1px solid var(--line);font-size:1.4rem}h3{margin-top:1.6em;font-size:1.1rem}
+a{color:var(--accent)}
+code{background:var(--code);padding:.1em .35em;border-radius:4px;font:13.5px/1.4 ui-monospace,SFMono-Regular,Menlo,monospace}
+pre{background:var(--code);border:1px solid var(--line);border-radius:8px;padding:12px 14px;overflow:auto;position:relative}pre code{background:none;padding:0;font-size:13px;white-space:pre}
+table{border-collapse:collapse;width:100%;margin:1em 0;font-size:14.5px;display:block;overflow-x:auto}
+th,td{border:1px solid var(--line);padding:7px 10px;text-align:left;vertical-align:top}th{background:var(--code)}
+blockquote{margin:1em 0;padding:.6em 1em;border-left:4px solid var(--accent);background:var(--code);border-radius:0 8px 8px 0}
+hr{border:0;border-top:1px solid var(--line);margin:2em 0}
+.badge{display:inline-block;padding:0 .5em;border-radius:99px;font-size:.78em;font-weight:600;white-space:nowrap}
+.badge.unv{background:var(--warn-bg);color:var(--warn)}.badge.ver{background:var(--ok-bg);color:var(--ok)}
+.copy{position:absolute;top:6px;right:6px;font-size:12px;padding:3px 9px;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:6px;cursor:pointer}
+.lede{font-size:1.15rem;color:var(--mute);max-width:70ch}
+.hero{padding:8px 0 4px}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:12px;margin:14px 0}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.card h3{margin:.1em 0 .3em;font-size:1.02rem}.card p{margin:.3em 0;font-size:14.5px;color:var(--mute)}
+.card .num{display:inline-grid;place-items:center;width:26px;height:26px;border-radius:50%;background:var(--accent);color:var(--accent-ink);font-weight:700;font-size:13px;margin-right:8px}
+.tag{display:inline-block;font-size:12px;font-weight:600;padding:1px 8px;border-radius:99px;border:1px solid currentColor;margin:2px 4px 0 0}
+.tag.c{color:var(--claude)}.tag.s{color:var(--script)}.tag.u{color:var(--user)}
+.gate{font-size:13.5px;border-top:1px dashed var(--line);margin-top:8px;padding-top:6px;color:var(--ink)}
+.out{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
+.kick{position:relative}
+@media (max-width:600px){h1{font-size:1.6rem}}
+</style></head><body>
+<header class="top"><nav><span class="brand">Project-V</span><a href="index.html">Home</a><a href="spec.html" class=on>Spec</a><a href="runbook.html">Runbook</a><a href="lessons.html">Lessons</a><a href="music.html">Music</a><a href="models.html">Models</a><a href="posting-plan.html">Posting plan</a><a href="video-zen1.html">Video-Zen1</a></nav></header><main><h1 id="spec-scene-idea-1-hour-ambient-loop-video-v4-generic">SPEC — Scene idea → 1-hour ambient loop video (v4, generic)</h1>
+<p><strong>Input:</strong> a one-line scene idea. <strong>Output:</strong> a 1-hour, 1080p, 24 fps YouTube-ready video with original soft music and ambience, plus the separate audio track and a silent 10-second loop so the audio can be swapped later.</p>
+<p>Status: v4.0 · 2026-09-23 · derived from the first video, <code>Video-Zen1</code> (snowy zen tea room), which produced the reference result. Items not yet proven are marked <strong><span class="badge unv">UNVERIFIED</span></strong>.</p>
+<p>Where things live: this wiki (<code>Project-V/wiki/</code>) holds the repeatable steps and HTML; every video has its own folder <code>Project-V/Video-&lt;Shortname&gt;&lt;n&gt;/</code>; shared scripts are in <code>Project-V/scripts/</code>. See §3.</p>
+<p>Companion docs: <a href="runbook.html">Runbook</a> (exact commands) · <a href="lessons.html">Lessons</a> (what failed and why) · <a href="music.html">Music</a> · <a href="models.html">Models</a> · <a href="posting-plan.html">Posting plan</a> · HTML versions in <code>wiki/html/</code> (open <code>wiki/html/index.html</code>).</p>
+<hr />
+<h2 id="1-contract">1. Contract</h2>
+<h3 id="11-what-you-provide">1.1 What you provide</h3>
+<p>A <strong>short scene idea</strong>, one line: e.g. "rainy temple at night", "autumn tea house at dusk", "snowy mountain onsen". Optionally a mood for the music. (You can still hand over your own image; then skip the generation steps of stage 1.)</p>
+<h3 id="12-what-you-get-per-video-folder-video-name-id-id-the-folder-name-eg-video-zen3">1.2 What you get (per video folder <code>Video-&lt;Name&gt;</code>, id <code>&lt;id&gt;</code> = the folder name, e.g. <code>Video-Zen3</code>)</h3>
+<p>Kept in <code>Video-&lt;Name&gt;/output/</code>:</p>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>What</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&lt;id&gt;_1hr_1080p24.mp4</code></td>
+<td>The final video</td>
+<td>3600.000 s, 1920×1080, 24 fps, H.264 + AAC 256 kbps, about 1.1 GB. Upload this.</td>
+</tr>
+<tr>
+<td><code>&lt;id&gt;_audio_60min.m4a</code></td>
+<td>The full-length mix (music + ambience)</td>
+<td>Kept separately so the audio can be replaced later. About 110 MB.</td>
+</tr>
+<tr>
+<td><code>&lt;id&gt;_loop10s_1080p24_silent.mp4</code></td>
+<td>The seamless 10-second loop, no audio</td>
+<td>The master picture. Re-mux with any audio to make a new long video (Runbook §Swap).</td>
+</tr>
+</tbody>
+</table>
+<p>Everything else (frames, candidates, samples, ProRes, previews, listening packs) is scratch and is deleted at the end (stage 9). The folder keeps only: <code>input/&lt;id&gt;.png</code> (the chosen image), <code>jobs/</code> (prompts, masks, settings), <code>README.md</code>, <code>RUNLOG.md</code> and <code>qc-report.md</code>.</p>
+<h3 id="13-human-approvals-the-only-times-youre-needed">1.3 Human approvals (the only times you're needed)</h3>
+<p><strong>Phase 1 — approve before any heavy rendering</strong> (about 15 minutes of your time). Claude does not start video rendering until all three are approved:
+1. <strong>Image</strong> (stage 1): pick one of 4 numbered candidates.
+2. <strong>What animates</strong> (stage 2): approve the motion list and the mask overlay picture (which parts move, which stay frozen).
+3. <strong>Audio</strong> (stage 3): pick one of three 30-second styles, then approve it again with ambience added.</p>
+<p><strong>Phase 2 — final review</strong> (about 20 minutes):
+4. <strong>The loop</strong> (stage 7): watch the 10-second loop repeating; can you see the loop point? Do the effects look right?
+5. <strong>The hour of audio</strong> (stage 8): listen to the <strong>listening pack</strong> (about a minute of the riskiest and random moments from all through the hour) and confirm nothing is screechy, scratchy, or unpleasant.
+6. Upload to YouTube yourself (§10).</p>
+<h3 id="14-roles">1.4 Roles</h3>
+<table>
+<thead>
+<tr>
+<th>Who</th>
+<th>Does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Claude</strong></td>
+<td>Plans the scene, writes prompts, draws the masks, runs the stages, reads the QC numbers and contact sheets, decides what to change, writes the log. Cannot hear audio or watch motion, so it measures and asks.</td>
+</tr>
+<tr>
+<td><strong>Scripts</strong> (<code>Project-V/scripts/</code>)</td>
+<td>Rendering, compositing, measuring, encoding, audio checking. Deterministic.</td>
+</tr>
+<tr>
+<td><strong>Draw Things via <code>draw-things-cli</code></strong> (never the app, so closing the app can't affect a render)</td>
+<td><strong>Text-to-image</strong> with Z Image Turbo, verified with the CLI. <strong>Image-to-video</strong> with LTX-2.3: the first video used the app's HTTP API; the CLI video path is <strong><span class="badge unv">UNVERIFIED</span></strong> and is validated in stage 0.</td>
+</tr>
+<tr>
+<td><strong>ACE-Step 1.5</strong> (local, MIT)</td>
+<td>Music generation.</td>
+</tr>
+<tr>
+<td><strong>You</strong></td>
+<td>The approvals above.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Draw Things "projects":</strong> projects (the history/canvas files) exist only inside the Draw Things app; <code>draw-things-cli</code> has no project feature, it just writes files. So <strong>the video folder is the project</strong>: it holds every prompt, seed and setting (<code>jobs/</code>), the chosen image (<code>input/</code>) and the log (<code>RUNLOG.md</code>). If you want the images to also appear in the app, create a project named <code>Video-&lt;Name&gt;</code> there yourself and import the chosen image; nothing in the pipeline depends on it.</p>
+<hr />
+<h2 id="2-the-pipeline-at-a-glance">2. The pipeline at a glance</h2>
+<pre style="line-height: 125%;"><span></span><code>idea ─► 1 Image ─► 2 What animates ─► 3 Audio sample ──[ PHASE 1: 3 approvals ]──►
+        (4 cands)   (masks, motion)    (3 styles + ambience)
+
+   4 Prompt ─► 5 Drift probe ─► 6 Two clips ─► 7 Loop build ─[ review: loop ]─► 8 Full audio ─[ review: listening pack ]─► 9 Mux, deliver, clean up
+   (P5)        (3 seeds)        (A and B)      (QC gates)                        (1 h, harshness-checked)
+</code></pre>
+
+<p>Design principles (each paid for by a failure):
+1. <strong>Only the parts that should move come from AI video.</strong> Everything else is the original image, pixel-locked by a mask.
+2. <strong>The loop is built, not generated.</strong> Two clips from the same image, chained A → B → A with crossfades.
+3. <strong>Measure the camera first.</strong> Image-to-video models drift and zoom; test drift on 3 seeds before final clips.
+4. <strong>Describe a photograph, not a scene.</strong> The prompt lists what is frozen and the only things that move. Never write "the camera does not move".
+5. <strong>One heavy thing at a time on the 64 GB Mac.</strong>
+6. <strong>Every stage has numbers.</strong> A stage is done when its gate passes, not when it looks fine.
+7. <strong>Design the image for animation</strong> (stage 1.2).
+8. <strong>Approve first, render later.</strong> Image, animation plan and audio style are approved before any long render, so no GPU time is wasted on a direction you'd reject.
+9. <strong>Soft to the ear, verified.</strong> Every music piece is checked for screech, harshness, scratch, crackle, clicks, clipping and dropouts; bad pieces are regenerated (stage 8).</p>
+<hr />
+<h2 id="3-folders-and-naming">3. Folders and naming</h2>
+<pre style="line-height: 125%;"><span></span><code>Project-V/                         one git repo (private, GitHub justinyang13/Project-V)
+  wiki/                            THE repeatable steps: SPEC.md, runbook.md, lessons.md, music.md, models.md, posting-plan.md
+    html/                          browsable HTML of the wiki (open wiki/html/index.html); rebuilt by scripts/build_docs.py
+    html-src/                      HTML template and style
+    archive/                       superseded specs
+  scripts/                         shared scripts used by every video (run from the video folder)
+  tools/ACE-Step-1.5/              music model code (git-ignored; see Environment)
+  .venv/                           shared Python environment (git-ignored)
+  Video-&lt;Shortname&gt;&lt;n&gt;/            ONE FOLDER PER VIDEO (e.g. Video-Zen1, Video-Zen3, Video-Autumn1)
+    input/&lt;id&gt;.png                 the chosen image
+    jobs/&lt;id&gt;/                     job.json (masks), prompts.md, image_prompt.txt, image_negative.txt, mask overlay
+    output/                        the three final files (only these stay)
+    work/                          scratch (deleted at the end)
+    README.md  RUNLOG.md  qc-report.md
+</code></pre>
+
+<ul>
+<li><strong>Naming:</strong> <code>Video-&lt;Shortname&gt;&lt;n&gt;</code> where the shortname is one word for the series/scene (<code>Zen</code>, <code>Autumn</code>, <code>Rain</code>) and <code>&lt;n&gt;</code> counts up within it. The video's <code>&lt;id&gt;</code> is the folder name (<code>Video-Zen3</code>); inside <code>jobs/</code> use <code>jobs/&lt;id&gt;/</code>.</li>
+<li><strong>Run everything from the video folder</strong>, calling shared scripts as <code>../scripts/…</code> and Python as <code>../.venv/bin/python</code> (the Runbook uses these forms).</li>
+<li><strong>Existing folders:</strong> <code>Video-Zen1</code> follows this layout (its files are named <code>001-snow-tea_…</code>, from before the rule). <code>Video-Zen2</code> and <code>Video-BeachSunset1</code> predate it; they keep their own copies of scripts/docs, are not in git, and are left untouched.</li>
+</ul>
+<hr />
+<h2 id="4-environment-one-time-setup-already-done-on-this-machine">4. Environment (one-time setup, already done on this machine)</h2>
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Where / value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Machine</td>
+<td>Apple M5 Max, 64 GB unified memory, macOS</td>
+</tr>
+<tr>
+<td>Project</td>
+<td><code>/Users/justin/Code/Project-V</code> (private GitHub repo <code>justinyang13/Project-V</code>)</td>
+</tr>
+<tr>
+<td>Models folder (flat, single)</td>
+<td><code>/Volumes/SSD-4T-LR/AI/Models</code> (exFAT SSD). <strong>Never download a model that already exists there.</strong> New downloads go there.</td>
+</tr>
+<tr>
+<td>Image model</td>
+<td><code>z_image_turbo_1.0_q8p.ckpt</code> (Z Image Turbo 1.0)</td>
+</tr>
+<tr>
+<td>Video model</td>
+<td><code>ltx_2.3_22b_distilled_1.1_q8p.ckpt</code> (+ Gemma 3 12B encoder, LTX 2.3 VAE, upscalers)</td>
+</tr>
+<tr>
+<td>Music model</td>
+<td>ACE-Step 1.5 at <code>tools/ACE-Step-1.5</code> (git-ignored; <code>git clone https://github.com/ACE-Step/ACE-Step-1.5.git</code>, then <code>uv sync</code>). Weights on the SSD in <code>/Volumes/SSD-4T-LR/AI/Models/ACE-Step</code>; <code>tools/ACE-Step-1.5/checkpoints</code> is a <strong>symlink</strong> to that folder.</td>
+</tr>
+<tr>
+<td>Python</td>
+<td><code>Project-V/.venv</code> (Python 3.14; <code>numpy opencv-python-headless pillow requests markdown pygments</code>). ACE-Step has its own <code>.venv</code> (3.12) via <code>uv</code>.</td>
+</tr>
+<tr>
+<td>Other tools</td>
+<td><code>ffmpeg</code>, <code>uv</code>, <code>gh</code> (logged in as <code>justinyang13</code>), <code>draw-things-cli</code> (tap <code>drawthingsai/draw-things</code>)</td>
+</tr>
+<tr>
+<td>Access</td>
+<td>Claude app has Full Disk Access (needed once to read Draw Things' sandbox)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="5-parameters-defaults-that-worked-change-only-with-a-reason">5. Parameters (defaults that worked; change only with a reason)</h2>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Value</th>
+<th>Why</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Image size</td>
+<td><strong>1920×1088</strong> (multiples of 64), Z Image Turbo, 8 steps; plate crop <code>[0, 4, 1920, 1084]</code> = exactly 1920×1080</td>
+<td>Draw Things rounds down to a multiple of 64</td>
+</tr>
+<tr>
+<td>Image candidates</td>
+<td>4, seeds 11, 22, 33, 44 (next round 55, 66, 77, 88)</td>
+<td>~30 s each (+ ~50 s model load)</td>
+</tr>
+<tr>
+<td>Generation size (video)</td>
+<td><strong>1024×576</strong></td>
+<td>Multiple of 64</td>
+</tr>
+<tr>
+<td>Clip length</td>
+<td><strong>145 frames</strong> (8n+1) each, two clips</td>
+<td>Draw Things caps a request at 201 frames; LTX needs 8n+1</td>
+</tr>
+<tr>
+<td>Loop</td>
+<td>240 frames = 10.000 s at 24 fps; crossfade 24 frames (1 s), equal-power</td>
+<td>240 = 2 × 120; exactly 360 loops = 1 hour</td>
+</tr>
+<tr>
+<td>Video model settings</td>
+<td>8 steps, sampler TCD Trailing, shift 5, CFG 1 (negative prompt and guidance overrides have no effect)</td>
+<td>Recommended preset</td>
+</tr>
+<tr>
+<td>Seeds (video)</td>
+<td>probe 101, 202, 303; clips A and B use two that passed</td>
+<td>Drift is seed-dependent</td>
+</tr>
+<tr>
+<td>Music pieces</td>
+<td>150 s each, 8 s crossfades, ~26 pieces for 1 h, up to 4 takes per piece</td>
+<td>240 s pieces crashed the music server</td>
+</tr>
+<tr>
+<td>Music style</td>
+<td>slow soft piano, 40–46 BPM, keys D minor / F major / A minor / C major / G minor</td>
+<td>Chosen by the user; see <a href="music.html">Music</a></td>
+</tr>
+<tr>
+<td>Loudness</td>
+<td>music −22 LUFS, ambience −36 LUFS (14 dB under), final peak ≤ 0.89</td>
+<td>Comfortable for hours</td>
+</tr>
+<tr>
+<td>Audio softening</td>
+<td>low-pass 6.5 kHz, high-shelf −3 dB above 3 kHz, slow leveler (−8…+3 dB over ~20 s)</td>
+<td>Removes harshness and loudness swings</td>
+</tr>
+<tr>
+<td>Audio check limits</td>
+<td>see <code>scripts/audio_qc.py</code> (<code>LIMITS</code>): tone ≥ −16 dB, HF ratio ≥ 0.10, HF burst ≥ 40 dB, flatness ≥ 0.35, click ≥ 12, clipping ≥ 0.05 %, dropout ≥ 30 dB</td>
+<td>Calibrated on moments the user confirmed unpleasant</td>
+</tr>
+<tr>
+<td>Final encode</td>
+<td>H.264 stream-copied from the loop (no re-encode), AAC 256 kbps, <code>+faststart</code></td>
+<td>1.1 GB per hour</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="6-stages">6. Stages</h2>
+<p>Legend: <strong>C</strong> = Claude · <strong>S</strong> = script · <strong>U</strong> = your approval.</p>
+<h3 id="stage-0-preflight-sc-2-min">Stage 0 — Preflight (S/C, ~2 min)</h3>
+<ul>
+<li>Models present; SSD mounted; disk free ≥ 10 GB; nothing heavy running (<code>ollama ps</code>, <code>pgrep -fl "DrawThings|acestep"</code>).</li>
+<li>For CLI rendering ask you to quit the Draw Things app (the CLI loads its own ~35 GB copy of the video model).</li>
+<li><strong><span class="badge unv">UNVERIFIED</span> Validate the CLI for video once,</strong> with a 145-frame clip (Runbook §G-CLI): check frame count and size, drift ≤ 0.7 px, settings equal to the API path (steps 8, TCD Trailing, shift 5, CFG 1), and whether the 201-frame cap applies. Record the result in <a href="lessons.html">Lessons</a>. If it fails, fall back to the HTTP API (Runbook §G-API) and tell you.</li>
+<li>Create the video folder <code>Video-&lt;Shortname&gt;&lt;n&gt;/</code> with <code>input/ jobs/&lt;id&gt;/ output/ work/</code>.</li>
+</ul>
+<h3 id="stage-1-scene-idea-image-csu-10-min-approval-1">Stage 1 — Scene idea → image (C+S+U, ~10 min) → Approval 1</h3>
+<p><strong>1.1 Plan the scene for animation</strong> (Claude, before writing the prompt):
+- <strong>Frame:</strong> a static, eye-level view <strong>from inside looking out</strong> through an opening (open shoji, window, veranda, torii): the opening gives hard mask edges and the inside stays locked. A <strong>full-frame outdoor scene</strong> with no rigid frame (bamboo garden with mist) drifted 6–17 px per clip on every seed (Lessons A12): compose a rigid foreground element (veranda post, shoji edge) into the image, or plan on the stabilize fallback.
+- <strong>2–3 moving elements</strong>, from the proven list first (snow, fire/flame, steam; §7). Each against a <strong>plain or soft background</strong>, away from image edges and from foreground objects.
+- <strong>Particles (snow/rain) only outside.</strong> Avoid indoor surfaces that could look like frozen particles (a fluffy blanket near the doorway picked up "snow" specks).
+- <strong>No people, animals, text, mirrors/reflections of moving things.</strong> No clutter.
+- <strong>Lighting:</strong> warm interior vs cool exterior, dusk/night (the channel's look).</p>
+<p><strong>1.2 Write the image prompt</strong> with template P-IMG (§9) → <code>jobs/&lt;id&gt;/image_prompt.txt</code>, and the standard negative → <code>image_negative.txt</code>.</p>
+<p><strong>1.3 Generate 4 candidates:</strong> <code>../scripts/image_candidates.sh &lt;id&gt;</code> (Z Image Turbo, 1920×1088, ~2–3 min): <code>work/&lt;id&gt;/candidates/cand1..4_s&lt;seed&gt;.png</code> and a numbered 2×2 <code>sheet.png</code>. Claude screens each (can the moving parts be masked on real edges? anything that would animate wrongly? artifacts like warped shoji grids, extra cups, floating objects, text) and sends the sheet with one line per candidate.</p>
+<p><strong>1.4 Approval 1 (U):</strong> you pick one, or ask for changes → Claude edits the prompt and runs another round with new seeds.</p>
+<p><strong>1.5 Intake:</strong> copy the chosen image to <code>input/&lt;id&gt;.png</code>; source size 1920×1088; <code>plate.crop = [0, 4, 1920, 1084]</code>; keep <code>image_prompt.txt</code>, <code>image_negative.txt</code> and the seed.</p>
+<h3 id="stage-2-what-animates-analysis-and-masks-cu-1020-min-approval-2">Stage 2 — What animates: analysis and masks (C+U, 10–20 min) → Approval 2</h3>
+<ol>
+<li><strong>Motion inventory.</strong> List every element that could move and how (catalog §7). Anything not listed stays frozen. Write the list in plain words for you: <em>"Moves: snow falling outside; the fire in the brazier; steam from the cup. Frozen: everything else."</em></li>
+<li><strong>Regions</strong> (polygons in <strong>source pixels</strong>, in <code>jobs/&lt;id&gt;/job.json</code>, schema §8):
+   - <code>animated</code>: where AI motion is allowed; edges on <strong>real edges</strong> (door/window frames, table edges, silhouettes).
+   - <code>lock</code>: foreground objects overlapping the animated area that must stay pixel-identical.
+   - <code>qc_only</code>: small boxes around each effect, for measuring.</li>
+<li><strong>Draw the overlay and look at it</strong> (<code>../scripts/mask_preview.py</code>; also a 2× zoom of the tricky part). Adjust until edges are right (expect 2–3 adjustments). Save as <code>jobs/&lt;id&gt;/mask_overlay_v0.png</code>.</li>
+<li><strong>Watch for:</strong> frozen particles in locked areas; steam starting inside a lock region (start the steam box just above the rim); light sources that should flicker.</li>
+<li><strong>Approval 2 (U):</strong> Claude sends the overlay picture with the plain-words list. You approve or change it (e.g. "also animate the pond", "don't animate the fire").
+- <strong>Gate:</strong> overlay approved; polygons on real edges; every moving thing inside an animated region.</li>
+</ol>
+<h3 id="stage-3-audio-sample-scu-10-min-approval-3">Stage 3 — Audio sample (S+C+U, ~10 min) → Approval 3</h3>
+<ol>
+<li>Start the ACE-Step server (Runbook §M). Generate <strong>three 30-second samples</strong> in different styles (default trio: low flute + pad, soft piano + faint flute, koto + faint flute), each with an <strong>explicit <code>--bpm</code> (~44–48) and <code>--key</code></strong> (the model's own planner ignores "slow"), softened and levelled (Music §Recipe).</li>
+<li><strong>Check each sample with <code>audio_qc.py</code></strong> before sending; regenerate any that has harsh events. Send the passing ones to you with a one-line description each.</li>
+<li><strong>You</strong> pick one (or say what to change: slower, softer, less reverb, other instrument; a new sample takes ~10 s).</li>
+<li>Add the ambience 14 dB under the music; send a mixed 30 s plus an ambience-only louder version. <strong>Approval 3 (U):</strong> level and character of the ambience.
+- Claude cannot hear: it reports measurements (LUFS, tempo, key, check results) and your verdict decides.
+- Record the approved prompt, BPM range and keys in <code>jobs/&lt;id&gt;/music.md</code> (used by stage 8).</li>
+</ol>
+<p><em>Phase 1 is now complete. Nothing after this needs you until the final review.</em></p>
+<h3 id="stage-4-video-prompt-c-5-min-jobsidpromptsmd">Stage 4 — Video prompt (C, 5 min) → <code>jobs/&lt;id&gt;/prompts.md</code></h3>
+<p>Use template P5 (§9). Fill <code>{FROZEN}</code>, <code>{MOTION}</code>, <code>{MOOD}</code> from the approved plan. Only name what moves, with direction and speed.</p>
+<h3 id="stage-5-drift-probe-sc-10-min">Stage 5 — Drift probe (S+C, ~10 min)</h3>
+<p>For seeds 101, 202, 303 render a 121-frame clip at 1024×576 and measure:
+- <code>qc_drift.py</code> → <strong>worst drift ≤ 0.7 px</strong> (good seeds gave 0.1 px). <strong>Its ROI must be the job's <code>lock</code> regions</strong> (things that must not move), never areas with rain, bamboo, steam or fire, or it measures the effect instead of the camera (Lessons A14). Report drift per frame: it usually grows over the clip.
+- <code>qc_motion.py</code> → the effects really move: snow <strong>moving down ≥ 65 %</strong>, steam <strong>moving up ≥ 60 %</strong>, flicker/fire <strong>activity &gt; 0</strong>. Edit its region table for the new image (Runbook §Q).
+- Contact sheets of the full frame and each effect; Claude looks at them.
+- <strong>Gate:</strong> ≥ 2 seeds pass. If &lt; 2: change the prompt using §10 (max 4 rounds), rerun. If still failing: §10 "fallback".
+- <strong>If all 3 seeds fail by a wide margin (&gt; 5 px) the cause is systematic (the scene primes a camera move; Lessons A12), not seed luck.</strong> Do one prompt round (remove camera words, Lessons A13), build the stabilize fallback in parallel, and only then try more seeds.</p>
+<h3 id="stage-6-two-clips-s-6-min">Stage 6 — Two clips (S, ~6 min)</h3>
+<p>Render clip <strong>A</strong> and clip <strong>B</strong>: 145 frames each, two best seeds, same prompt.</p>
+<h3 id="stage-7-loop-build-and-qc-scu-2-min-review-1">Stage 7 — Loop build and QC (S+C+U, ~2 min) → Review 1</h3>
+<p><code>loop_build.py</code> builds the 240-frame loop: <code>[0,24)</code> B's tail fades into A's head; <code>[24,120)</code> A; <code>[120,144)</code> A fades into B; <code>[144,240)</code> B. AI pixels only inside the feathered animated mask, over the original plate at 1080p; locked pixels stay identical.
+- <strong>Gates:</strong> <code>seam_ratio ≤ 1.3</code> · <code>locked_pixels_identical = true</code> · <code>luma_std_detrended ≤ 1.0</code> · <code>luma_max_jump ≤ 1.5</code>.
+- Claude looks at the seam sheet (frames 232–239 then 0–7) and one full-size frame.
+- <strong>Review 1 (U):</strong> you watch the loop repeating: loop point visible? effects right?</p>
+<h3 id="stage-8-full-hour-of-audio-checked-for-softness-scu-20-min-review-2">Stage 8 — Full hour of audio, checked for softness (S+C+U, ~20 min) → Review 2</h3>
+<p><code>music_build.py --minutes 60</code> (with the approved prompt/BPMs/keys) does, per piece: generate → soften → <strong>check with <code>audio_qc.py</code></strong> → if any harsh event, regenerate with a new seed (up to 4 takes; the least-bad take is kept with a warning if all fail). Then it crossfades the pieces, applies the slow leveler, mixes the ambience, fades, writes the AAC and <strong>checks the finished hour again</strong>.
+- <strong>What "soft" means here (checked, not assumed):</strong> no screech/whistle (sustained high-pitched tone), no harsh brightness, no scratch/static, no crackle/glitch bursts, no clicks/pops, no clipping, no dropouts. Sudden loud notes are reported as warnings.
+- <strong>Gates:</strong> <code>audio_qc</code> on the final mix: <strong>harsh events = 0</strong>; duration 3600.000 s; ≈ −22.5 LUFS; peak ≤ 0.89; no 3-second near-silent stretch; 10-second loudness std ≤ ~3 dB.
+- If the final check still finds events: cut them out by regenerating the affected pieces (<code>work/.../pieceNN*.flac</code> → delete, rerun; the build is resumable) and check again.
+- <strong>Listening pack (U):</strong> the script writes <code>&lt;out&gt;_qc/listening_pack.mp3</code> — 6 riskiest moments (spread through the hour) + 3 random spots, ~72 s — and <code>listening_pack.txt</code> with the timestamps. Claude sends it. <strong>Review 2 (U):</strong> you listen and confirm it is pleasant throughout; if any moment bothers you, tell Claude the pack number and the piece is regenerated.</p>
+<h3 id="stage-9-mux-deliver-clean-up-document-c-10-min">Stage 9 — Mux, deliver, clean up, document (C, ~10 min)</h3>
+<ol>
+<li>Mux the audio onto 360 loops (stream copy) → <code>&lt;id&gt;_1hr_1080p24.mp4</code>. Verify: 3600.000 s, 86,400 video packets.</li>
+<li>Rename to the three final names (§1.2); delete everything else under <code>output/</code> and all of <code>work/</code>.</li>
+<li>Fill <code>RUNLOG.md</code> (what was done, numbers, verdicts, surprises, and the recipe: image prompt + seed, video prompt, seeds, music settings); add anything new to <a href="lessons.html">Lessons</a>.</li>
+<li><code>../.venv/bin/python ../scripts/build_docs.py</code> (from <code>Project-V/</code>) to rebuild <code>wiki/html/</code>.</li>
+<li>Commit and push the repo (small files only; videos are git-ignored).</li>
+<li>Tell you the file paths and remind you of the YouTube steps (§11).</li>
+</ol>
+<hr />
+<h2 id="7-motion-catalog">7. Motion catalog</h2>
+<p>Proven on the first video: snow, fire, steam. Others are expectations only.</p>
+<table>
+<thead>
+<tr>
+<th>Effect</th>
+<th>Prompt phrase (<code>{MOTION}</code>)</th>
+<th>Direction / speed</th>
+<th>Measure</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Snow</td>
+<td>"tiny snowflakes falling gently downward outside"</td>
+<td>down, slow</td>
+<td><code>moving_down ≥ 65 %</code></td>
+<td><strong>Proven</strong> (97–98 %)</td>
+</tr>
+<tr>
+<td>Fire / candle / lantern flame</td>
+<td>"the small brazier flame flickering"</td>
+<td>in place, irregular</td>
+<td>luma std over time &gt; 0</td>
+<td><strong>Proven</strong></td>
+</tr>
+<tr>
+<td>Steam from a cup</td>
+<td>"thin steam curling up from the tea cup"</td>
+<td>up, thin</td>
+<td><code>moving_up ≥ 60 %</code></td>
+<td><strong>Proven</strong> (92–94 %)</td>
+</tr>
+<tr>
+<td>Rain</td>
+<td>"fine rain falling straight down"</td>
+<td>down</td>
+<td>as snow</td>
+<td><span class="badge unv">UNVERIFIED</span> (also needs rain ambience)</td>
+</tr>
+<tr>
+<td>Smoke / incense</td>
+<td>"a thin thread of smoke rising and curling"</td>
+<td>up</td>
+<td>as steam</td>
+<td><span class="badge unv">UNVERIFIED</span></td>
+</tr>
+<tr>
+<td>Fog / mist</td>
+<td>"slow drifting mist"</td>
+<td>sideways, very slow</td>
+<td>flow magnitude</td>
+<td><span class="badge unv">UNVERIFIED</span></td>
+</tr>
+<tr>
+<td>Falling leaves / petals</td>
+<td>"a few leaves drifting slowly down"</td>
+<td>down, sparse</td>
+<td>as snow</td>
+<td><span class="badge unv">UNVERIFIED</span></td>
+</tr>
+<tr>
+<td>Water ripples</td>
+<td>"gentle ripples on the water"</td>
+<td>local</td>
+<td>frame diff</td>
+<td><span class="badge unv">UNVERIFIED</span></td>
+</tr>
+</tbody>
+</table>
+<p>Rules: at most 3–4 moving things; every one needs a region; describe direction and speed; never "wind/gust" unless intended.</p>
+<hr />
+<h2 id="8-jobjson-schema">8. <code>job.json</code> schema</h2>
+<pre style="line-height: 125%;"><span></span><code>{
+<span>  </span><span>"id"</span>:<span> </span><span>"Video-Zen3"</span>,
+<span>  </span><span>"source"</span>:<span> </span><span>"input/Video-Zen3.png"</span>,
+<span>  </span><span>"source_size"</span>:<span> </span>[<span>1920</span>,<span> </span><span>1088</span>],
+<span>  </span><span>"plate"</span>:<span> </span>{<span> </span><span>"crop"</span>:<span> </span>[<span>0</span>,<span> </span><span>4</span>,<span> </span><span>1920</span>,<span> </span><span>1084</span>],<span> </span><span>"output_size"</span>:<span> </span>[<span>1920</span>,<span> </span><span>1080</span>]<span> </span>},
+<span>  </span><span>"loop"</span>:<span>  </span>{<span> </span><span>"period_s"</span>:<span> </span><span>10.0</span>,<span> </span><span>"fps"</span>:<span> </span><span>24</span>,<span> </span><span>"crossfade_s"</span>:<span> </span><span>1.0</span><span> </span>},
+<span>  </span><span>"regions"</span>:<span> </span>{
+<span>    </span><span>"exterior"</span>:<span> </span>{<span> </span><span>"role"</span>:<span> </span><span>"animated"</span>,<span> </span><span>"poly"</span>:<span> </span>[[<span>x</span>,<span>y</span>],<span> </span><span>...</span>],<span> </span><span>"feather_px"</span>:<span> </span><span>4</span><span> </span>},
+<span>    </span><span>"steam"</span>:<span>    </span>{<span> </span><span>"role"</span>:<span> </span><span>"animated"</span>,<span> </span><span>"poly"</span>:<span> </span>[[<span>x</span>,<span>y</span>],<span> </span><span>...</span>],<span> </span><span>"feather_px"</span>:<span> </span><span>8</span><span> </span>},
+<span>    </span><span>"lock_table"</span>:<span> </span>{<span> </span><span>"role"</span>:<span> </span><span>"lock"</span>,<span> </span><span>"poly"</span>:<span> </span>[[<span>x</span>,<span>y</span>],<span> </span><span>...</span>]<span> </span>},
+<span>    </span><span>"fire_qc"</span>:<span>  </span>{<span> </span><span>"role"</span>:<span> </span><span>"qc_only"</span>,<span> </span><span>"poly"</span>:<span> </span>[[<span>x</span>,<span>y</span>],<span> </span><span>...</span>]<span> </span>}
+<span>  </span>}
+}
+</code></pre>
+
+<p>Polygons are in <strong>source pixels</strong>. <code>loop_build.py</code> requires a region named <code>exterior</code> (main animated area). Working example: <code>Video-Zen1/jobs/001-snow-tea/job.json</code>.</p>
+<hr />
+<h2 id="9-prompt-templates">9. Prompt templates</h2>
+<p><strong>P-IMG — image (Z Image Turbo; the user's own style, recovered from their Draw Things project):</strong></p>
+<pre style="line-height: 125%;"><span></span><code>{SETTING at TIME}, view through {OPENING} onto {EXTERIOR}, {WEATHER outside}, {FOREGROUND anchor: low table / kotatsu / engawa} with {STEAM SOURCE: steaming cup of tea / tetsubin kettle}, {WARM LIGHT: paper lantern / andon / irori hearth glow}, {EXTERIOR DETAILS: stone lantern, pine, moss, pond}, {FIRE if any: small fire in an iron brazier in the background}, contrast between warm interior light and cool {blue/green} exterior, cinematic lighting, shallow depth of field, photorealistic, highly detailed, atmospheric, tranquil, zen aesthetic, 8k, professional photography
+</code></pre>
+
+<p>Example (reproduces the first video's look): <em>"cozy Japanese tatami room at dusk, view through open shoji screen doors onto a snow-covered zen garden, gentle snowfall outside, warm kotatsu table in foreground with a thick quilted blanket draped over it, steaming cup of hojicha tea resting on the kotatsu, soft irori hearth glow casting warm amber light across the tatami mats, paper lanterns glowing softly, snow-dusted pine tree and stone lantern visible through the doorway, contrast between warm interior firelight and cool blue snowy exterior, intimate and inviting atmosphere, cinematic lighting, shallow depth of field, photorealistic, highly detailed, atmospheric, tranquil, zen aesthetic, 8k, professional photography"</em></p>
+<p><strong>Image negative:</strong></p>
+<pre style="line-height: 125%;"><span></span><code>people, text, watermark, logo, blurry, low quality, oversaturated, daytime, harsh lighting, cartoon, illustration, deformed, extra objects, cluttered, Chinese architecture, animals, snow indoors, reflections, mirrors
+</code></pre>
+
+<p>(Drop "daytime" for dawn/day scenes.)</p>
+<p><strong>P5 — strict cinemagraph (video, the one that works):</strong></p>
+<pre style="line-height: 125%;"><span></span><code>Cinemagraph loop. One single locked photograph on a tripod: the framing is identical in every frame, {FROZEN} stay pixel-still. The only motion in the entire image is {MOTION}. Photorealistic, calm, {MOOD}.
+</code></pre>
+
+<p>First video: <code>{FROZEN}</code> = "the doorway, table, cup, blanket, lamp, lanterns and trees"; <code>{MOTION}</code> = "tiny snowflakes falling gently downward outside, the small brazier flame flickering in the garden, and thin steam curling up from the tea cup"; <code>{MOOD}</code> = "cozy winter night".</p>
+<p><strong>Do not write</strong> "the camera does not move / never zooms" (made drift <em>worse</em>: 20–25 % zoom), long descriptive scene text (15 % zoom), or rely on the negative prompt (ignored at CFG 1).</p>
+<p><strong>Music prompt (approved on the first video):</strong> <em>"Very slow, soft, gentle ambient piano. Sparse felt piano notes, warm and muted, played very softly with long sustain and lots of silence, a faint distant low flute and a warm airy pad far in the background. Peaceful, calm, tender, sleepy, {SCENE}. no drums, no percussion, no vocals, no sharp sounds."</em> with <code>--bpm 44</code> and a key.</p>
+<hr />
+<h2 id="10-when-something-fails-decision-table">10. When something fails (decision table)</h2>
+<table>
+<thead>
+<tr>
+<th>Symptom</th>
+<th>Likely cause</th>
+<th>Do this</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Camera zooms or shifts (drift &gt; 0.7 px)</td>
+<td>Prompt primes camera motion (incl. "tripod", "framing", "locked"); open outdoor scene with mist and no rigid frame; seed</td>
+<td>Use P5; remove all camera words; fewer moving things. <strong>If all 3 seeds fail by a wide margin, do not just add seeds</strong> (systematic; Lessons A12). <strong>Fallback <span class="badge unv">UNVERIFIED</span>:</strong> stabilize each frame to frame 0 with a similarity transform fitted on <strong>locked-region</strong> features only, replicated border, re-measure (Lessons A15)</td>
+</tr>
+<tr>
+<td>Drift metric moves with the rain or leaves</td>
+<td>ROI contains animated things (hardcoded strips from the first job)</td>
+<td>Set the ROI to the <code>lock</code> regions; measure 2–3 separate locked objects and check they agree (Lessons A14)</td>
+</tr>
+<tr>
+<td>Only 1 of 3 seeds passes</td>
+<td>Normal</td>
+<td>Try seeds 404, 505; use passing seeds for A and B; re-check drift on the built loop</td>
+</tr>
+<tr>
+<td>Effect too weak/absent</td>
+<td>Too many things in the prompt</td>
+<td>Put the weak effect first; "clearly visible"; last resort a close-up region clip <strong><span class="badge unv">UNVERIFIED</span></strong></td>
+</tr>
+<tr>
+<td>Snow moves up or sideways</td>
+<td>Model artifact</td>
+<td>"falling straight down"; other seed</td>
+</tr>
+<tr>
+<td>Visible seam at mask edge</td>
+<td>Polygon not on a real edge</td>
+<td>Redraw on the edge; <code>feather_px</code> 4 → 8</td>
+</tr>
+<tr>
+<td>Seam ratio &gt; 1.3</td>
+<td>Big change between A's tail and B's head</td>
+<td>Different seed for B; <code>crossfade_s</code> 1.5</td>
+</tr>
+<tr>
+<td>Brightness pulsing</td>
+<td>Exposure drift</td>
+<td>Different seed; check <code>luma_std_detrended</code></td>
+</tr>
+<tr>
+<td>Draw Things HTTP 422</td>
+<td>Full config dump / size not multiple of 64 / frames &gt; 201</td>
+<td>Whitelisted keys only; check size and frames</td>
+</tr>
+<tr>
+<td>Music server dies mid-request</td>
+<td>240 s piece crashes VAE decode</td>
+<td>150 s pieces; <code>music_build.py</code> restarts and retries</td>
+</tr>
+<tr>
+<td>Music downloading to the wrong disk</td>
+<td><code>.env</code> path ignored</td>
+<td><code>checkpoints</code> symlink to the SSD</td>
+</tr>
+<tr>
+<td>Music "too harsh / too fast"</td>
+<td>Planner picked 91–120 BPM; bright top end</td>
+<td><code>--bpm</code> and <code>--key</code>; low-pass; "warm, low, rounded"</td>
+</tr>
+<tr>
+<td><code>audio_qc</code> keeps failing a piece</td>
+<td>Prompt invites bright sounds</td>
+<td>Remove "flute"/"bells"; add "muted, low register, soft"; lower the low-pass to 5.5 kHz (<code>--filters</code>)</td>
+</tr>
+<tr>
+<td>Out of memory / slow</td>
+<td>Two heavy models loaded</td>
+<td>Quit the Draw Things app before CLI; stop the music server before video; <code>ollama stop &lt;model&gt;</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Stop rule:</strong> after 4 failed prompt rounds in stage 5, stop and report the numbers and contact sheets with a recommendation; don't burn more GPU time unattended.</p>
+<hr />
+<h2 id="11-youtube-notes-from-web-search-2026-09-23-check-current-policy-yourself">11. YouTube notes (from web search, 2026-09-23 — check current policy yourself)</h2>
+<ul>
+<li>No YouTube feature loops a short video under a longer audio track: upload the one-hour file. 1.1 GB ≈ 8 min at 20 Mbps upload (30 min at 5 Mbps), plus YouTube's processing.</li>
+<li>In YouTube Studio: <strong>Create → Upload videos</strong>, fill title/description, set <strong>altered or synthetic content = Yes</strong>.</li>
+<li>The "inauthentic content" (repetitive / mass-produced) policy is enforced <strong>per channel</strong> and is reported to hit ambient/lo-fi channels often. Vary scenes and music across videos. See <a href="posting-plan.html">Posting plan</a>.</li>
+<li>The music is generated locally with an MIT-licensed model; no third-party tracks are used.</li>
+</ul>
+<hr />
+<h2 id="12-budget-first-video-actuals-m5-max-64-gb">12. Budget (first video actuals, M5 Max 64 GB)</h2>
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Machine time</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Image: 4 candidates</td>
+<td>~2–3 min</td>
+</tr>
+<tr>
+<td>Audio samples (3 styles + ambience)</td>
+<td>~2 min</td>
+</tr>
+<tr>
+<td>Drift probes (3 × 121 frames @ 1024×576)</td>
+<td>~8 min</td>
+</tr>
+<tr>
+<td>Clips A + B (2 × 145 frames)</td>
+<td>~6 min</td>
+</tr>
+<tr>
+<td>Loop build + QC</td>
+<td>~1 min</td>
+</tr>
+<tr>
+<td>Full hour of audio (26 pieces + checks/retakes + ambience + mix + AAC + final check)</td>
+<td>~20 min</td>
+</tr>
+<tr>
+<td>Mux</td>
+<td>seconds</td>
+</tr>
+<tr>
+<td><strong>Total (happy path)</strong></td>
+<td><strong>~40–45 min</strong>, plus your approvals (~15 min) and reviews (~20 min)</td>
+</tr>
+</tbody>
+</table>
+<p>First-run extras (already done): ACE-Step model download 9.6 GB (~12 min).</p>
+<hr />
+<h2 id="13-known-limits-and-next-improvements-not-done">13. Known limits and next improvements (not done)</h2>
+<ol>
+<li><strong>Job-specific bits in scripts:</strong> <code>qc_motion.py</code> region table and <code>qc_drift.py</code> mask areas are for the first video; ambience only makes fire/wind/crackle. Best next step: read all of it from <code>job.json</code>.</li>
+<li><strong>CLI for video</strong> is required by you but <strong><span class="badge unv">UNVERIFIED</span></strong> (stage 0).</li>
+<li><strong>No single orchestrator</strong> (<code>pipeline.py</code>); stages are run one by one from the Runbook.</li>
+<li><strong>Other ambience types</strong> (rain, waves, forest, insects) need new synthesizers.</li>
+<li><strong>Other lengths</strong> (30 min, 3 h, 10 h): change <code>--minutes</code> and <code>-stream_loop</code>; not run.</li>
+<li><strong>Audio check limits</strong> were calibrated on one hour of one video; if it flags too much or misses something you hear, tune <code>LIMITS</code> in <code>scripts/audio_qc.py</code> using the excerpts and record the change in Lessons.</li>
+<li><strong>Wan 2.2 I2V</strong> isn't installed (only T2V); LTX-2.3 was enough.</li>
+</ol></main>
+<script>document.querySelectorAll('pre').forEach(function(p){var b=document.createElement('button');b.className='copy';b.textContent='Copy';
+b.onclick=function(){navigator.clipboard&&navigator.clipboard.writeText(p.innerText.replace(/Copy$/,'').trim());b.textContent='Copied';setTimeout(function(){b.textContent='Copy'},1200)};p.appendChild(b)});</script>
+</body></html>

@@ -1,6 +1,9 @@
-# big/regenerable — never commit
-output/
-work/
+# big / regenerable / not part of this repo — never commit
+Video-*/output/
+Video-*/work/
+Video-*/.venv/
+Video-Zen2/
+Video-BeachSunset1/
 tools/
 .venv/
 __pycache__/

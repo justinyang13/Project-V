@@ -1,0 +1,159 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Runbook — Project-V</title><style>:root{--bg:#fbfaf8;--card:#ffffff;--ink:#1d2129;--mute:#5f6875;--line:#e3e0da;--accent:#2f6f8f;--accent-ink:#ffffff;--code:#f2efe9;--ok:#1f7a4d;--ok-bg:#e3f3ea;--warn:#8a5a00;--warn-bg:#fdf1d6;--claude:#7a4fb5;--script:#2f6f8f;--user:#b5561f}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#14171c;--card:#1b1f26;--ink:#e8e6e1;--mute:#98a1ad;--line:#2b313a;--accent:#7ab6d3;--accent-ink:#0d1a22;--code:#222730;--ok:#63c790;--ok-bg:#183326;--warn:#e8b95a;--warn-bg:#3a2f14;--claude:#b79be0;--script:#7ab6d3;--user:#eb9a6c}}
+:root[data-theme="dark"]{--bg:#14171c;--card:#1b1f26;--ink:#e8e6e1;--mute:#98a1ad;--line:#2b313a;--accent:#7ab6d3;--accent-ink:#0d1a22;--code:#222730;--ok:#63c790;--ok-bg:#183326;--warn:#e8b95a;--warn-bg:#3a2f14;--claude:#b79be0;--script:#7ab6d3;--user:#eb9a6c}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+header.top{position:sticky;top:0;z-index:5;background:var(--card);border-bottom:1px solid var(--line)}
+header.top nav{max-width:1000px;margin:0 auto;padding:10px 16px;display:flex;gap:6px 18px;flex-wrap:wrap;align-items:center}
+header.top .brand{font-weight:700;margin-right:auto}
+header.top a{color:var(--mute);text-decoration:none;font-size:14px}
+header.top a:hover,header.top a.on{color:var(--accent);text-decoration:underline}
+main{max-width:1000px;margin:0 auto;padding:24px 16px 80px}
+h1{font-size:2rem;line-height:1.2;margin:.2em 0 .4em}h2{margin-top:2.2em;padding-top:.4em;border-top:1px solid var(--line);font-size:1.4rem}h3{margin-top:1.6em;font-size:1.1rem}
+a{color:var(--accent)}
+code{background:var(--code);padding:.1em .35em;border-radius:4px;font:13.5px/1.4 ui-monospace,SFMono-Regular,Menlo,monospace}
+pre{background:var(--code);border:1px solid var(--line);border-radius:8px;padding:12px 14px;overflow:auto;position:relative}pre code{background:none;padding:0;font-size:13px;white-space:pre}
+table{border-collapse:collapse;width:100%;margin:1em 0;font-size:14.5px;display:block;overflow-x:auto}
+th,td{border:1px solid var(--line);padding:7px 10px;text-align:left;vertical-align:top}th{background:var(--code)}
+blockquote{margin:1em 0;padding:.6em 1em;border-left:4px solid var(--accent);background:var(--code);border-radius:0 8px 8px 0}
+hr{border:0;border-top:1px solid var(--line);margin:2em 0}
+.badge{display:inline-block;padding:0 .5em;border-radius:99px;font-size:.78em;font-weight:600;white-space:nowrap}
+.badge.unv{background:var(--warn-bg);color:var(--warn)}.badge.ver{background:var(--ok-bg);color:var(--ok)}
+.copy{position:absolute;top:6px;right:6px;font-size:12px;padding:3px 9px;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:6px;cursor:pointer}
+.lede{font-size:1.15rem;color:var(--mute);max-width:70ch}
+.hero{padding:8px 0 4px}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:12px;margin:14px 0}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.card h3{margin:.1em 0 .3em;font-size:1.02rem}.card p{margin:.3em 0;font-size:14.5px;color:var(--mute)}
+.card .num{display:inline-grid;place-items:center;width:26px;height:26px;border-radius:50%;background:var(--accent);color:var(--accent-ink);font-weight:700;font-size:13px;margin-right:8px}
+.tag{display:inline-block;font-size:12px;font-weight:600;padding:1px 8px;border-radius:99px;border:1px solid currentColor;margin:2px 4px 0 0}
+.tag.c{color:var(--claude)}.tag.s{color:var(--script)}.tag.u{color:var(--user)}
+.gate{font-size:13.5px;border-top:1px dashed var(--line);margin-top:8px;padding-top:6px;color:var(--ink)}
+.out{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
+.kick{position:relative}
+@media (max-width:600px){h1{font-size:1.6rem}}
+</style></head><body>
+<header class="top"><nav><span class="brand">Project-V</span><a href="index.html">Home</a><a href="spec.html">Spec</a><a href="runbook.html" class=on>Runbook</a><a href="lessons.html">Lessons</a><a href="music.html">Music</a><a href="models.html">Models</a><a href="posting-plan.html">Posting plan</a><a href="video-zen1.html">Video-Zen1</a></nav></header><main><h1 id="runbook-exact-commands-stage-by-stage">Runbook — exact commands, stage by stage</h1>
+<p>Follow <a href="spec.html">SPEC.md</a> for what and why; this page is how.</p>
+<p><strong>Conventions.</strong> <code>&lt;id&gt;</code> = the video folder name, e.g. <code>Video-Zen3</code>. <strong>Run everything from inside the video folder</strong> (<code>cd /Users/justin/Code/Project-V/&lt;id&gt;</code>): shared scripts are <code>../scripts/…</code>, Python is <code>../.venv/bin/python</code>. Small variables: <code>PY=../.venv/bin/python</code>, <code>SC=../scripts</code>.
+Legend: <strong><span class="badge ver">verified</span></strong> ran on the first video · <strong><span class="badge unv">UNVERIFIED</span></strong> not run yet.</p>
+<h2 id="0-preflight-and-new-video-folder">0. Preflight and new video folder</h2>
+<pre style="line-height: 125%;"><span></span><code>ls<span> </span>/Volumes/SSD-4T-LR/AI/Models<span> </span>|<span> </span>head;<span> </span>df<span> </span>-h<span> </span>.<span> </span>|<span> </span>tail<span> </span>-1<span>          </span><span># SSD mounted, disk free</span>
+ollama<span> </span>ps;<span> </span>pgrep<span> </span>-fl<span> </span><span>"DrawThings|acestep|dt_generate"</span><span>                </span><span># nothing heavy running</span>
+<span>cd</span><span> </span>/Users/justin/Code/Project-V<span> </span><span>&amp;&amp;</span><span> </span>mkdir<span> </span>-p<span> </span>&lt;id&gt;/<span>{</span>input,jobs/&lt;id&gt;,output,work<span>}</span><span> </span><span>&amp;&amp;</span><span> </span><span>cd</span><span> </span>&lt;id&gt;
+</code></pre>
+
+<p>Folder naming: <code>Video-&lt;Shortname&gt;&lt;n&gt;</code> (SPEC §3). To use the CLI ask the user to quit the Draw Things app.</p>
+<h2 id="1-scene-idea-image-verified-approval-1">1. Scene idea → image <span class="badge ver">verified</span> → Approval 1</h2>
+<pre style="line-height: 125%;"><span></span><code><span># write jobs/&lt;id&gt;/image_prompt.txt and image_negative.txt (templates: SPEC §9)</span>
+<span>$SC</span>/image_candidates.sh<span> </span>&lt;id&gt;<span>            </span><span># 4 candidates, seeds 11/22/33/44, 1920x1088, ~2-3 min</span>
+<span># -&gt; work/&lt;id&gt;/candidates/cand1_s11.png … cand4_s44.png  +  work/&lt;id&gt;/candidates/sheet.png (numbered 2x2)</span>
+<span>$SC</span>/image_candidates.sh<span> </span>&lt;id&gt;<span> </span><span>4</span><span> </span><span>55</span><span>       </span><span># another round (seeds 55/66/77/88) after prompt changes</span>
+</code></pre>
+
+<p>Screen each candidate (SPEC 1.1), send <code>sheet.png</code> (SendUserFile) with one line per image, wait for the pick. Then intake:</p>
+<pre style="line-height: 125%;"><span></span><code>cp<span> </span>work/&lt;id&gt;/candidates/cand&lt;k&gt;_s&lt;seed&gt;.png<span> </span>input/&lt;id&gt;.png
+cp<span> </span>../Video-Zen1/jobs/001-snow-tea/job.json<span> </span>jobs/&lt;id&gt;/job.json<span> </span><span>&amp;&amp;</span><span> </span>cp<span> </span>../Video-Zen1/jobs/001-snow-tea/prompts.md<span> </span>jobs/&lt;id&gt;/
+<span># edit job.json: id, source "input/&lt;id&gt;.png", source_size [1920,1088], plate.crop [0,4,1920,1084], regions (stage 2)</span>
+</code></pre>
+
+<p>The script runs <code>draw-things-cli generate --model z_image_turbo_1.0_q8p.ckpt --no-download-missing --width 1920 --height 1088 --seed S --prompt-file … --negative-prompt-file …</code> with <code>DRAWTHINGS_MODELS_DIR=/Volumes/SSD-4T-LR/AI/Models</code>, skips candidates that exist, and draws the sheet with Pillow (this ffmpeg has no <code>drawtext</code>).
+<em>Own image instead?</em> copy it to <code>input/&lt;id&gt;.&lt;ext&gt;</code> and set <code>source</code>, <code>source_size</code> and a 16:9 <code>plate.crop</code>.</p>
+<h2 id="2-what-animates-masks-verified-approval-2">2. What animates → masks <span class="badge ver">verified</span> → Approval 2</h2>
+<p>Edit the polygons in <code>jobs/&lt;id&gt;/job.json</code> (source pixels), then look:</p>
+<pre style="line-height: 125%;"><span></span><code><span>$PY</span><span> </span><span>$SC</span>/mask_preview.py<span> </span>--job<span> </span>&lt;id&gt;<span> </span>--zoom<span> </span>x0<span> </span>y0<span> </span>x1<span> </span>y1<span>        </span><span># jobs/&lt;id&gt;/mask_overlay_preview.png (+ _zoom.png)</span>
+</code></pre>
+
+<p>Open the PNGs; repeat until edges sit on real edges; save the final one as <code>jobs/&lt;id&gt;/mask_overlay_v0.png</code>. Send it to the user with the plain-words list <em>"Moves: … Frozen: everything else."</em> and wait for approval.</p>
+<h2 id="3-audio-sample-approval-3-verified-see-also-m">3. Audio sample → Approval 3 <span class="badge ver">verified</span> (see also §M)</h2>
+<p>Start the music server (§M), then three 30 s styles, each checked, softened, levelled:</p>
+<pre style="line-height: 125%;"><span></span><code><span>for</span><span> </span>spec<span> </span><span>in</span><span> </span><span>"a_flute:21:&lt;flute+pad prompt&gt;"</span><span> </span><span>"b_piano:32:&lt;piano prompt&gt;"</span><span> </span><span>"c_koto:33:&lt;koto prompt&gt;"</span>;<span> </span><span>do</span>
+<span>  </span><span>IFS</span><span>=</span>:<span> </span><span>read</span><span> </span>tag<span> </span>seed<span> </span>prompt<span> </span><span>&lt;&lt;&lt;</span><span> </span><span>"</span><span>$spec</span><span>"</span>
+<span>  </span><span>$PY</span><span> </span><span>$SC</span>/music_gen.py<span> </span>--tag<span> </span>s_<span>$tag</span><span> </span>--seed<span> </span><span>$seed</span><span> </span>--dur<span> </span><span>30</span><span> </span>--bpm<span> </span><span>46</span><span> </span>--key<span> </span><span>"D minor"</span><span> </span>--prompt<span> </span><span>"</span><span>$prompt</span><span>"</span>
+<span>  </span>ffmpeg<span> </span>-y<span> </span>-i<span> </span>work/music/s_<span>$tag</span>.flac<span> </span>-af<span> </span><span>"lowpass=f=6500,highshelf=f=3000:g=-3,loudnorm=I=-22:TP=-3:LRA=7,afade=t=in:d=2,afade=t=out:st=28:d=2"</span><span> </span>-c:a<span> </span>libmp3lame<span> </span>-b:a<span> </span>192k<span> </span>work/music/s_<span>$tag</span>.mp3
+<span>  </span><span>$PY</span><span> </span><span>$SC</span>/audio_qc.py<span> </span>work/music/s_<span>$tag</span>.mp3<span> </span>--out<span> </span>work/music/qc_<span>$tag</span><span> </span>|<span> </span>grep<span> </span>-E<span> </span><span>"harsh_events|pass"</span><span>     </span><span># must be pass: true</span>
+<span>done</span>
+</code></pre>
+
+<p>(Prompts: SPEC §9 and <a href="music.html">Music</a>. Regenerate any sample that fails the check.) Send the MP3s to the user; after the pick, the ambience sample:</p>
+<pre style="line-height: 125%;"><span></span><code><span>$PY</span><span> </span><span>$SC</span>/ambience.py<span> </span>--dur<span> </span><span>30</span><span> </span>--seed<span> </span><span>5</span><span> </span>--out<span> </span>work/music/amb_30.wav
+ffmpeg<span> </span>-y<span> </span>-i<span> </span>work/music/s_&lt;pick&gt;.flac<span> </span>-i<span> </span>work/music/amb_30.wav<span> </span>-filter_complex<span> </span><span>"[0:a]lowpass=f=6500,highshelf=f=3000:g=-3,loudnorm=I=-22:TP=-3:LRA=7[m];[1:a]loudnorm=I=-36:TP=-9:LRA=7[a];[m][a]amix=inputs=2:normalize=0:duration=first[x];[x]afade=t=in:d=2,afade=t=out:st=28:d=2"</span><span> </span>-c:a<span> </span>libmp3lame<span> </span>-b:a<span> </span>192k<span> </span>work/music/mixed_30.mp3
+</code></pre>
+
+<p>(<code>loudnorm</code> true-peak must be −9 or higher.) Also send <code>amb_30.wav</code> as an MP3 at +14 dB louder so the user can judge the ambience alone. Save the approved prompt/BPM/keys to <code>jobs/&lt;id&gt;/music.md</code>.</p>
+<h2 id="4-video-prompt">4. Video prompt</h2>
+<p>Edit <code>jobs/&lt;id&gt;/prompts.md</code>. <code>dt_generate.py</code> reads the section whose header starts with the key (<code>--pkey P5</code> → <code>## P5 — …</code>); the <strong>first fenced block is the positive prompt, the second the negative</strong>. Template: SPEC §9.</p>
+<h2 id="5-drift-probe-3-seeds-verified-with-the-api">5. Drift probe (3 seeds) [verified with the API]</h2>
+<pre style="line-height: 125%;"><span></span><code><span>for</span><span> </span>s<span> </span><span>in</span><span> </span><span>101</span><span> </span><span>202</span><span> </span><span>303</span>;<span> </span><span>do</span>
+<span>  </span><span>$PY</span><span> </span><span>$SC</span>/dt_generate.py<span> </span>--job<span> </span>&lt;id&gt;<span> </span>--round<span> </span>r01<span> </span>--tag<span> </span>t_s<span>$s</span><span> </span>--seed<span> </span><span>$s</span><span> </span>--w<span> </span><span>1024</span><span> </span>--h<span> </span><span>576</span><span> </span>--frames<span> </span><span>121</span><span> </span>--pkey<span> </span>P5
+<span>  </span><span>$PY</span><span> </span><span>$SC</span>/qc_drift.py<span>  </span>work/&lt;id&gt;/r01/t_s<span>$s</span>/frames<span> </span><span>30</span><span>      </span><span># want worst_drift_px &lt;= 0.7</span>
+<span>  </span><span>$PY</span><span> </span><span>$SC</span>/qc_motion.py<span> </span>work/&lt;id&gt;/r01/t_s<span>$s</span>/frames<span>        </span><span># moving_down/up %, activity</span>
+<span>done</span>
+ffmpeg<span> </span>-framerate<span> </span><span>24</span><span> </span>-i<span> </span>work/&lt;id&gt;/r01/t_s101/frames/f%04d.png<span> </span>-vf<span> </span><span>"select='not(mod(n\,10))',scale=512:-1,tile=4x3"</span><span> </span>-frames:v<span> </span><span>1</span><span> </span>work/&lt;id&gt;/r01/t_s101/sheet_full.png
+</code></pre>
+
+<p>For crops use <code>crop=W:H:X:Y</code> before <code>scale</code> (frame coordinates = <code>(src_x − crop_x0) × 1024/(crop_x1 − crop_x0)</code>).</p>
+<h3 id="q-editing-the-qc-scripts-for-a-new-image">§Q — editing the QC scripts for a new image</h3>
+<p><code>qc_motion.py</code> has a region table <code>R = {"snow": (x0,y0,x1,y1), …}</code> in <strong>1024×576 frame pixels</strong>; convert each <code>qc_only</code> polygon's bounding box with the formula above; rename/add entries for the new effects. <code>qc_drift.py</code> tracks features in the left 18 % and right 32 % of the frame (the room on the first video); <strong>this is hardcoded and wrong for any other image</strong>: change the two mask lines at the top to the job's <em>locked</em>, textured areas (never areas with rain, bamboo, steam or fire; Lessons A14) and cross-check 2–3 separate locked objects, which should agree. If every seed fails by a wide margin, see SPEC §10 (stabilize fallback, Lessons A15).</p>
+<h2 id="6-two-clips-verified-with-the-api">6. Two clips [verified with the API]</h2>
+<pre style="line-height: 125%;"><span></span><code><span>$PY</span><span> </span><span>$SC</span>/dt_generate.py<span> </span>--job<span> </span>&lt;id&gt;<span> </span>--round<span> </span>r02<span> </span>--tag<span> </span>segA_s101<span> </span>--seed<span> </span><span>101</span><span> </span>--w<span> </span><span>1024</span><span> </span>--h<span> </span><span>576</span><span> </span>--frames<span> </span><span>145</span><span> </span>--pkey<span> </span>P5
+<span>$PY</span><span> </span><span>$SC</span>/dt_generate.py<span> </span>--job<span> </span>&lt;id&gt;<span> </span>--round<span> </span>r02<span> </span>--tag<span> </span>segB_s202<span> </span>--seed<span> </span><span>202</span><span> </span>--w<span> </span><span>1024</span><span> </span>--h<span> </span><span>576</span><span> </span>--frames<span> </span><span>145</span><span> </span>--pkey<span> </span>P5
+</code></pre>
+
+<p>Two best seeds from stage 5; ~3 min each; frames in <code>work/&lt;id&gt;/r02/&lt;tag&gt;/frames/f0000.png …</code>.</p>
+<h3 id="g-cli-the-same-clip-with-draw-things-cli-unverified">§G-CLI — the same clip with <code>draw-things-cli</code> <span class="badge unv">UNVERIFIED</span></h3>
+<pre style="line-height: 125%;"><span></span><code><span># plate at generation size (16:9 crop of the source, Lanczos to 1024x576) -&gt; work/&lt;id&gt;/plate_1024.png ; positive prompt -&gt; work/&lt;id&gt;/prompt.txt</span>
+<span>DRAWTHINGS_MODELS_DIR</span><span>=</span>/Volumes/SSD-4T-LR/AI/Models<span> </span>draw-things-cli<span> </span>generate<span> </span><span>\</span>
+<span>  </span>--model<span> </span>ltx_2.3_22b_distilled_1.1_q8p.ckpt<span> </span>--no-download-missing<span> </span><span>\</span>
+<span>  </span>--image<span> </span>work/&lt;id&gt;/plate_1024.png<span> </span>--prompt-file<span> </span>work/&lt;id&gt;/prompt.txt<span> </span><span>\</span>
+<span>  </span>--frames<span> </span><span>145</span><span> </span>--width<span> </span><span>1024</span><span> </span>--height<span> </span><span>576</span><span> </span>--seed<span> </span><span>101</span><span> </span><span>\</span>
+<span>  </span>--output<span> </span>work/&lt;id&gt;/r02/segA_s101.mov<span> </span>--video-format<span> </span>prores422hq
+mkdir<span> </span>-p<span> </span>work/&lt;id&gt;/r02/segA_s101/frames<span> </span><span>&amp;&amp;</span><span> </span>ffmpeg<span> </span>-i<span> </span>work/&lt;id&gt;/r02/segA_s101.mov<span> </span>-start_number<span> </span><span>0</span><span> </span>work/&lt;id&gt;/r02/segA_s101/frames/f%04d.png
+</code></pre>
+
+<p>The CLI's <code>--image</code> does "aspect-preserving scale and center crop", so pass an already cropped 1024×576 image. Check frame count = 145, size, drift ≤ 0.7 px, and compare steps/sampler/shift/CFG with the API path (<code>--steps 8 --cfg 1</code>; other keys via <code>--config-json</code>). Record differences in <a href="lessons.html">Lessons</a>.</p>
+<h3 id="g-api-fallback-what-the-first-video-used">§G-API — fallback (what the first video used)</h3>
+<p><code>dt_generate.py</code> posts to <code>POST http://127.0.0.1:7860/sdapi/v1/img2img</code> (Draw Things app, Settings → API Server on). Only a whitelist of config keys is sent; width/height multiples of 64; frames 8n+1 and ≤ 201; the request's <code>model</code> key picks the model.</p>
+<h2 id="7-loop-review-1-verified">7. Loop → Review 1 <span class="badge ver">verified</span></h2>
+<pre style="line-height: 125%;"><span></span><code><span>$PY</span><span> </span><span>$SC</span>/loop_build.py<span> </span>--job<span> </span>&lt;id&gt;<span> </span>--a<span> </span>work/&lt;id&gt;/r02/segA_s101/frames<span> </span>--b<span> </span>work/&lt;id&gt;/r02/segB_s202/frames<span> </span>--out<span> </span>work/&lt;id&gt;/loop
+cat<span> </span>work/&lt;id&gt;/loop/qc_final.json
+</code></pre>
+
+<p>Writes <code>loop_frames/</code>, <code>plate.png</code>, <code>mask.png</code>, <code>&lt;id&gt;_loop10s_1080p24.mp4</code>, a 60 s preview, <code>qc_final.json</code>, <code>sheet_seam.png</code>. Gates: <code>seam_ratio ≤ 1.3</code>, <code>locked_pixels_identical: true</code>, <code>luma_std_detrended ≤ 1.0</code>, <code>luma_max_jump ≤ 1.5</code>. Claude reads <code>sheet_seam.png</code> and a full frame, then sends the loop (and the 60 s preview) for Review 1.</p>
+<h2 id="8-full-hour-of-audio-review-2-m-has-server-startstop">8. Full hour of audio → Review 2  (§M has server start/stop)</h2>
+<pre style="line-height: 125%;"><span></span><code><span>$PY</span><span> </span><span>$SC</span>/music_build.py<span> </span>--minutes<span> </span><span>60</span><span> </span>--out<span> </span>work/&lt;id&gt;/music_60min<span> </span><span>\</span>
+<span>  </span>--prompt<span> </span><span>"&lt;approved prompt&gt;"</span><span> </span>--keys<span> </span><span>"D minor,F major,A minor,C major,G minor"</span><span> </span>--bpms<span> </span><span>"44,40,46,42"</span><span>       </span><span># ~20 min; resumable</span>
+</code></pre>
+
+<p>What it does: per piece generate → soften → <code>audio_qc</code> → retake (new seed) up to 4×; crossfade; slow leveler; ambience; fades; AAC; <strong>final <code>audio_qc</code> of the finished hour</strong> and the listening pack. Watch the log for <code>harsh events N -&gt; retry</code> and <code>WARNING ... least-bad take</code>. Outputs: <code>work/&lt;id&gt;/music_60min.{wav,m4a}</code>, <code>music_60min_pieces_qc.json</code>, <code>music_60min_qc/audio_qc.json</code>, <strong><code>music_60min_qc/listening_pack.mp3</code></strong> + <code>listening_pack.txt</code>.</p>
+<pre style="line-height: 125%;"><span></span><code>cat<span> </span>work/&lt;id&gt;/music_60min_qc/audio_qc.json<span> </span>|<span> </span>head<span> </span>-30<span>                    </span><span># harsh_events must be 0, pass: true</span>
+</code></pre>
+
+<p>Send <code>listening_pack.mp3</code> (with the timestamp list) to the user for Review 2. If the user flags pack item <em>k</em>, note its timestamp <code>t</code>, find the piece (<code>t ÷ 142 s</code>), delete that piece's file(s) in <code>work/music/&lt;work&gt;/</code>, rerun (resumable), re-check, resend. To tune the check, edit <code>LIMITS</code> in <code>../scripts/audio_qc.py</code>; single files: <code>$PY $SC/audio_qc.py &lt;file&gt; --excerpts 6</code> (clips of the worst moments) or <code>--pack</code>.</p>
+<h2 id="9-mux-deliver-clean-up">9. Mux, deliver, clean up</h2>
+<pre style="line-height: 125%;"><span></span><code>ffmpeg<span> </span>-y<span> </span>-stream_loop<span> </span><span>359</span><span> </span>-i<span> </span>work/&lt;id&gt;/loop/&lt;id&gt;_loop10s_1080p24.mp4<span> </span>-i<span> </span>work/&lt;id&gt;/music_60min.m4a<span> </span><span>\</span>
+<span>  </span>-map<span> </span><span>0</span>:v<span> </span>-map<span> </span><span>1</span>:a<span> </span>-c<span> </span>copy<span> </span>-t<span> </span><span>3600</span><span> </span>-movflags<span> </span>+faststart<span> </span>output/&lt;id&gt;_1hr_1080p24.mp4
+ffprobe<span> </span>-v<span> </span>error<span> </span>-show_entries<span> </span><span>format</span><span>=</span>duration,size<span> </span>-of<span> </span><span>default</span><span>=</span><span>nw</span><span>=1</span><span> </span>output/&lt;id&gt;_1hr_1080p24.mp4<span>                       </span><span># 3600.000000</span>
+ffprobe<span> </span>-v<span> </span>error<span> </span>-select_streams<span> </span>v:0<span> </span>-count_packets<span> </span>-show_entries<span> </span><span>stream</span><span>=</span>nb_read_packets<span> </span>-of<span> </span><span>csv</span><span>=</span><span>p</span><span>=0</span><span> </span>output/&lt;id&gt;_1hr_1080p24.mp4<span>   </span><span># 86400</span>
+cp<span> </span>work/&lt;id&gt;/music_60min.m4a<span> </span>output/&lt;id&gt;_audio_60min.m4a
+cp<span> </span>work/&lt;id&gt;/loop/&lt;id&gt;_loop10s_1080p24.mp4<span> </span>output/&lt;id&gt;_loop10s_1080p24_silent.mp4
+rm<span> </span>-rf<span> </span>work<span>                                                              </span><span># scratch; the three files in output/ stay</span>
+pkill<span> </span>-f<span> </span>start_api_server_macos;<span> </span>pkill<span> </span>-f<span> </span>acestep-api<span>                    </span><span># stop the music server</span>
+<span>cd</span><span> </span>..<span> </span><span>&amp;&amp;</span><span> </span>.venv/bin/python<span> </span>scripts/build_docs.py<span>                          </span><span># rebuild wiki/html</span>
+</code></pre>
+
+<p>Then fill <code>&lt;id&gt;/RUNLOG.md</code>, update <a href="lessons.html">Lessons</a>, commit and push (<code>git add -A &amp;&amp; git commit &amp;&amp; git push</code> from <code>Project-V/</code>).</p>
+<h2 id="m-music-server">M. Music server</h2>
+<pre style="line-height: 125%;"><span></span><code><span>cd</span><span> </span>/Users/justin/Code/Project-V/tools/ACE-Step-1.5<span> </span><span>&amp;&amp;</span><span> </span><span>ACESTEP_CHECKPOINTS_DIR</span><span>=</span>/Volumes/SSD-4T-LR/AI/Models/ACE-Step<span> </span>nohup<span> </span>./start_api_server_macos.sh<span> </span>&gt;<span> </span>/tmp/acestep_server.log<span> </span><span>2</span>&gt;&amp;<span>1</span><span> </span>&amp;
+<span># ready when: curl -s http://127.0.0.1:8001/health returns 200  (music_build.py also restarts it by itself if it dies)</span>
+</code></pre>
+
+<h2 id="swap-put-different-audio-on-the-picture-later">Swap. Put different audio on the picture later</h2>
+<pre style="line-height: 125%;"><span></span><code>ffmpeg<span> </span>-y<span> </span>-stream_loop<span> </span><span>359</span><span> </span>-i<span> </span>output/&lt;id&gt;_loop10s_1080p24_silent.mp4<span> </span>-i<span> </span>&lt;new_audio&gt;.m4a<span> </span>-map<span> </span><span>0</span>:v<span> </span>-map<span> </span><span>1</span>:a<span> </span>-c<span> </span>copy<span> </span>-t<span> </span><span>3600</span><span> </span>-movflags<span> </span>+faststart<span> </span>output/&lt;id&gt;_1hr_v2.mp4
+</code></pre>
+
+<p>For another length change <code>359</code> (loops − 1) and <code>-t</code> (seconds); the audio must be at least that long.</p></main>
+<script>document.querySelectorAll('pre').forEach(function(p){var b=document.createElement('button');b.className='copy';b.textContent='Copy';
+b.onclick=function(){navigator.clipboard&&navigator.clipboard.writeText(p.innerText.replace(/Copy$/,'').trim());b.textContent='Copied';setTimeout(function(){b.textContent='Copy'},1200)};p.appendChild(b)});</script>
+</body></html>

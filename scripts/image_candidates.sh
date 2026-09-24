@@ -1,10 +1,11 @@
 #!/bin/bash
 # Stage 1: generate N candidate images for a job with draw-things-cli (headless; the Draw Things app can be closed),
 # then a numbered 2x2 contact sheet for the user to pick from.
-# Usage: scripts/image_candidates.sh <job> [n=4] [first_seed=11]
+# Usage (from the video folder): ../scripts/image_candidates.sh <job> [n=4] [first_seed=11]
 # Needs: jobs/<job>/image_prompt.txt and jobs/<job>/image_negative.txt
 # Output: work/<job>/candidates/cand<k>_s<seed>.png (1920x1088) + work/<job>/candidates/sheet.png
 set -euo pipefail
+ROOT="$(cd "$(dirname "$0")/.." && pwd)"   # Project-V; run this from the video folder
 JOB=$1; N=${2:-4}; SEED0=${3:-11}
 OUT=work/$JOB/candidates; mkdir -p "$OUT"
 export DRAWTHINGS_MODELS_DIR=/Volumes/SSD-4T-LR/AI/Models
@@ -17,7 +18,7 @@ for k in $(seq 1 "$N"); do
     --width 1920 --height 1088 --seed "$S" -o "$F" 2>&1 | grep -E "Wrote|Total generation time|rror" || true
 done
 # numbered contact sheet (Pillow; this ffmpeg build has no drawtext)
-.venv/bin/python - "$OUT" <<'PY'
+"$ROOT/.venv/bin/python" - "$OUT" <<'PY'
 import sys, glob, re
 from PIL import Image, ImageDraw, ImageFont
 out = sys.argv[1]; fs = sorted(glob.glob(f"{out}/cand*_s*.png"), key=lambda f: int(re.search(r"cand(\d+)_", f).group(1)))

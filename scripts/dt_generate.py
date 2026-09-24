@@ -23,7 +23,7 @@ ap.add_argument("--job", required=True); ap.add_argument("--round", required=Tru
 ap.add_argument("--tag", required=True); ap.add_argument("--seed", type=int, required=True)
 ap.add_argument("--w", type=int, default=1024); ap.add_argument("--h", type=int, default=576)
 ap.add_argument("--frames", type=int, default=121); ap.add_argument("--pkey", default="P2")
-ap.add_argument("--base", default="jobs/_dt_base/ltx2_i2v.json")
+ap.add_argument("--base", default=os.path.join(os.path.dirname(os.path.abspath(__file__)), "dt_base/ltx2_i2v.json"))
 ap.add_argument("--set", nargs="*", default=[], help="overrides key=value (json values)")
 a = ap.parse_args()
 assert a.w % 64 == 0 and a.h % 64 == 0 and (a.frames - 1) % 8 == 0, "w,h multiples of 64; frames 8n+1"

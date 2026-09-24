@@ -3,7 +3,7 @@ import base64, io, json, sys, time
 import requests
 from PIL import Image
 
-BASE = json.load(open("jobs/_dt_base/ltx2_i2v.json"))
+BASE = json.load(open(__import__("os").path.join(__import__("os").path.dirname(__import__("os").path.abspath(__file__)), "dt_base/ltx2_i2v.json")))
 W, H, FR = 640, 352, 25
 img = Image.open("input/001-snow-tea.webp").convert("RGB").crop((11, 0, 1706, 960)).resize((W, H), Image.LANCZOS)
 buf = io.BytesIO(); img.save(buf, "PNG")

@@ -1,21 +1,27 @@
 # Music and ambience playbook (local, free, instrumental)
 
+The process is stage 3 (samples, approval) and stage 8 (full hour, softness check, listening pack) of [SPEC.md](SPEC.md); commands in [runbook.md](runbook.md) §3, §8, §M.
+
 Used for job 001 (`output/001-snow-tea/001-snow-tea_1hr.mp4`). All local: no cloud, no third-party tracks, no licence questions beyond the model's (ACE-Step 1.5 is MIT-licensed).
 
 ## Stack
 - **ACE-Step 1.5** (text-to-music) in `tools/ACE-Step-1.5`, API on `127.0.0.1:8001`. Start: `cd tools/ACE-Step-1.5 && ACESTEP_CHECKPOINTS_DIR=/Volumes/SSD-4T-LR/AI/Models/ACE-Step ./start_api_server_macos.sh`. Weights (9.6 GB) live on the SSD; `tools/ACE-Step-1.5/checkpoints` is a symlink to `/Volumes/SSD-4T-LR/AI/Models/ACE-Step` (the `.env` setting alone did NOT redirect downloads).
 - `scripts/music_gen.py` — one piece via the API (`--dur`, `--bpm`, `--key`, `--prompt`, `--seed`).
 - `scripts/ambience.py` — procedural fire hum + soft wind + gentle crackles (no samples).
-- `scripts/music_build.py` — builds the long track: N pieces → per-piece filter + loudness match → equal-power crossfades → slow leveler → ambience mixed under → fades → AAC. Resumable; restarts the music server and retries if it crashes.
+- `scripts/music_build.py` — builds the long track: N pieces → filter → **softness check with retakes** → loudness match → equal-power crossfades → slow leveler → ambience mixed under → fades → AAC → final check + listening pack. Resumable; restarts the music server and retries if it crashes. Style comes from `--prompt/--keys/--bpms`.
 
 ## Recipe (60 minutes)
 ```bash
 # music server running, then:
-.venv/bin/python scripts/music_build.py --minutes 60 --out output/<job>/music_60min       # ~15 min total
-ffmpeg -stream_loop 359 -i output/<job>/<job>_loop10s_1080p24.mp4 -i output/<job>/music_60min.m4a \
-  -map 0:v -map 1:a -c copy -t 3600 -movflags +faststart output/<job>/<job>_1hr.mp4        # seconds, no re-encode
+(see the runbook §8-§9: music_build.py → listening pack → ffmpeg mux, all from the video folder)
 ```
 Result: 1.1 GB, 3600.000 s, 86,400 video frames (exactly 24 × 3600), music ≈ −22.5 LUFS, ambience ≈ −36 LUFS (14 dB under the music).
+
+## Softness check (`scripts/audio_qc.py`) — added after the first hour had screechy/scratchy moments
+- Runs on every generated piece (after the softening filters) and on the finished hour. A piece with **any** harsh event is regenerated with a new seed (up to 4 takes).
+- Looks for: sustained high-pitched tone (screech/whistle), harsh brightness, scratch/static (spectral flatness), sudden crackle/glitch bursts, clicks/pops, clipping, dropouts; warns about sudden loud notes.
+- `--excerpts N` cuts 8 s clips of the worst moments; `--pack` builds the **listening pack** for the user (6 riskiest moments spread over the hour + 3 random spots, about 72 s, with a timestamp list).
+- Claude can't hear: the script finds candidates, the **user's ears confirm**. Limits were calibrated on the first hour; if the user still hears something the check passed (or it flags what the user finds fine), tune `LIMITS` and record it in [lessons.md](lessons.md).
 
 ## What we learned
 - **Set tempo and key yourself** (`--bpm 44 --key "D minor"`). With the model's built-in planner on, it ignored "slow" in the prompt and picked 91–120 BPM.

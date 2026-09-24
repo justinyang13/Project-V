@@ -1,5 +1,5 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Lessons — Video-Zen1</title><style>:root{--bg:#fbfaf8;--card:#ffffff;--ink:#1d2129;--mute:#5f6875;--line:#e3e0da;--accent:#2f6f8f;--accent-ink:#ffffff;--code:#f2efe9;--ok:#1f7a4d;--ok-bg:#e3f3ea;--warn:#8a5a00;--warn-bg:#fdf1d6;--claude:#7a4fb5;--script:#2f6f8f;--user:#b5561f}
+<title>Lessons — Project-V</title><style>:root{--bg:#fbfaf8;--card:#ffffff;--ink:#1d2129;--mute:#5f6875;--line:#e3e0da;--accent:#2f6f8f;--accent-ink:#ffffff;--code:#f2efe9;--ok:#1f7a4d;--ok-bg:#e3f3ea;--warn:#8a5a00;--warn-bg:#fdf1d6;--claude:#7a4fb5;--script:#2f6f8f;--user:#b5561f}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#14171c;--card:#1b1f26;--ink:#e8e6e1;--mute:#98a1ad;--line:#2b313a;--accent:#7ab6d3;--accent-ink:#0d1a22;--code:#222730;--ok:#63c790;--ok-bg:#183326;--warn:#e8b95a;--warn-bg:#3a2f14;--claude:#b79be0;--script:#7ab6d3;--user:#eb9a6c}}
 :root[data-theme="dark"]{--bg:#14171c;--card:#1b1f26;--ink:#e8e6e1;--mute:#98a1ad;--line:#2b313a;--accent:#7ab6d3;--accent-ink:#0d1a22;--code:#222730;--ok:#63c790;--ok-bg:#183326;--warn:#e8b95a;--warn-bg:#3a2f14;--claude:#b79be0;--script:#7ab6d3;--user:#eb9a6c}
 *{box-sizing:border-box}
@@ -34,7 +34,7 @@ hr{border:0;border-top:1px solid var(--line);margin:2em 0}
 .kick{position:relative}
 @media (max-width:600px){h1{font-size:1.6rem}}
 </style></head><body>
-<header class="top"><nav><span class="brand">Video-Zen1</span><a href="index.html">Home</a><a href="spec.html">Spec</a><a href="runbook.html">Runbook</a><a href="lessons.html" class=on>Lessons</a><a href="music.html">Music</a><a href="models.html">Models</a><a href="posting-plan.html">Posting plan</a><a href="job-001.html">Job 001 log</a></nav></header><main><h1 id="lessons-what-went-wrong-why-and-the-rule-that-came-out-of-it">Lessons — what went wrong, why, and the rule that came out of it</h1>
+<header class="top"><nav><span class="brand">Project-V</span><a href="index.html">Home</a><a href="spec.html">Spec</a><a href="runbook.html">Runbook</a><a href="lessons.html" class=on>Lessons</a><a href="music.html">Music</a><a href="models.html">Models</a><a href="posting-plan.html">Posting plan</a><a href="video-zen1.html">Video-Zen1</a></nav></header><main><h1 id="lessons-what-went-wrong-why-and-the-rule-that-came-out-of-it">Lessons — what went wrong, why, and the rule that came out of it</h1>
 <p>Read this before starting a new job. Each row is something that actually happened in job 001. Add new rows at the bottom of the right table.</p>
 <h2 id="a-video-generation">A. Video generation</h2>
 <table>
@@ -108,10 +108,46 @@ hr{border:0;border-top:1px solid var(--line);margin:2em 0}
 <td>For image-to-video you need an <strong>I2V</strong> model. LTX-2.3 accepts an input image</td>
 </tr>
 <tr>
+<td>A17</td>
+<td>Draw Things <strong>projects</strong> can't be created with the CLI</td>
+<td>Projects are an app feature (history/canvas files); the CLI only writes files</td>
+<td>The video folder is the project (prompts, seeds, chosen image, log). Create a project in the app by hand only if you want to browse there</td>
+</tr>
+<tr>
 <td>A11</td>
 <td>Draw Things CLI for <strong>images</strong> works (Z Image Turbo, 1920×1088, 8 steps, ~30 s/image after an ~50 s first load; the app doesn't need to be open). <strong>Video</strong> via CLI still untested</td>
 <td>—</td>
 <td>User rule: use the CLI so closing the app doesn't matter. Validate video in stage 0 (SPEC §5) and record the outcome here</td>
+</tr>
+<tr>
+<td>A12</td>
+<td>Job 002 (zen garden: bamboo, torii, pond, rain): drift <strong>6–17 px, growing steadily over the clip (~0.3 px at frame 20, ~10 px by frame 140), on all 3 seeds</strong> (101/202/303) even though job 001's seeds gave 0.1 px</td>
+<td>A full-frame outdoor scene with fog and no rigid frame (no shoji/window) reads to the model as a camera move; it is systematic, not seed luck</td>
+<td>If <strong>all 3 seeds</strong> fail by a wide margin, don't keep adding seeds. Change the prompt once (A13) and go to the stabilize fallback (A15). Only try 404/505 after that</td>
+</tr>
+<tr>
+<td>A13</td>
+<td>The job-002 prompt said "one single locked photograph on a <strong>tripod</strong>: the <strong>framing</strong> is identical"</td>
+<td>Tripod / framing / locked are camera words; they prime camera ideas (same effect as A2)</td>
+<td>Say what is frozen (objects by name) and list the only things that move. No "tripod", "framing", "locked", "camera", "steady"</td>
+</tr>
+<tr>
+<td>A14</td>
+<td><code>qc_drift.py</code> still measured the job-001 "room" strips (left 18 %, right 32 %), which on job 002 are bamboo and rain (moving)</td>
+<td>Hardcoded ROI. I re-measured on the locked objects (lantern, bridge+table, torii) and got the same or bigger numbers, so the gate result was right, but only by luck</td>
+<td><strong>Always set the ROI to the job's <code>lock</code> regions</strong>, never to areas that contain animated things. Best: make <code>qc_drift.py</code> read the ROI from <code>job.json</code>. Check ROI first: if the metric moves with the effect (rain/bamboo), it is measuring the effect, not the camera</td>
+</tr>
+<tr>
+<td>A15</td>
+<td>Stabilize fallback (SPEC §10) for slow linear drift</td>
+<td>Composite puts AI pixels over the locked plate; drift makes the animated region slide against the plate and shows a seam at the mask edge</td>
+<td><code>stabilize.py</code>: per frame, ORB features on the <strong>locked</strong> regions only (not bamboo, rain, steam) → <code>estimateAffinePartial2D</code> (RANSAC 1.5 px) → warp frame to frame 0 with replicated border. Re-run <code>qc_drift.py</code> on the stabilized frames. <strong>[UNVERIFIED on job 002 — record the outcome here]</strong></td>
+</tr>
+<tr>
+<td>A16</td>
+<td>Steam over the tea bowl moved in the job-002 clips though the prompt never asked for it</td>
+<td>Model adds plausible motion to steam/smoke already in the image</td>
+<td>Make sure the steam is inside a <code>lock</code> region (or that it is what you want animated); check the contact sheet for motion you did not list</td>
 </tr>
 </tbody>
 </table>
@@ -249,6 +285,18 @@ hr{border:0;border-top:1px solid var(--line);margin:2em 0}
 <td>Use references only as style hints; generate locally; nothing downloaded</td>
 </tr>
 <tr>
+<td>D7</td>
+<td><strong>The full hour had unpleasant moments</strong> the earlier spot-checks missed: screech/whistle, harsh brightness, scratch/crackle (worst around 10:09, 16:59, 24:54, 25:58, 31:09, 46:14, 52:12, 52:41, 53:24, 53:43, 55:26, 59:26). The user confirmed a 4-clip sample of them was unpleasant "in general, not only screeching"</td>
+<td>Two excerpts + loudness statistics can't find a 0.5 s screech in 60 minutes</td>
+<td>Check <strong>every</strong> piece and the finished hour with <code>audio_qc.py</code> (tone, HF ratio, scratch/flatness, HF bursts, clicks, clipping, dropouts, loud notes); regenerate bad pieces; give the user a <strong>listening pack</strong> of the riskiest + random moments (SPEC stage 8)</td>
+</tr>
+<tr>
+<td>D8</td>
+<td>Naive limits flagged ~2,000 events (every piano note's harmonics)</td>
+<td>Limits set without calibration</td>
+<td>Calibrate against moments the user confirms; keep <code>hf_burst_db</code> ≥ 40 (note onsets are 20–35 dB) and let only sustained tones (≥ 0.5 s) count as screech</td>
+</tr>
+<tr>
 <td>D6</td>
 <td>The user preferred piano (v3b) over flute and koto</td>
 <td>Taste</td>
@@ -284,6 +332,28 @@ hr{border:0;border-top:1px solid var(--line);margin:2em 0}
 <td>Test candidates varied: one had a fire in the background building, one didn't</td>
 <td>Seed</td>
 <td>Generate 4 and let the user pick; screen for animatability (SPEC 1.2)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="f-process">F. Process</h2>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>What happened</th>
+<th>Rule</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>P1</td>
+<td>Rendering started before the user had confirmed the image, what moves, and the music</td>
+<td><strong>Approve first, render later:</strong> image, animation plan (mask overlay + plain-words list) and audio sample are approved before any long render (SPEC §1.3)</td>
+</tr>
+<tr>
+<td>P2</td>
+<td>Wiki, scripts and HTML lived inside one video's folder</td>
+<td>One folder per video (<code>Video-&lt;Shortname&gt;&lt;n&gt;</code>); wiki, shared scripts and HTML in <code>Project-V/wiki/</code> and <code>Project-V/scripts/</code>; one git repo for all</td>
 </tr>
 </tbody>
 </table>
