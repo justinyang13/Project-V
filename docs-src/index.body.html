@@ -1,6 +1,6 @@
 <section class="hero">
-  <h1>Image → 1-hour ambient loop video</h1>
-  <p class="lede">Give Claude one image. It analyses the scene, animates only what should move (snow, fire, steam…), builds a seamless 10-second loop, composes original piano music with quiet ambience, and delivers a one-hour 1080p video plus the audio and the silent loop.</p>
+  <h1>Scene idea → 1-hour ambient loop video</h1>
+  <p class="lede">Give Claude a one-line scene idea. It generates the image (you pick from 4), analyses the scene, animates only what should move (snow, fire, steam…), builds a seamless 10-second loop, composes original piano music with quiet ambience, and delivers a one-hour 1080p video plus the audio and the silent loop.</p>
 </section>
 
 <h2 id="output">What you get</h2>
@@ -11,17 +11,17 @@
 </div>
 
 <h2 id="start">Start a new job</h2>
-<p>In this project with Claude Code, paste this and give the path to your image:</p>
-<pre class="kick"><code>Run SPEC.md for this image: &lt;path to image&gt;. I want the one-hour video as the output.
-Follow the stages and gates in SPEC.md, use draw-things-cli for video (validate it first, stage 0),
-stop for my three sign-offs (loop, music sample, final excerpts), then deliver only the three final files
+<p>In this project with Claude Code, paste this with your scene idea:</p>
+<pre class="kick"><code>Run SPEC.md for this scene idea: &lt;e.g. rainy temple at night&gt;. I want the one-hour video as the output.
+Follow the stages and gates in SPEC.md, use draw-things-cli for images and video (validate video first, stage 0),
+stop for my four sign-offs (image, loop, music sample, final excerpts), then deliver only the three final files
 and clean up.</code></pre>
 
-<h2 id="flow">The nine stages</h2>
+<h2 id="flow">The stages</h2>
 <p><span class="tag c">Claude</span> decides · <span class="tag s">Script</span> renders and measures · <span class="tag u">You</span> sign off. Every stage has a numeric gate.</p>
 <div class="cards">
   <div class="card"><h3><span class="num">0</span>Preflight</h3><span class="tag s">Script</span><span class="tag c">Claude</span><p>Models, disk, nothing heavy running. Validate <code>draw-things-cli</code> (not yet proven).</p></div>
-  <div class="card"><h3><span class="num">1</span>Intake</h3><span class="tag c">Claude</span><p>Copy the image to <code>input/</code>, make the job folder.</p></div>
+  <div class="card"><h3><span class="num">1</span>Scene idea → image</h3><span class="tag c">Claude</span><span class="tag s">Script</span><span class="tag u">Sign-off 0</span><p>Claude plans a scene that animates well (view out through an opening, 2–3 moving things on soft backgrounds) and writes the prompt in your style. Z Image Turbo via <code>draw-things-cli</code> makes 4 candidates; you pick one.</p><div class="gate">Gate: you pick an image; its moving parts can be masked on real edges</div></div>
   <div class="card"><h3><span class="num">2</span>Scene analysis &amp; masks</h3><span class="tag c">Claude</span><p>List what moves; crop 16:9; draw <em>animated</em>, <em>lock</em> and <em>QC</em> regions on real edges → <code>job.json</code>.</p><div class="gate">Gate: overlay reviewed; polygons on real edges</div></div>
   <div class="card"><h3><span class="num">3</span>Prompt</h3><span class="tag c">Claude</span><p>Strict "cinemagraph" template: a locked photograph where only the named things move. Never mention the camera.</p></div>
   <div class="card"><h3><span class="num">4</span>Drift probe</h3><span class="tag s">Script</span><span class="tag c">Claude</span><p>3 seeds × 121 frames. Measure camera drift and whether the effects really move.</p><div class="gate">Gate: drift ≤ 0.7 px on ≥ 2 seeds · snow ↓ ≥ 65 % · steam ↑ ≥ 60 %</div></div>
@@ -32,14 +32,15 @@ and clean up.</code></pre>
   <div class="card"><h3><span class="num">9</span>Deliver &amp; clean up</h3><span class="tag c">Claude</span><p>Keep the three files; delete scratch; write the run log; rebuild these pages; commit.</p></div>
 </div>
 
-<h2 id="principles">Six rules that made it work</h2>
+<h2 id="principles">Seven rules that make it work</h2>
 <ol>
   <li><b>Only what should move comes from AI.</b> Everything else is the original image, pixel-locked by a mask.</li>
   <li><b>Build the loop, don't generate it.</b> Two clips from the same image, chained A → B → A.</li>
   <li><b>Measure the camera first.</b> Models zoom and drift; check on 3 seeds before rendering anything final.</li>
   <li><b>Describe a photograph, not a scene.</b> "One single locked photograph… the only motion is…". Words like "the camera never zooms" made drift worse.</li>
   <li><b>One heavy model at a time</b> on the 64 GB Mac (video, music, LLMs never together).</li>
-  <li><b>Numbers gate every stage;</b> Claude can't hear or watch, so you make the three sign-offs.</li>
+  <li><b>Numbers gate every stage;</b> Claude can't hear or watch, so you make the four sign-offs.</li>
+  <li><b>Design the image for animation:</b> a view out through a doorway or window, with the moving things on soft backgrounds, is easy to mask.</li>
 </ol>
 
 <h2 id="results">Job 001 results (snowy zen garden)</h2>
@@ -54,7 +55,7 @@ and clean up.</code></pre>
 <tr><td>Audio</td><td>−22.5 LUFS, peak 0.67, no silent stretch</td><td>≈ −22 LUFS</td></tr>
 <tr><td>Your review</td><td>loop point not visible; fire, steam, snow OK</td><td>—</td></tr>
 </table>
-<p>Machine time on the M5 Max for the happy path is about 30–35 minutes plus your listening time; job 001 took longer because of the camera-drift investigation.</p>
+<p>Machine time on the M5 Max for the happy path is about 35–40 minutes (including the image step) plus your listening time; job 001 took longer because of the camera-drift investigation.</p>
 
 <h2 id="docs">Read next</h2>
 <div class="cards">

@@ -34,14 +34,15 @@ hr{border:0;border-top:1px solid var(--line);margin:2em 0}
 .kick{position:relative}
 @media (max-width:600px){h1{font-size:1.6rem}}
 </style></head><body>
-<header class="top"><nav><span class="brand">Video-Zen1</span><a href="index.html">Home</a><a href="spec.html" class=on>Spec</a><a href="runbook.html">Runbook</a><a href="lessons.html">Lessons</a><a href="music.html">Music</a><a href="models.html">Models</a><a href="posting-plan.html">Posting plan</a><a href="job-001.html">Job 001 log</a></nav></header><main><h1 id="spec-image-1-hour-ambient-loop-video-v2-generic">SPEC — Image → 1-hour ambient loop video (v2, generic)</h1>
-<p><strong>Input:</strong> one image. <strong>Output:</strong> a 1-hour, 1080p, 24 fps YouTube-ready video with original music and ambience, plus the separate audio track and a silent 10-second loop so the audio can be swapped later.</p>
-<p>Status: v2.0 · 2026-09-23 · derived from job 001 (<code>001-snow-tea</code>), which produced the reference result. Everything here was done once, end to end, by Claude driving local tools. Items not yet proven are marked <strong><span class="badge unv">UNVERIFIED</span></strong>.</p>
+<header class="top"><nav><span class="brand">Video-Zen1</span><a href="index.html">Home</a><a href="spec.html" class=on>Spec</a><a href="runbook.html">Runbook</a><a href="lessons.html">Lessons</a><a href="music.html">Music</a><a href="models.html">Models</a><a href="posting-plan.html">Posting plan</a><a href="job-001.html">Job 001 log</a></nav></header><main><h1 id="spec-scene-idea-1-hour-ambient-loop-video-v3-generic">SPEC — Scene idea → 1-hour ambient loop video (v3, generic)</h1>
+<p><strong>Input:</strong> a short scene idea (e.g. "rainy temple at night"). Claude generates the image, you pick it. <strong>Output:</strong> a 1-hour, 1080p, 24 fps YouTube-ready video with original music and ambience, plus the separate audio track and a silent 10-second loop so the audio can be swapped later.</p>
+<p>Status: v3.0 · 2026-09-23 · derived from job 001 (<code>001-snow-tea</code>), which produced the reference result (its image was made by the user in the Draw Things app; v3 adds image generation by Claude with the same model and prompt style, tested with the CLI). Everything else here was done once, end to end, by Claude driving local tools. Items not yet proven are marked <strong><span class="badge unv">UNVERIFIED</span></strong>.</p>
 <p>Companion docs: <a href="runbook.html">Runbook</a> (exact commands) · <a href="lessons.html">Lessons</a> (what failed and why) · <a href="music.html">Music</a> · <a href="models.html">Models</a> · <a href="job-001.html">Job 001 log</a> · HTML versions in <code>docs/</code> (open <code>docs/index.html</code>).</p>
 <hr />
 <h2 id="1-contract">1. Contract</h2>
 <h3 id="11-what-you-provide">1.1 What you provide</h3>
-<p>An image file. Nothing else is required. If the image has something that should <em>not</em> animate (or a specific mood for the music), say so in one line; otherwise Claude decides.</p>
+<p>A <strong>short scene idea</strong>, one line: e.g. "rainy temple at night", "autumn tea house at dusk", "snowy mountain onsen". Optionally a mood for the music. Claude writes the image prompt, generates 4 candidates and you pick one (Sign-off 0).
+<em>Alternative:</em> you can still hand over your own image; then skip stage 1's generation steps and start at 1.5 (intake).</p>
 <h3 id="12-what-you-get-per-job-id-nnn-slug">1.2 What you get (per job <code>&lt;id&gt;</code> = <code>NNN-slug</code>)</h3>
 <p>Kept in <code>output/&lt;id&gt;/</code>:</p>
 <table>
@@ -72,7 +73,8 @@ hr{border:0;border-top:1px solid var(--line);margin:2em 0}
 </table>
 <p>Everything else (frames, test clips, samples, ProRes, previews) is scratch and gets deleted at the end (stage 9).</p>
 <h3 id="13-human-touchpoints-only-these-need-you">1.3 Human touchpoints (only these need you)</h3>
-<ol>
+<ol start="0">
+<li><strong>Sign-off 0 — the image (stage 1):</strong> pick one of 4 numbered candidates (or ask for another round with changes).</li>
 <li><strong>Optional:</strong> confirm the "what moves" list and mask overlay (stage 2), if Claude asks.</li>
 <li><strong>Sign-off A — the loop (stage 6):</strong> watch the 10-second loop repeating; say whether you can see the loop point and whether the fire/steam/snow (or equivalent) look right.</li>
 <li><strong>Sign-off B — the music (stage 7):</strong> listen to 30-second samples; pick one; then approve the same sample with ambience added.</li>
@@ -97,8 +99,8 @@ hr{border:0;border-top:1px solid var(--line);margin:2em 0}
 <td>All rendering, compositing, measuring, encoding. Deterministic.</td>
 </tr>
 <tr>
-<td><strong>Draw Things</strong> (LTX-2.3, local)</td>
-<td>Image-to-video. <strong>Use <code>draw-things-cli</code>, not the app</strong> (standing rule from the user: closing the app must not affect renders). <strong><span class="badge unv">UNVERIFIED</span></strong> — job 001 was rendered through the app's HTTP API; the CLI path must be validated at the start of the next job (§5, stage 0).</td>
+<td><strong>Draw Things</strong> via <strong><code>draw-things-cli</code></strong> (standing rule: never the app, so closing the app can't affect a render)</td>
+<td><strong>Text-to-image</strong> with Z Image Turbo — verified with the CLI (2026-09-23). <strong>Image-to-video</strong> with LTX-2.3 — job 001 used the app's HTTP API; the CLI video path is <strong><span class="badge unv">UNVERIFIED</span></strong> and is validated in stage 0 of the next job.</td>
 </tr>
 <tr>
 <td><strong>ACE-Step 1.5</strong> (local, MIT)</td>
@@ -112,8 +114,8 @@ hr{border:0;border-top:1px solid var(--line);margin:2em 0}
 </table>
 <hr />
 <h2 id="2-the-pipeline-at-a-glance">2. The pipeline at a glance</h2>
-<pre style="line-height: 125%;"><span></span><code>image ─► 1 Intake ─► 2 Scene analysis ─► 3 Prompt ─► 4 Drift probe ─► 5 Two clips (A,B)
-                     (job.json + masks)                (pick seeds)         │
+<pre style="line-height: 125%;"><span></span><code>idea ─► 1 Image (4 candidates) ─► [Sign-off 0] ─► 2 Scene analysis ─► 3 Prompt ─► 4 Drift probe ─► 5 Two clips (A,B)
+                                                   (job.json + masks)             (pick seeds)         │
                                                                              ▼
    9 Deliver ◄─ 8 Full hour ◄─ 7 Music+ambience ◄─ [Sign-off A] ◄─ 6 Loop build + QC
    + cleanup     (mux, QC)      (30 s samples)                       (composite on locked plate)
@@ -126,7 +128,8 @@ hr{border:0;border-top:1px solid var(--line);margin:2em 0}
 3. <strong>Measure the camera first.</strong> Image-to-video models drift and zoom. If the camera moves, nothing else matters. Test drift on 2–3 seeds before rendering anything final.
 4. <strong>Describe a photograph, not a scene.</strong> The prompt says what is frozen and lists the only things that move. Never write "the camera does not move".
 5. <strong>One heavy thing at a time on the 64 GB Mac.</strong> Video model, music model and LLMs never run together.
-6. <strong>Every stage has numbers.</strong> A stage is done when its gate passes, not when it looks fine.</p>
+6. <strong>Every stage has numbers.</strong> A stage is done when its gate passes, not when it looks fine.
+7. <strong>Design the image for animation.</strong> When Claude makes the image, it composes it so the moving things are easy to isolate (see stage 1.2). A beautiful image that can't be masked is a bad image here.</p>
 <hr />
 <h2 id="3-environment-one-time-setup-already-done-on-this-machine">3. Environment (one-time setup, already done on this machine)</h2>
 <table>
@@ -148,6 +151,10 @@ hr{border:0;border-top:1px solid var(--line);margin:2em 0}
 <tr>
 <td>Models folder (flat, single)</td>
 <td><code>/Volumes/SSD-4T-LR/AI/Models</code> (exFAT SSD). Draw Things is set to it as its External Model Folder. <strong>Never download a model that already exists there.</strong> New downloads go there.</td>
+</tr>
+<tr>
+<td>Image model</td>
+<td><code>z_image_turbo_1.0_q8p.ckpt</code> (Z Image Turbo 1.0), already in the models folder; the model the user's original images were made with</td>
 </tr>
 <tr>
 <td>Video model</td>
@@ -182,6 +189,16 @@ hr{border:0;border-top:1px solid var(--line);margin:2em 0}
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>Image size</td>
+<td><strong>1920×1088</strong> (multiples of 64), Z Image Turbo, the CLI's recommended settings (8 steps)</td>
+<td>Straight 16:9; plate crop <code>[0, 4, 1920, 1084]</code> gives exactly 1920×1080</td>
+</tr>
+<tr>
+<td>Image candidates</td>
+<td>4, seeds 11, 22, 33, 44</td>
+<td>~30 s each (+ ~50 s model load on the first)</td>
+</tr>
 <tr>
 <td>Plate crop</td>
 <td>16:9 crop of the image, scaled to 1920×1080</td>
@@ -251,12 +268,19 @@ hr{border:0;border-top:1px solid var(--line);margin:2em 0}
   <code>DRAWTHINGS_MODELS_DIR=/Volumes/SSD-4T-LR/AI/Models draw-things-cli generate --model ltx_2.3_22b_distilled_1.1_q8p.ckpt --no-download-missing --image plate.png --frames 145 --width 1024 --height 576 --seed 101 --prompt-file prompt.txt -o clip.mov --video-format prores422hq</code>,
   extract frames with ffmpeg, and check that (a) frame count and size are right, (b) drift ≤ 0.7 px (stage 4), (c) the settings match the API path (steps 8, TCD Trailing, shift 5, CFG 1; override with <code>--config-json</code> if not), (d) whether the 201-frame cap applies. Record the result in <code>wiki/lessons.md</code>. If the CLI fails, fall back to the HTTP API (Runbook §G-API) and tell the user.</li>
 </ul>
-<h3 id="stage-1-intake-c-1-min">Stage 1 — Intake (C, 1 min)</h3>
-<ol>
-<li>Copy the image to <code>input/&lt;id&gt;.&lt;ext&gt;</code> with <code>&lt;id&gt;</code> = next number + slug (e.g. <code>002-forest-cabin</code>).</li>
-<li>Read the size; view the image.</li>
-<li>Create <code>jobs/&lt;id&gt;/</code> and copy <code>jobs/001-snow-tea/job.json</code> and <code>prompts.md</code> as starting points.</li>
-</ol>
+<h3 id="stage-1-scene-idea-image-csu-10-min-sign-off-0">Stage 1 — Scene idea → image (C+S+U, ~10 min) → Sign-off 0</h3>
+<p><strong>1.1 Job.</strong> <code>&lt;id&gt;</code> = next number + slug from the idea (e.g. <code>002-rainy-temple</code>). Create <code>jobs/&lt;id&gt;/</code>.</p>
+<p><strong>1.2 Plan the scene for animation</strong> (Claude, before writing the prompt). Decide:
+- <strong>Frame:</strong> a static, eye-level view <strong>from inside looking out</strong> through an opening (open shoji, window, veranda, torii) works best: the opening gives natural, hard mask edges and the inside stays locked.
+- <strong>2–3 moving elements</strong>, from the proven list first (snow, fire/flame, steam — §6). Place each against a <strong>plain or soft background</strong> and <strong>away from the image edges and from foreground objects</strong> (e.g. steam rising in front of the out-of-focus garden, a flame in the background, not behind the cup).
+- <strong>Particles (snow/rain) only outside.</strong> Avoid indoor surfaces that could look like frozen particles (fluffy blankets near the doorway picked up "snow" specks in job 001).
+- <strong>No people, animals, text, reflections of moving things, or clocks.</strong> No busy foreground clutter.
+- <strong>Lighting:</strong> warm interior vs cool exterior, dusk/night — the channel's look.</p>
+<p><strong>1.3 Write the image prompt</strong> with template P-IMG (§8) → <code>jobs/&lt;id&gt;/image_prompt.txt</code>, and the standard negative → <code>jobs/&lt;id&gt;/image_negative.txt</code>.</p>
+<p><strong>1.4 Generate 4 candidates</strong> with <code>scripts/image_candidates.sh &lt;id&gt;</code> (Z Image Turbo via <code>draw-things-cli</code>; 1920×1088; seeds 11/22/33/44; ~2–3 min). It writes <code>work/&lt;id&gt;/candidates/cand1..4_s&lt;seed&gt;.png</code> and a numbered 2×2 <code>sheet.png</code>.
+Claude screens each candidate against 1.2 (can the moving parts be masked on real edges? anything that would animate wrongly? artifacts: warped shoji grids, extra cups, floating objects, text) and sends the sheet to the user with a one-line note per candidate.
+- <strong>U — Sign-off 0:</strong> the user picks one, or asks for changes → Claude edits the prompt and runs another round with new seeds (<code>scripts/image_candidates.sh &lt;id&gt; 4 55</code>).</p>
+<p><strong>1.5 Intake.</strong> Copy the chosen image to <code>input/&lt;id&gt;.png</code>; source size 1920×1088; copy <code>jobs/001-snow-tea/job.json</code> and <code>prompts.md</code> as starting points; set <code>plate.crop</code> to <code>[0, 4, 1920, 1084]</code>. Keep <code>image_prompt.txt</code> / <code>image_negative.txt</code> and the chosen seed in the job folder (they're the recipe for the image).</p>
 <h3 id="stage-2-scene-analysis-and-masks-c-1020-min-jobjson">Stage 2 — Scene analysis and masks (C, 10–20 min) → <code>job.json</code></h3>
 <ol>
 <li><strong>Motion inventory.</strong> List every element that could move and decide how. Use the catalog in §6. Anything not listed as moving stays frozen.</li>
@@ -407,6 +431,16 @@ hr{border:0;border-top:1px solid var(--line);margin:2em 0}
 <p>All polygons are in <strong>source pixels</strong>. <code>loop_build.py</code> requires a region named <code>exterior</code> (used for the feather width) — keep that name for the main animated area. Full working example: <code>jobs/001-snow-tea/job.json</code>.</p>
 <hr />
 <h2 id="8-prompt-templates">8. Prompt templates</h2>
+<p><strong>P-IMG — image (Z Image Turbo; the user's own style, recovered from their Draw Things project "Peaceful Images"):</strong></p>
+<pre style="line-height: 125%;"><span></span><code>{SETTING at TIME}, view through {OPENING} onto {EXTERIOR}, {WEATHER outside}, {FOREGROUND anchor: low table / kotatsu / engawa} with {STEAM SOURCE: steaming cup of tea / tetsubin kettle}, {WARM LIGHT: paper lantern / andon / irori hearth glow}, {EXTERIOR DETAILS: stone lantern, pine, moss, pond}, {FIRE if any: small fire in an iron brazier in the background}, contrast between warm interior light and cool {blue/green} exterior, cinematic lighting, shallow depth of field, photorealistic, highly detailed, atmospheric, tranquil, zen aesthetic, 8k, professional photography
+</code></pre>
+
+<p>Example (reproduces the job 001 look): <em>"cozy Japanese tatami room at dusk, view through open shoji screen doors onto a snow-covered zen garden, gentle snowfall outside, warm kotatsu table in foreground with a thick quilted blanket draped over it, steaming cup of hojicha tea resting on the kotatsu, soft irori hearth glow casting warm amber light across the tatami mats, paper lanterns glowing softly, snow-dusted pine tree and stone lantern visible through the doorway, contrast between warm interior firelight and cool blue snowy exterior, intimate and inviting atmosphere, cinematic lighting, shallow depth of field, photorealistic, highly detailed, atmospheric, tranquil, zen aesthetic, 8k, professional photography"</em></p>
+<p><strong>Image negative (the user's, plus animation-safety terms):</strong></p>
+<pre style="line-height: 125%;"><span></span><code>people, text, watermark, logo, blurry, low quality, oversaturated, daytime, harsh lighting, cartoon, illustration, deformed, extra objects, cluttered, Chinese architecture, animals, snow indoors, reflections, mirrors
+</code></pre>
+
+<p>(Drop "daytime" for dawn/day scenes.) Z Image Turbo is distilled; the negative prompt may have little effect — put what matters in the positive prompt.</p>
 <p><strong>P5 — strict cinemagraph (video, the one that works):</strong></p>
 <pre style="line-height: 125%;"><span></span><code>Cinemagraph loop. One single locked photograph on a tripod: the framing is identical in every frame, {FROZEN} stay pixel-still. The only motion in the entire image is {MOTION}. Photorealistic, calm, {MOOD}.
 </code></pre>
@@ -507,6 +541,10 @@ hr{border:0;border-top:1px solid var(--line);margin:2em 0}
 </thead>
 <tbody>
 <tr>
+<td>Image: 4 candidates (Z Image Turbo, CLI)</td>
+<td>~2–3 min</td>
+</tr>
+<tr>
 <td>Drift probes (3 × 121 frames @ 1024×576)</td>
 <td>~8 min</td>
 </tr>
@@ -532,7 +570,7 @@ hr{border:0;border-top:1px solid var(--line);margin:2em 0}
 </tr>
 <tr>
 <td><strong>Total (happy path)</strong></td>
-<td><strong>~30–35 min</strong>, plus your listening time</td>
+<td><strong>~35–40 min</strong>, plus your listening time</td>
 </tr>
 </tbody>
 </table>
@@ -542,7 +580,7 @@ Job 001 actually took longer because of the camera-drift investigation (~8 test 
 <h2 id="12-known-limits-and-next-improvements-not-done">12. Known limits and next improvements (not done)</h2>
 <ol>
 <li><strong>Job-specific hard-coding.</strong> <code>qc_motion.py</code> has the region table hard-coded for job 001; <code>music_build.py</code> has the music prompt as a constant; <code>ambience.py</code> only makes fire/wind/crackle. A new image needs Claude to edit these (Runbook §Q, §M). Best next step: read all of it from <code>job.json</code>.</li>
-<li><strong>CLI switch</strong> is required by the user but <strong><span class="badge unv">UNVERIFIED</span></strong> (stage 0).</li>
+<li><strong>CLI for video</strong> is required by the user but <strong><span class="badge unv">UNVERIFIED</span></strong> (stage 0). The CLI is verified for images (Z Image Turbo, 1920×1088, 2026-09-23).</li>
 <li><strong>Single orchestrator</strong> (<code>pipeline.py</code> running all stages) does not exist; stages are run one by one from the Runbook.</li>
 <li><strong>Other ambience types</strong> (rain, waves, forest, night insects) need new synthesizers.</li>
 <li><strong>Other lengths</strong> (30 min, 3 h, 10 h) only need <code>--minutes</code> and <code>-stream_loop</code> changed; not run.</li>

@@ -16,7 +16,7 @@ Read this before starting a new job. Each row is something that actually happene
 | A8 | Probing the frame limit with a *valid* number (201) started a real render that can't be cancelled | The API has no cancel | Probe limits with an *invalid* value, or accept the wait |
 | A9 | A render finished but the machine sat idle for a while | A watcher script was waiting on a job that had failed | Chain steps in one background script (`until grep -q DONE log; …`) and check the log for failures; never leave a queued step depending on a step that may have failed |
 | A10 | Wan 2.2 in Draw Things looked like a video model but couldn't animate the still | The installed model was the **T2V** (text-to-video) expert | For image-to-video you need an **I2V** model. LTX-2.3 accepts an input image |
-| A11 | (untested) Draw Things CLI | — | User rule: use the CLI so closing the app doesn't matter. Validate it in stage 0 (SPEC §5) and record the outcome here |
+| A11 | Draw Things CLI for **images** works (Z Image Turbo, 1920×1088, 8 steps, ~30 s/image after an ~50 s first load; the app doesn't need to be open). **Video** via CLI still untested | — | User rule: use the CLI so closing the app doesn't matter. Validate video in stage 0 (SPEC §5) and record the outcome here |
 
 ## B. Compositing and QC
 
@@ -49,6 +49,14 @@ Read this before starting a new job. Each row is something that actually happene
 | D4 | `loudnorm` error "TP out of range" | Valid true-peak range is −9…0 | Use `TP=-9` or higher |
 | D5 | Two of the three "free Japanese music" reference sites didn't load | Certificate error / suspended account | Use references only as style hints; generate locally; nothing downloaded |
 | D6 | The user preferred piano (v3b) over flute and koto | Taste | Offer three styles in stage 7 and let the user pick; piano + faint flute + pad was the winner |
+
+## D2. Images
+
+| # | What happened | Cause | Rule |
+|---|---|---|---|
+| I1 | The user's original prompts were recoverable from the Draw Things project database (`Peaceful Images.sqlite3`, read-only copy + `strings`) | Draw Things stores prompts in its project files | Reuse the user's style: template P-IMG and their negative (SPEC §8). Don't write to those files |
+| I2 | ffmpeg `drawtext` filter missing | This Homebrew ffmpeg build has no freetype | Draw labels with Pillow |
+| I3 | Test candidates varied: one had a fire in the background building, one didn't | Seed | Generate 4 and let the user pick; screen for animatability (SPEC 1.2) |
 
 ## E. Working style that worked
 - Confirm risky/large actions (moving 71 GB of models; deleting) and verify sizes before deleting.

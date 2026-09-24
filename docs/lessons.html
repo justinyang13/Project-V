@@ -109,9 +109,9 @@ hr{border:0;border-top:1px solid var(--line);margin:2em 0}
 </tr>
 <tr>
 <td>A11</td>
-<td>(untested) Draw Things CLI</td>
+<td>Draw Things CLI for <strong>images</strong> works (Z Image Turbo, 1920×1088, 8 steps, ~30 s/image after an ~50 s first load; the app doesn't need to be open). <strong>Video</strong> via CLI still untested</td>
 <td>—</td>
-<td>User rule: use the CLI so closing the app doesn't matter. Validate it in stage 0 (SPEC §5) and record the outcome here</td>
+<td>User rule: use the CLI so closing the app doesn't matter. Validate video in stage 0 (SPEC §5) and record the outcome here</td>
 </tr>
 </tbody>
 </table>
@@ -253,6 +253,37 @@ hr{border:0;border-top:1px solid var(--line);margin:2em 0}
 <td>The user preferred piano (v3b) over flute and koto</td>
 <td>Taste</td>
 <td>Offer three styles in stage 7 and let the user pick; piano + faint flute + pad was the winner</td>
+</tr>
+</tbody>
+</table>
+<h2 id="d2-images">D2. Images</h2>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>What happened</th>
+<th>Cause</th>
+<th>Rule</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>I1</td>
+<td>The user's original prompts were recoverable from the Draw Things project database (<code>Peaceful Images.sqlite3</code>, read-only copy + <code>strings</code>)</td>
+<td>Draw Things stores prompts in its project files</td>
+<td>Reuse the user's style: template P-IMG and their negative (SPEC §8). Don't write to those files</td>
+</tr>
+<tr>
+<td>I2</td>
+<td>ffmpeg <code>drawtext</code> filter missing</td>
+<td>This Homebrew ffmpeg build has no freetype</td>
+<td>Draw labels with Pillow</td>
+</tr>
+<tr>
+<td>I3</td>
+<td>Test candidates varied: one had a fire in the background building, one didn't</td>
+<td>Seed</td>
+<td>Generate 4 and let the user pick; screen for animatability (SPEC 1.2)</td>
 </tr>
 </tbody>
 </table>

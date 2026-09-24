@@ -12,12 +12,24 @@ ollama ps; pgrep -fl "DrawThings|acestep|dt_generate"   # nothing heavy running
 ```
 To use the CLI: ask the user to quit the Draw Things app first (CLI loads its own model copy).
 
-## 1. Intake
+## 1. Scene idea → image [verified]
 ```bash
-cp "<image>" input/<job>.<ext>
-mkdir -p jobs/<job> && cp jobs/001-snow-tea/job.json jobs/001-snow-tea/prompts.md jobs/<job>/
+mkdir -p jobs/<job>
+# write the prompt (template P-IMG in SPEC §8) and the negative (SPEC §8):
+#   jobs/<job>/image_prompt.txt   jobs/<job>/image_negative.txt
+scripts/image_candidates.sh <job>            # 4 candidates, seeds 11/22/33/44, 1920x1088, ~2-3 min
+# -> work/<job>/candidates/cand1_s11.png ... cand4_s44.png  +  work/<job>/candidates/sheet.png (numbered 2x2)
+scripts/image_candidates.sh <job> 4 55       # another round with new seeds (55/66/77/88) after prompt changes
 ```
-Then edit `job.json` (id, source, source_size, crop, regions) — see stage 2.
+Screen each candidate (SPEC stage 1.2), send `sheet.png` to the user with a one-line note per image, wait for the pick. Then intake:
+```bash
+cp work/<job>/candidates/cand<k>_s<seed>.png input/<job>.png
+cp jobs/001-snow-tea/job.json jobs/001-snow-tea/prompts.md jobs/<job>/
+# edit job.json: id, source "input/<job>.png", source_size [1920,1088], plate.crop [0,4,1920,1084], regions (stage 2)
+```
+The script calls `draw-things-cli generate --model z_image_turbo_1.0_q8p.ckpt --no-download-missing --width 1920 --height 1088 --seed S --prompt-file … --negative-prompt-file …` with `DRAWTHINGS_MODELS_DIR=/Volumes/SSD-4T-LR/AI/Models`. It skips candidates that already exist. The contact sheet is drawn with Pillow (this ffmpeg build has no `drawtext`).
+
+*Own image instead?* `cp "<image>" input/<job>.<ext>` and set `source`, `source_size` and a 16:9 `plate.crop` yourself.
 
 ## 2. Masks
 Edit polygons in `jobs/<job>/job.json` (source pixels). Then look at the overlay:

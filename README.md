@@ -1,16 +1,16 @@
-# Video-Zen1 — image → 1-hour ambient loop video
+# Video-Zen1 — scene idea → 1-hour ambient loop video
 
-Give Claude one image; get back a one-hour 1080p video with original music and ambience, plus the audio track and a silent 10-second loop.
+Give Claude a one-line scene idea; it makes the image (you pick from 4) and gives back a one-hour 1080p video with original music and ambience, plus the audio track and a silent 10-second loop.
 
 - **The spec:** [SPEC.md](SPEC.md) · **commands:** [wiki/runbook.md](wiki/runbook.md) · **what failed and why:** [wiki/lessons.md](wiki/lessons.md)
 - **Browser version:** open `docs/index.html` (regenerate with `python scripts/build_docs.py`).
 - **First job:** `001-snow-tea` — snowy zen garden, steaming tea, brazier fire → [log](wiki/runs/001-snow-tea.md).
 
-## Next time — paste this to Claude Code, in this project, with your image path
+## Next time — paste this to Claude Code, in this project, with your scene idea
 ```
-Run SPEC.md for this image: <path to image>. I want the one-hour video as the output.
-Follow the stages and gates in SPEC.md, use draw-things-cli for video (validate it first, stage 0),
-stop for my three sign-offs (loop, music sample, final excerpts), then deliver only the three final files
+Run SPEC.md for this scene idea: <e.g. rainy temple at night>. I want the one-hour video as the output.
+Follow the stages and gates in SPEC.md, use draw-things-cli for images and video (validate video first, stage 0),
+stop for my four sign-offs (image, loop, music sample, final excerpts), then deliver only the three final files
 and clean up.
 ```
 

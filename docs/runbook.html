@@ -44,12 +44,23 @@ ollama<span> </span>ps;<span> </span>pgrep<span> </span>-fl<span> </span><span>"
 </code></pre>
 
 <p>To use the CLI: ask the user to quit the Draw Things app first (CLI loads its own model copy).</p>
-<h2 id="1-intake">1. Intake</h2>
-<pre style="line-height: 125%;"><span></span><code>cp<span> </span><span>"&lt;image&gt;"</span><span> </span>input/&lt;job&gt;.&lt;ext&gt;
-mkdir<span> </span>-p<span> </span>jobs/&lt;job&gt;<span> </span><span>&amp;&amp;</span><span> </span>cp<span> </span>jobs/001-snow-tea/job.json<span> </span>jobs/001-snow-tea/prompts.md<span> </span>jobs/&lt;job&gt;/
+<h2 id="1-scene-idea-image-verified">1. Scene idea → image <span class="badge ver">verified</span></h2>
+<pre style="line-height: 125%;"><span></span><code>mkdir<span> </span>-p<span> </span>jobs/&lt;job&gt;
+<span># write the prompt (template P-IMG in SPEC §8) and the negative (SPEC §8):</span>
+<span>#   jobs/&lt;job&gt;/image_prompt.txt   jobs/&lt;job&gt;/image_negative.txt</span>
+scripts/image_candidates.sh<span> </span>&lt;job&gt;<span>            </span><span># 4 candidates, seeds 11/22/33/44, 1920x1088, ~2-3 min</span>
+<span># -&gt; work/&lt;job&gt;/candidates/cand1_s11.png ... cand4_s44.png  +  work/&lt;job&gt;/candidates/sheet.png (numbered 2x2)</span>
+scripts/image_candidates.sh<span> </span>&lt;job&gt;<span> </span><span>4</span><span> </span><span>55</span><span>       </span><span># another round with new seeds (55/66/77/88) after prompt changes</span>
 </code></pre>
 
-<p>Then edit <code>job.json</code> (id, source, source_size, crop, regions) — see stage 2.</p>
+<p>Screen each candidate (SPEC stage 1.2), send <code>sheet.png</code> to the user with a one-line note per image, wait for the pick. Then intake:</p>
+<pre style="line-height: 125%;"><span></span><code>cp<span> </span>work/&lt;job&gt;/candidates/cand&lt;k&gt;_s&lt;seed&gt;.png<span> </span>input/&lt;job&gt;.png
+cp<span> </span>jobs/001-snow-tea/job.json<span> </span>jobs/001-snow-tea/prompts.md<span> </span>jobs/&lt;job&gt;/
+<span># edit job.json: id, source "input/&lt;job&gt;.png", source_size [1920,1088], plate.crop [0,4,1920,1084], regions (stage 2)</span>
+</code></pre>
+
+<p>The script calls <code>draw-things-cli generate --model z_image_turbo_1.0_q8p.ckpt --no-download-missing --width 1920 --height 1088 --seed S --prompt-file … --negative-prompt-file …</code> with <code>DRAWTHINGS_MODELS_DIR=/Volumes/SSD-4T-LR/AI/Models</code>. It skips candidates that already exist. The contact sheet is drawn with Pillow (this ffmpeg build has no <code>drawtext</code>).</p>
+<p><em>Own image instead?</em> <code>cp "&lt;image&gt;" input/&lt;job&gt;.&lt;ext&gt;</code> and set <code>source</code>, <code>source_size</code> and a 16:9 <code>plate.crop</code> yourself.</p>
 <h2 id="2-masks">2. Masks</h2>
 <p>Edit polygons in <code>jobs/&lt;job&gt;/job.json</code> (source pixels). Then look at the overlay:</p>
 <pre style="line-height: 125%;"><span></span><code>.venv/bin/python<span> </span>scripts/mask_preview.py<span> </span>--job<span> </span>&lt;job&gt;<span> </span>--zoom<span> </span>x0<span> </span>y0<span> </span>x1<span> </span>y1<span>     </span><span># writes jobs/&lt;job&gt;/mask_overlay_preview*.png</span>
