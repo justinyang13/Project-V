@@ -7,6 +7,7 @@
 | [lessons.md](lessons.md) | What failed in job 001, why, and the rule that came out of it |
 | [music.md](music.md) | Music + ambience: stack, recipe, lessons |
 | [models.md](models.md) | Where models live and the download rule |
+| [posting-plan.md](posting-plan.md) | Zen Hour Music: first 12 weeks of uploads, series, checklist, metrics |
 | [runs/001-snow-tea.md](runs/001-snow-tea.md) | Step-by-step log of the first job (with its QC report) |
 | [archive/](archive/) | Superseded v1 spec and playbook (kept for history) |
 

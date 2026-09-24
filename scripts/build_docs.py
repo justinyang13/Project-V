@@ -12,10 +12,11 @@ PAGES = [  # (output file, title, source md files joined in order)
     ("lessons.html", "Lessons", ["wiki/lessons.md"]),
     ("music.html", "Music", ["wiki/music.md"]),
     ("models.html", "Models", ["wiki/models.md"]),
+    ("posting-plan.html", "Posting plan", ["wiki/posting-plan.md"]),
     ("job-001.html", "Job 001 log", ["wiki/runs/001-snow-tea.md", "wiki/runs/001-snow-tea-qc-report.md"]),
 ]
 MD2HTML = {"SPEC.md": "spec.html", "runbook.md": "runbook.html", "lessons.md": "lessons.html", "music.md": "music.html",
-           "models.md": "models.html", "001-snow-tea.md": "job-001.html", "README.md": "index.html"}
+           "models.md": "models.html", "posting-plan.md": "posting-plan.html", "001-snow-tea.md": "job-001.html", "README.md": "index.html"}
 CSS = open("docs-src/style.css").read()
 NAV = [("index.html", "Home")] + [(p[0], p[1]) for p in PAGES]
 
