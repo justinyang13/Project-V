@@ -2,7 +2,7 @@
 
 The process is stage 3 (samples, approval) and stage 8 (full hour, softness check, listening pack) of [SPEC.md](SPEC.md); commands in [runbook.md](runbook.md) §3, §8, §M.
 
-Used for job 001 (`output/001-snow-tea/001-snow-tea_1hr.mp4`). All local: no cloud, no third-party tracks, no licence questions beyond the model's (ACE-Step 1.5 is MIT-licensed).
+Used for the reference run. All local: no cloud, no third-party tracks, no licence questions beyond the model's (ACE-Step 1.5 is MIT-licensed).
 
 ## Stack
 - **ACE-Step 1.5** (text-to-music) in `tools/ACE-Step-1.5`, API on `127.0.0.1:8001`. Start: `cd tools/ACE-Step-1.5 && ACESTEP_CHECKPOINTS_DIR=/Volumes/SSD-4T-LR/AI/Models/ACE-Step ./start_api_server_macos.sh`. Weights (9.6 GB) live on the SSD; `tools/ACE-Step-1.5/checkpoints` is a symlink to `/Volumes/SSD-4T-LR/AI/Models/ACE-Step` (the `.env` setting alone did NOT redirect downloads).

@@ -1,6 +1,6 @@
 # Lessons — what went wrong, why, and the rule that came out of it
 
-Read this before starting a new job. Each row is something that actually happened in job 001. Add new rows at the bottom of the right table.
+Read this before starting a new job. Each row is something that actually happened in earlier jobs. Add new rows at the bottom of the right table.
 
 ## A. Video generation
 

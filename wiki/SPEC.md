@@ -1,8 +1,8 @@
-# SPEC — Scene idea → 1-hour ambient loop video (v4, generic)
+# SPEC — Scene description → 1-hour ambient loop video (v4, generic)
 
-**Input:** a one-line scene idea. **Output:** a 1-hour, 1080p (and optionally 4K) 24 fps YouTube-ready video with original soft music and ambience, plus the separate audio track and a silent 10-second loop so the audio can be swapped later.
+**Input:** a scene description (Claude asks for it first, §1.1). **Output:** a 1-hour, 1080p (and optionally 4K) 24 fps YouTube-ready video with original soft music and ambience, plus the separate audio track and a silent 10-second loop so the audio can be swapped later.
 
-Status: v4.2 · 2026-09-23 · derived from the first video, `Video-Zen1` (snowy zen tea room), which produced the reference result. v4.1 added the user's **"alive everywhere" rule** (§1.4). v4.2 adds an optional **4K master** step (stage 7b). Items not yet proven are marked **[UNVERIFIED]**.
+Status: v4.3 · 2026-09-23 · derived from the reference run (a snowy tea-room video) that produced the proven numbers. v4.1 added the user's **"alive everywhere" rule** (§1.4). v4.2 added an optional **4K master** step (stage 7b). v4.3 makes **asking you for the scene description the first step** (stage 1.0). Items not yet proven are marked **[UNVERIFIED]**.
 
 Where things live: this wiki (`Project-V/wiki/`) holds the repeatable steps and HTML; every video has its own folder `Project-V/Video-<Shortname><n>/`; shared scripts are in `Project-V/scripts/`. See §3.
 
@@ -13,7 +13,7 @@ Companion docs: [Runbook](runbook.md) (exact commands) · [Lessons](lessons.md) 
 ## 1. Contract
 
 ### 1.1 What you provide
-A **short scene idea**, one line: e.g. "rainy temple at night", "autumn tea house at dusk", "snowy mountain onsen". Optionally a mood for the music. (You can still hand over your own image; then skip the generation steps of stage 1.)
+**A scene description, asked for before anything else (stage 1.0).** Claude starts every job by asking you for it; it does not pick a scene itself. A sentence is enough ("rainy temple at night", "mystical mushroom forest with floating lights"), and more detail is welcome: place and time of day, weather, mood and colours, the main objects, and anything you want to **move, glow or float** (rain, fireflies, waterfall, steam, mist). You can also attach a **reference image** to describe the look you want (Claude describes its mood and layout in its own words and does not copy a signed artwork). Optionally add the music mood and the ambience sound (rain, waterfall, fire…). If you hand over your own finished image, skip the generation steps of stage 1.
 
 ### 1.2 What you get (per video folder `Video-<Name>`, id `<id>` = the folder name, e.g. `Video-Zen3`)
 Kept in `Video-<Name>/output/`:
@@ -26,7 +26,7 @@ Kept in `Video-<Name>/output/`:
 | `<id>_audio_60min.m4a` | The full-length mix (music + ambience) | Kept separately so the audio can be replaced later. About 110 MB. |
 | `<id>_loop10s_1080p24_silent.mp4` | The seamless 10-second loop, no audio | The master picture. Re-mux with any audio to make a new long video (Runbook §Swap). |
 
-Everything else (frames, candidates, samples, ProRes, previews, listening packs) is scratch and is deleted at the end (stage 9). The folder keeps only: `input/<id>.png` (the chosen image), `jobs/` (prompts, masks, settings), `README.md`, `RUNLOG.md` and `qc-report.md`.
+Everything else (frames, candidates, samples, ProRes, previews, listening packs) is scratch and is deleted at the end (stage 9). The folder keeps only: `input/<id>.png` (the chosen image), `jobs/` (prompts, masks, settings), `README.md`, `RUNLOG.md`, `RUNLOG.html` (its own page, built by `build_docs.py`) and `qc-report.md`.
 
 ### 1.3 Human approvals (the only times you're needed)
 **Phase 1 — approve before any heavy rendering** (about 15 minutes of your time). Claude does not start video rendering until all three are approved:
@@ -40,7 +40,7 @@ Everything else (frames, candidates, samples, ProRes, previews, listening packs)
 6. Upload to YouTube yourself (§10).
 
 ### 1.4 Style rule (from the user, Video-Zen3): the picture must feel alive everywhere
-The first video animated only a small part of the frame (snow in the doorway, a flame, a cup), and the rest looked static. **Do not repeat that.**
+The reference run animated only a small part of the frame (snow in the doorway, a flame, a cup), and the rest looked static. **Do not repeat that.**
 - **Broad motion:** the animated area is a large share of the frame, and the moving things are spread across **different areas** (left, right, foreground, background, top, bottom), so no viewer thinks "only one small part is alive". Aim for **5–7 moving elements** in at least 3 separate zones, not 2–3.
 - **Looser scenes are allowed:** a rigid frame (window, shoji) is no longer required. Where the scene has no rigid anchor, **assume the stabilizer fallback** (§10, Lessons A15) and plan for it from the start, instead of choosing a scene only to avoid drift.
 - **Lock only what must be rigid** (mug, book, lamp base, furniture edges). Everything else that can plausibly move (weather, clouds/mist, distant lights, glass droplets, curtains, flames, glow, foliage) is in the animated regions. Drift is still measured on the `lock` regions (Lessons A14); the stabilizer, not a small mask, is what protects the frame.
@@ -52,7 +52,7 @@ The first video animated only a small part of the frame (snow in the doorway, a 
 |---|---|
 | **Claude** | Plans the scene, writes prompts, draws the masks, runs the stages, reads the QC numbers and contact sheets, decides what to change, writes the log. Cannot hear audio or watch motion, so it measures and asks. |
 | **Scripts** (`Project-V/scripts/`) | Rendering, compositing, measuring, encoding, audio checking. Deterministic. |
-| **Draw Things via `draw-things-cli`** (never the app, so closing the app can't affect a render) | **Text-to-image** with Z Image Turbo, verified with the CLI. **Image-to-video** with LTX-2.3: the first video used the app's HTTP API; the CLI video path is **[UNVERIFIED]** and is validated in stage 0. |
+| **Draw Things via `draw-things-cli`** (never the app, so closing the app can't affect a render) | **Text-to-image** with Z Image Turbo, verified with the CLI. **Image-to-video** with LTX-2.3: the reference run used the app's HTTP API; the CLI video path is **[UNVERIFIED]** and is validated in stage 0. |
 | **ACE-Step 1.5** (local, MIT) | Music generation. |
 | **You** | The approvals above. |
 
@@ -63,7 +63,7 @@ The first video animated only a small part of the frame (snow in the doorway, a 
 ## 2. The pipeline at a glance
 
 ```
-idea ─► 1 Image ─► 2 What animates ─► 3 Audio sample ──[ PHASE 1: 3 approvals ]──►
+description ─► 1 Image ─► 2 What animates ─► 3 Audio sample ──[ PHASE 1: 3 approvals ]──►
         (4 cands)   (masks, motion)    (3 styles + ambience)
 
    4 Prompt ─► 5 Drift probe ─► 6 Two clips ─► 7 Loop build ─[ review: loop ]─► (7b 4K master, optional) ─► 8 Full audio ─[ review: listening pack ]─► 9 Mux, deliver, clean up
@@ -94,7 +94,7 @@ Project-V/                         one git repo (private, GitHub justinyang13/Pr
   scripts/                         shared scripts used by every video (run from the video folder)
   tools/ACE-Step-1.5/              music model code (git-ignored; see Environment)
   .venv/                           shared Python environment (git-ignored)
-  Video-<Shortname><n>/            ONE FOLDER PER VIDEO (e.g. Video-Zen1, Video-Zen3, Video-Autumn1)
+  Video-<Shortname><n>/            ONE FOLDER PER VIDEO (e.g. Video-Zen3, Video-Autumn1)
     input/<id>.png                 the chosen image
     jobs/<id>/                     job.json (masks), prompts.md, image_prompt.txt, image_negative.txt, mask overlay
     output/                        the three final files (only these stay)
@@ -103,7 +103,7 @@ Project-V/                         one git repo (private, GitHub justinyang13/Pr
 ```
 - **Naming:** `Video-<Shortname><n>` where the shortname is one word for the series/scene (`Zen`, `Autumn`, `Rain`) and `<n>` counts up within it. The video's `<id>` is the folder name (`Video-Zen3`); inside `jobs/` use `jobs/<id>/`.
 - **Run everything from the video folder**, calling shared scripts as `../scripts/…` and Python as `../.venv/bin/python` (the Runbook uses these forms).
-- **Existing folders:** `Video-Zen1` follows this layout (its files are named `001-snow-tea_…`, from before the rule). `Video-Zen2` and `Video-BeachSunset1` predate it; they keep their own copies of scripts/docs, are not in git, and are left untouched.
+- **Existing folders:** `Video-Zen2` and `Video-BeachSunset1` predate this layout; they keep their own copies of scripts/docs, are not in git, and are left untouched.
 
 ---
 
@@ -154,7 +154,14 @@ Legend: **C** = Claude · **S** = script · **U** = your approval.
 - **[UNVERIFIED] Validate the CLI for video once,** with a 145-frame clip (Runbook §G-CLI): check frame count and size, drift ≤ 0.7 px, settings equal to the API path (steps 8, TCD Trailing, shift 5, CFG 1), and whether the 201-frame cap applies. Record the result in [Lessons](lessons.md). If it fails, fall back to the HTTP API (Runbook §G-API) and tell you.
 - Create the video folder `Video-<Shortname><n>/` with `input/ jobs/<id>/ output/ work/`.
 
-### Stage 1 — Scene idea → image (C+S+U, ~10 min) → Approval 1
+### Stage 1 — Scene description → image (C+S+U, ~10 min) → Approval 1
+**1.0 Ask for the scene description (Claude, always the first step of a job).** Ask the user, in one short message, for:
+1. **The scene** in their own words (place, time of day, weather, mood, colours, main objects). A reference image is welcome.
+2. **What should move, glow or float** (rain, fireflies, waterfall, steam, mist, flames…), and anything that must stay still.
+3. **The sound:** music mood and the ambience (rain, water, fire, wind, none).
+4. **A short name** for the folder (`Video-<Shortname><n>`), if they have one; otherwise Claude proposes it.
+If the reply is only a line, Claude does not stop: it expands the line into a **scene brief** (5–8 lines: setting, light, colours, the moving elements by zone, the sound) and shows it for a quick "yes / change X" before writing prompts. Nothing is generated until the user has given a description; Claude never invents the scene by itself. Keep the user's words: put the description in `jobs/<id>/scene.md` and reuse it in the run log.
+
 **1.1 Plan the scene for animation** (Claude, before writing the prompt):
 - **Frame:** a static, eye-level view, usually **from inside looking out** through a large opening (window wall, shoji, veranda). A rigid frame helps but is **not required** (§1.4): a looser scene is fine if you plan the stabilize fallback. A full-frame outdoor scene with no rigid frame drifted 6–17 px per clip on every seed (Lessons A12), so budget for stabilizing it.
 - **5–7 moving elements spread over ≥ 3 zones of the frame** (§1.4), from the proven list first (snow, fire/flame, steam; §7), then the unverified ones (rain, mist/clouds, curtains, glass droplets, twinkling lights). Put a moving element in each of the left, right, foreground and background where the scene allows. Prefer **soft backgrounds** behind each one and keep them off foreground objects.
@@ -163,7 +170,7 @@ Legend: **C** = Claude · **S** = script · **U** = your approval.
 - **No people, animals, text, mirrors/reflections of moving things.** No clutter.
 - **Lighting:** warm interior vs cool exterior, dusk/night (the channel's look).
 
-**1.2 Write the image prompt** with template P-IMG (§9) → `jobs/<id>/image_prompt.txt`, and the standard negative → `image_negative.txt`.
+**1.2 Write the image prompt** from the scene description (`jobs/<id>/scene.md`) with template P-IMG (§9) → `jobs/<id>/image_prompt.txt`, and the standard negative → `image_negative.txt`.
 
 **1.3 Generate 4 candidates:** `../scripts/image_candidates.sh <id>` (Z Image Turbo, 1920×1088, ~2–3 min): `work/<id>/candidates/cand1..4_s<seed>.png` and a numbered 2×2 `sheet.png`. Claude screens each (can the moving parts be masked on real edges? anything that would animate wrongly? artifacts like warped shoji grids, extra cups, floating objects, text) and sends the sheet with one line per candidate.
 
@@ -233,7 +240,7 @@ Cost: more disk and upload time; YouTube processing takes longer. The 1080p file
 1. Mux the audio onto 360 loops (stream copy) → `<id>_1hr_1080p24.mp4`; if stage 7b was done, also → `<id>_1hr_4k24.mp4` from the 4K loop. Verify each: 3600.000 s, 86,400 video packets.
 2. Rename to the three final names (§1.2); delete everything else under `output/` and all of `work/`.
 3. Fill `RUNLOG.md` (what was done, numbers, verdicts, surprises, and the recipe: image prompt + seed, video prompt, seeds, music settings); add anything new to [Lessons](lessons.md).
-4. `../.venv/bin/python ../scripts/build_docs.py` (from `Project-V/`) to rebuild `wiki/html/`.
+4. `../.venv/bin/python ../scripts/build_docs.py` (from `Project-V/`) to rebuild `wiki/html/` (master docs) and this video's own page `Video-<Name>/RUNLOG.html` (run log + QC report). **The per-video page stays in its video folder; it is not part of the master site.**
 5. Commit and push the repo (small files only; videos are git-ignored).
 6. Tell you the file paths and remind you of the YouTube steps (§11).
 
@@ -241,7 +248,7 @@ Cost: more disk and upload time; YouTube processing takes longer. The 1080p file
 
 ## 7. Motion catalog
 
-Proven on the first video: snow, fire, steam. Others are expectations only.
+Proven so far: snow, fire, steam. Others are expectations only.
 
 | Effect | Prompt phrase (`{MOTION}`) | Direction / speed | Measure | Status |
 |---|---|---|---|---|
@@ -274,7 +281,7 @@ Rules: aim for 5–7 moving things in ≥ 3 zones (§1.4), but every one needs a
   }
 }
 ```
-Polygons are in **source pixels**. `loop_build.py` requires a region named `exterior` (main animated area). Working example: `Video-Zen1/jobs/001-snow-tea/job.json`.
+Polygons are in **source pixels**. `loop_build.py` requires a region named `exterior` (main animated area). Working example: the `jobs/<id>/job.json` of any earlier video.
 
 ---
 
@@ -284,7 +291,7 @@ Polygons are in **source pixels**. `loop_build.py` requires a region named `exte
 ```
 {SETTING at TIME}, view through {OPENING} onto {EXTERIOR}, {WEATHER outside}, {FOREGROUND anchor: low table / kotatsu / engawa} with {STEAM SOURCE: steaming cup of tea / tetsubin kettle}, {WARM LIGHT: paper lantern / andon / irori hearth glow}, {EXTERIOR DETAILS: stone lantern, pine, moss, pond}, {FIRE if any: small fire in an iron brazier in the background}, contrast between warm interior light and cool {blue/green} exterior, cinematic lighting, shallow depth of field, photorealistic, highly detailed, atmospheric, tranquil, zen aesthetic, 8k, professional photography
 ```
-Example (reproduces the first video's look): *"cozy Japanese tatami room at dusk, view through open shoji screen doors onto a snow-covered zen garden, gentle snowfall outside, warm kotatsu table in foreground with a thick quilted blanket draped over it, steaming cup of hojicha tea resting on the kotatsu, soft irori hearth glow casting warm amber light across the tatami mats, paper lanterns glowing softly, snow-dusted pine tree and stone lantern visible through the doorway, contrast between warm interior firelight and cool blue snowy exterior, intimate and inviting atmosphere, cinematic lighting, shallow depth of field, photorealistic, highly detailed, atmospheric, tranquil, zen aesthetic, 8k, professional photography"*
+Example (a snowy tea-room look): *"cozy Japanese tatami room at dusk, view through open shoji screen doors onto a snow-covered zen garden, gentle snowfall outside, warm kotatsu table in foreground with a thick quilted blanket draped over it, steaming cup of hojicha tea resting on the kotatsu, soft irori hearth glow casting warm amber light across the tatami mats, paper lanterns glowing softly, snow-dusted pine tree and stone lantern visible through the doorway, contrast between warm interior firelight and cool blue snowy exterior, intimate and inviting atmosphere, cinematic lighting, shallow depth of field, photorealistic, highly detailed, atmospheric, tranquil, zen aesthetic, 8k, professional photography"*
 
 **Image negative:**
 ```
@@ -300,7 +307,7 @@ First video: `{FROZEN}` = "the doorway, table, cup, blanket, lamp, lanterns and 
 
 **Do not write** "the camera does not move / never zooms" (made drift *worse*: 20–25 % zoom), long descriptive scene text (15 % zoom), or rely on the negative prompt (ignored at CFG 1).
 
-**Music prompt (approved on the first video):** *"Very slow, soft, gentle ambient piano. Sparse felt piano notes, warm and muted, played very softly with long sustain and lots of silence, a faint distant low flute and a warm airy pad far in the background. Peaceful, calm, tender, sleepy, {SCENE}. no drums, no percussion, no vocals, no sharp sounds."* with `--bpm 44` and a key.
+**Music prompt (approved on an earlier run):** *"Very slow, soft, gentle ambient piano. Sparse felt piano notes, warm and muted, played very softly with long sustain and lots of silence, a faint distant low flute and a warm airy pad far in the background. Peaceful, calm, tender, sleepy, {SCENE}. no drums, no percussion, no vocals, no sharp sounds."* with `--bpm 44` and a key.
 
 ---
 
@@ -335,7 +342,7 @@ First video: `{FROZEN}` = "the doorway, table, cup, blanket, lamp, lanterns and 
 
 ---
 
-## 12. Budget (first video actuals, M5 Max 64 GB)
+## 12. Budget (reference-run actuals, M5 Max 64 GB)
 
 | Item | Machine time |
 |---|---|
@@ -353,7 +360,7 @@ First-run extras (already done): ACE-Step model download 9.6 GB (~12 min).
 ---
 
 ## 13. Known limits and next improvements (not done)
-1. **Job-specific bits in scripts:** `qc_motion.py` region table and `qc_drift.py` mask areas are for the first video; ambience only makes fire/wind/crackle. Best next step: read all of it from `job.json`.
+1. **Job-specific bits in scripts:** `qc_motion.py` region table and `qc_drift.py` mask areas are for the reference run; ambience only makes fire/wind/crackle. Best next step: read all of it from `job.json`.
 2. **CLI for video** is required by you but **[UNVERIFIED]** (stage 0).
 3. **No single orchestrator** (`pipeline.py`); stages are run one by one from the Runbook.
 4. **Other ambience types** (rain, waves, forest, insects) need new synthesizers.

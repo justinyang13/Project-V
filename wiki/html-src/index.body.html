@@ -1,6 +1,6 @@
 <section class="hero">
-  <h1>Scene idea → 1-hour ambient loop video</h1>
-  <p class="lede">Give Claude a one-line scene idea. It generates the image (you pick from 4), analyses the scene, animates only what should move (snow, fire, steam…), builds a seamless 10-second loop, composes original piano music with quiet ambience, and delivers a one-hour 1080p video plus the audio and the silent loop.</p>
+  <h1>Scene description → 1-hour ambient loop video</h1>
+  <p class="lede">Claude first asks you to describe the scene (a line is enough; a reference image helps). It generates the image (you pick from 4), analyses the scene, animates only what should move (snow, fire, steam…), builds a seamless 10-second loop, composes original piano music with quiet ambience, and delivers a one-hour 1080p video plus the audio and the silent loop.</p>
 </section>
 
 <h2 id="output">What you get</h2>
@@ -11,8 +11,8 @@
 </div>
 
 <h2 id="start">Start a new job</h2>
-<p>In this project with Claude Code, paste this with your scene idea:</p>
-<pre class="kick"><code>Run wiki/SPEC.md for this scene idea: &lt;e.g. rainy temple at night&gt;. I want the one-hour video as the output.
+<p>In this project with Claude Code, paste this; Claude will then ask you to describe the scene:</p>
+<pre class="kick"><code>Run wiki/SPEC.md. Start by asking me for the scene description (and what should move, and the sound). I want the one-hour video as the output.
 Create the next Video-&lt;Shortname&gt;&lt;n&gt; folder. Get my approval on the image, what animates, and the audio sample
 before any long render. Use draw-things-cli. Check every music piece for harshness, give me the listening pack,
 then deliver only the three final files and clean up.</code></pre>
@@ -22,7 +22,7 @@ then deliver only the three final files and clean up.</code></pre>
 <p><span class="tag c">Claude</span> decides · <span class="tag s">Script</span> renders and measures · <span class="tag u">You</span> sign off. Every stage has a numeric gate.</p>
 <div class="cards">
   <div class="card"><h3><span class="num">0</span>Preflight</h3><span class="tag s">Script</span><span class="tag c">Claude</span><p>Models, disk, nothing heavy running; new folder <code>Video-&lt;Shortname&gt;&lt;n&gt;</code>. Validate <code>draw-things-cli</code> for video (not yet proven).</p></div>
-  <div class="card"><h3><span class="num">1</span>Scene idea → image</h3><span class="tag c">Claude</span><span class="tag s">Script</span><span class="tag u">Approval 1</span><p>Claude plans a scene that animates well and writes the prompt in your style; Z Image Turbo via <code>draw-things-cli</code> makes 4 candidates; you pick one.</p><div class="gate">Gate: you pick an image whose moving parts can be masked on real edges</div></div>
+  <div class="card"><h3><span class="num">1</span>Scene description → image</h3><span class="tag c">Claude</span><span class="tag s">Script</span><span class="tag u">Approval 1</span><p>Claude plans a scene that animates well and writes the prompt in your style; Z Image Turbo via <code>draw-things-cli</code> makes 4 candidates; you pick one.</p><div class="gate">Gate: you pick an image whose moving parts can be masked on real edges</div></div>
   <div class="card"><h3><span class="num">2</span>What animates</h3><span class="tag c">Claude</span><span class="tag u">Approval 2</span><p>A plain-words list (moves / frozen) plus the mask overlay picture; polygons on real edges.</p><div class="gate">Gate: you approve the list and the overlay</div></div>
   <div class="card"><h3><span class="num">3</span>Audio sample</h3><span class="tag s">Script</span><span class="tag u">Approval 3</span><p>Three 30-second styles, each checked for harshness; you pick; then the ambience mixed 14 dB under.</p><div class="gate">Gate: sample passes the check and you approve style and ambience level</div></div>
   <div class="card"><h3><span class="num">4</span>Video prompt</h3><span class="tag c">Claude</span><p>Strict "cinemagraph" template. Never mention the camera.</p></div>
@@ -46,7 +46,7 @@ then deliver only the three final files and clean up.</code></pre>
   <li><b>Design the image for animation:</b> a view out through a doorway or window, with the moving things on soft backgrounds, is easy to mask.</li>
 </ol>
 
-<h2 id="results">First video results (Video-Zen1, snowy zen garden)</h2>
+<h2 id="results">Reference results (an earlier run)</h2>
 <table>
 <tr><th>Check</th><th>Result</th><th>Limit</th></tr>
 <tr><td>Camera drift (both clips)</td><td>0.1 px</td><td>≤ 0.7 px</td></tr>
@@ -58,7 +58,7 @@ then deliver only the three final files and clean up.</code></pre>
 <tr><td>Audio</td><td>−22.5 LUFS, peak 0.67, no silent stretch</td><td>≈ −22 LUFS</td></tr>
 <tr><td>Your review</td><td>loop point not visible; fire, steam, snow OK</td><td>—</td></tr>
 </table>
-<p>Machine time on the M5 Max for the happy path is about 35–40 minutes (including the image step) plus your listening time; job 001 took longer because of the camera-drift investigation.</p>
+<p>Machine time on the M5 Max for the happy path is about 35–40 minutes (including the image step) plus your listening time; the reference run took longer because of the camera-drift investigation.</p>
 
 <h2 id="docs">Read next</h2>
 <div class="cards">
@@ -68,5 +68,4 @@ then deliver only the three final files and clean up.</code></pre>
   <div class="card"><h3><a href="music.html">Music</a></h3><p>Local music + ambience recipe.</p></div>
   <div class="card"><h3><a href="models.html">Models</a></h3><p>Where models live; the no-duplicate rule.</p></div>
   <div class="card"><h3><a href="posting-plan.html">Posting plan</a></h3><p>Zen Hour Music: 12-week calendar, series, upload checklist.</p></div>
-  <!--VIDEOS-->
 </div>

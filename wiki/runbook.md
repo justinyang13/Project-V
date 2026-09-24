@@ -3,7 +3,7 @@
 Follow [SPEC.md](SPEC.md) for what and why; this page is how.
 
 **Conventions.** `<id>` = the video folder name, e.g. `Video-Zen3`. **Run everything from inside the video folder** (`cd /Users/justin/Code/Project-V/<id>`): shared scripts are `../scripts/…`, Python is `../.venv/bin/python`. Small variables: `PY=../.venv/bin/python`, `SC=../scripts`.
-Legend: **[verified]** ran on the first video · **[UNVERIFIED]** not run yet.
+Legend: **[verified]** ran on the reference run · **[UNVERIFIED]** not run yet.
 
 ## 0. Preflight and new video folder
 ```bash
@@ -13,7 +13,12 @@ cd /Users/justin/Code/Project-V && mkdir -p <id>/{input,jobs/<id>,output,work} &
 ```
 Folder naming: `Video-<Shortname><n>` (SPEC §3). To use the CLI ask the user to quit the Draw Things app.
 
-## 1. Scene idea → image [verified] → Approval 1
+## 1. Scene description → image [verified] → Approval 1
+**First, ask the user for the scene description** (SPEC 1.0): the scene in their words (a reference image is welcome), what should move/glow/float, the music mood and ambience sound, and a folder name. If they give only a line, expand it into a 5–8 line scene brief and get a yes/change before going on. Save it:
+```bash
+cat > jobs/<id>/scene.md   # the user's words + the confirmed brief (setting, light, colours, moving elements by zone, sound)
+```
+Then:
 ```bash
 # write jobs/<id>/image_prompt.txt and image_negative.txt (templates: SPEC §9)
 $SC/image_candidates.sh <id>            # 4 candidates, seeds 11/22/33/44, 1920x1088, ~2-3 min
@@ -23,7 +28,7 @@ $SC/image_candidates.sh <id> 4 55       # another round (seeds 55/66/77/88) afte
 Screen each candidate (SPEC 1.1), send `sheet.png` (SendUserFile) with one line per image, wait for the pick. Then intake:
 ```bash
 cp work/<id>/candidates/cand<k>_s<seed>.png input/<id>.png
-cp ../Video-Zen1/jobs/001-snow-tea/job.json jobs/<id>/job.json && cp ../Video-Zen1/jobs/001-snow-tea/prompts.md jobs/<id>/
+cp ../Video-<Previous>/jobs/<prev-id>/job.json jobs/<id>/job.json && cp ../Video-<Previous>/jobs/<prev-id>/prompts.md jobs/<id>/   # any earlier video's job as the starting template
 # edit job.json: id, source "input/<id>.png", source_size [1920,1088], plate.crop [0,4,1920,1084], regions (stage 2)
 ```
 The script runs `draw-things-cli generate --model z_image_turbo_1.0_q8p.ckpt --no-download-missing --width 1920 --height 1088 --seed S --prompt-file … --negative-prompt-file …` with `DRAWTHINGS_MODELS_DIR=/Volumes/SSD-4T-LR/AI/Models`, skips candidates that exist, and draws the sheet with Pillow (this ffmpeg has no `drawtext`).
@@ -68,7 +73,7 @@ ffmpeg -framerate 24 -i work/<id>/r01/t_s101/frames/f%04d.png -vf "select='not(m
 For crops use `crop=W:H:X:Y` before `scale` (frame coordinates = `(src_x − crop_x0) × 1024/(crop_x1 − crop_x0)`).
 
 ### §Q — editing the QC scripts for a new image
-`qc_motion.py` has a region table `R = {"snow": (x0,y0,x1,y1), …}` in **1024×576 frame pixels**; convert each `qc_only` polygon's bounding box with the formula above; rename/add entries for the new effects. `qc_drift.py` tracks features in the left 18 % and right 32 % of the frame (the room on the first video); **this is hardcoded and wrong for any other image**: change the two mask lines at the top to the job's *locked*, textured areas (never areas with rain, bamboo, steam or fire; Lessons A14) and cross-check 2–3 separate locked objects, which should agree. If every seed fails by a wide margin, see SPEC §10 (stabilize fallback, Lessons A15).
+`qc_motion.py` has a region table `R = {"snow": (x0,y0,x1,y1), …}` in **1024×576 frame pixels**; convert each `qc_only` polygon's bounding box with the formula above; rename/add entries for the new effects. `qc_drift.py` tracks features in the left 18 % and right 32 % of the frame (the room on the reference run); **this is hardcoded and wrong for any other image**: change the two mask lines at the top to the job's *locked*, textured areas (never areas with rain, bamboo, steam or fire; Lessons A14) and cross-check 2–3 separate locked objects, which should agree. If every seed fails by a wide margin, see SPEC §10 (stabilize fallback, Lessons A15).
 
 ## 6. Two clips [verified with the API]
 ```bash
@@ -89,7 +94,7 @@ mkdir -p work/<id>/r02/segA_s101/frames && ffmpeg -i work/<id>/r02/segA_s101.mov
 ```
 The CLI's `--image` does "aspect-preserving scale and center crop", so pass an already cropped 1024×576 image. Check frame count = 145, size, drift ≤ 0.7 px, and compare steps/sampler/shift/CFG with the API path (`--steps 8 --cfg 1`; other keys via `--config-json`). Record differences in [Lessons](lessons.md).
 
-### §G-API — fallback (what the first video used)
+### §G-API — fallback (what the reference run used)
 `dt_generate.py` posts to `POST http://127.0.0.1:7860/sdapi/v1/img2img` (Draw Things app, Settings → API Server on). Only a whitelist of config keys is sent; width/height multiples of 64; frames 8n+1 and ≤ 201; the request's `model` key picks the model.
 
 ## 7. Loop → Review 1 [verified]

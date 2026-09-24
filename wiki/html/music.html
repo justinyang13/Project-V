@@ -34,9 +34,9 @@ hr{border:0;border-top:1px solid var(--line);margin:2em 0}
 .kick{position:relative}
 @media (max-width:600px){h1{font-size:1.6rem}}
 </style></head><body>
-<header class="top"><nav><span class="brand">Project-V</span><a href="index.html">Home</a><a href="spec.html">Spec</a><a href="runbook.html">Runbook</a><a href="lessons.html">Lessons</a><a href="music.html" class=on>Music</a><a href="models.html">Models</a><a href="posting-plan.html">Posting plan</a><a href="video-zen1.html">Video-Zen1</a></nav></header><main><h1 id="music-and-ambience-playbook-local-free-instrumental">Music and ambience playbook (local, free, instrumental)</h1>
+<header class="top"><nav><span class="brand">Project-V</span><a href="index.html">Home</a><a href="spec.html">Spec</a><a href="runbook.html">Runbook</a><a href="lessons.html">Lessons</a><a href="music.html" class=on>Music</a><a href="models.html">Models</a><a href="posting-plan.html">Posting plan</a></nav></header><main><h1 id="music-and-ambience-playbook-local-free-instrumental">Music and ambience playbook (local, free, instrumental)</h1>
 <p>The process is stage 3 (samples, approval) and stage 8 (full hour, softness check, listening pack) of <a href="spec.html">SPEC.md</a>; commands in <a href="runbook.html">runbook.md</a> §3, §8, §M.</p>
-<p>Used for job 001 (<code>output/001-snow-tea/001-snow-tea_1hr.mp4</code>). All local: no cloud, no third-party tracks, no licence questions beyond the model's (ACE-Step 1.5 is MIT-licensed).</p>
+<p>Used for the reference run. All local: no cloud, no third-party tracks, no licence questions beyond the model's (ACE-Step 1.5 is MIT-licensed).</p>
 <h2 id="stack">Stack</h2>
 <ul>
 <li><strong>ACE-Step 1.5</strong> (text-to-music) in <code>tools/ACE-Step-1.5</code>, API on <code>127.0.0.1:8001</code>. Start: <code>cd tools/ACE-Step-1.5 &amp;&amp; ACESTEP_CHECKPOINTS_DIR=/Volumes/SSD-4T-LR/AI/Models/ACE-Step ./start_api_server_macos.sh</code>. Weights (9.6 GB) live on the SSD; <code>tools/ACE-Step-1.5/checkpoints</code> is a symlink to <code>/Volumes/SSD-4T-LR/AI/Models/ACE-Step</code> (the <code>.env</code> setting alone did NOT redirect downloads).</li>

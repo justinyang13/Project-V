@@ -1,9 +1,9 @@
-# Project-V — repeatable "scene idea → 1-hour ambient loop video" pipeline
+# Project-V — repeatable "scene description → 1-hour ambient loop video" pipeline
 
 **Start here:** `wiki/SPEC.md` (spec), `wiki/runbook.md` (exact commands), `wiki/lessons.md` (what failed and why). Browsable version: `wiki/html/index.html`.
 
 ## The job in one paragraph
-The user gives a one-line scene idea; Claude generates the image (Z Image Turbo via `draw-things-cli`), animates only what should move (LTX-2.3 image-to-video, masks over the locked original), builds a seamless 10-second loop, makes soft piano music + ambience locally (ACE-Step 1.5), and delivers a 1-hour 1080p video, the audio, and the silent loop. The user's channel is "Zen Hour Music"; see `wiki/posting-plan.md`.
+Claude always **starts by asking the user for a scene description** (SPEC 1.0; a line is enough, a reference image is welcome; never invent the scene). Then Claude generates the image (Z Image Turbo via `draw-things-cli`), animates only what should move (LTX-2.3 image-to-video, masks over the locked original), builds a seamless 10-second loop, makes soft piano music + ambience locally (ACE-Step 1.5), and delivers a 1-hour 1080p video, the audio, and the silent loop. The user's channel is "Zen Hour Music"; see `wiki/posting-plan.md`.
 
 ## Standing rules (from the user)
 - **Approve first, render later:** get the user's approval on the image, what animates (plain-words list + mask overlay), and the audio sample before any long video render. Then the final reviews: the loop, and the listening pack of the hour's audio.
@@ -19,4 +19,4 @@ The user gives a one-line scene idea; Claude generates the image (Z Image Turbo 
 `wiki/` (SPEC, runbook, lessons, music, models, posting-plan, `html/`, `html-src/`, `archive/`) · `scripts/` (shared) · `tools/ACE-Step-1.5` (git-ignored) · `.venv/` (git-ignored) · `Video-*/` (one per video: `input/ jobs/ output/ work/ README.md RUNLOG.md qc-report.md`). `Video-Zen2` and `Video-BeachSunset1` predate this layout; leave them alone unless asked.
 
 ## Git
-One private repo `justinyang13/Project-V` (small files only; videos, scratch, tools and venvs are git-ignored). Rebuild HTML with `.venv/bin/python scripts/build_docs.py` before committing doc changes.
+One **public** repo `justinyang13/Project-V` (docs site: https://justinyang13.github.io/Project-V/, deployed from `wiki/html` by `.github/workflows/pages.yml`; keep secrets and personal data out) (small files only; videos, scratch, tools and venvs are git-ignored). Rebuild HTML with `.venv/bin/python scripts/build_docs.py` before committing doc changes. Master pages go to `wiki/html/` (the Pages site); each video's page is `Video-<Name>/RUNLOG.html` and stays in its folder.

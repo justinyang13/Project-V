@@ -4,7 +4,7 @@ The repeatable process lives here, in `Project-V/wiki/`. Each video is its own f
 
 | Page | What it is |
 |---|---|
-| [SPEC.md](SPEC.md) | The generic spec: scene idea in, 1-hour video out; approvals, stages, gates. Start here. |
+| [SPEC.md](SPEC.md) | The generic spec: scene description in (Claude asks for it first), 1-hour video out; approvals, stages, gates. Start here. |
 | [runbook.md](runbook.md) | Exact commands for every stage |
 | [lessons.md](lessons.md) | What failed, why, and the rule that came out of it |
 | [music.md](music.md) | Music + ambience + the softness check |
@@ -15,5 +15,4 @@ The repeatable process lives here, in `Project-V/wiki/`. Each video is its own f
 HTML versions: open `wiki/html/index.html` (rebuild: `.venv/bin/python scripts/build_docs.py` from `Project-V/`).
 
 Videos so far (each has `README.md`, `RUNLOG.md`, `qc-report.md` in its folder):
-- **Video-Zen1** — snowy zen tea room (snow, brazier fire, tea steam). Final files kept locally in `Video-Zen1/output/` (not in git).
 - `Video-Zen2` (rain) and `Video-BeachSunset1` predate this layout and are untouched.
