@@ -121,6 +121,31 @@ cat<span> </span>work/&lt;id&gt;/loop/qc_final.json
 </code></pre>
 
 <p>Writes <code>loop_frames/</code>, <code>plate.png</code>, <code>mask.png</code>, <code>&lt;id&gt;_loop10s_1080p24.mp4</code>, a 60 s preview, <code>qc_final.json</code>, <code>sheet_seam.png</code>. Gates: <code>seam_ratio ≤ 1.3</code>, <code>locked_pixels_identical: true</code>, <code>luma_std_detrended ≤ 1.0</code>, <code>luma_max_jump ≤ 1.5</code>. Claude reads <code>sheet_seam.png</code> and a full frame, then sends the loop (and the 60 s preview) for Review 1.</p>
+<h2 id="7b-4k-master-optional-review-1b-unverified">7b. 4K master (optional) → Review 1b <strong><span class="badge unv">UNVERIFIED</span></strong></h2>
+<p>Do this only after Review 1 approved the 1080p loop. It upscales the 240 loop frames once; the hour is the 4K loop repeated. Details and gates: SPEC stage 7b.</p>
+<pre style="line-height: 125%;"><span></span><code>mkdir<span> </span>-p<span> </span>work/&lt;id&gt;/loop4k
+<span># 1) upscale every loop frame to 3840x2160 (Lanczos + light sharpen; swap for an AI upscaler if you have one)</span>
+ffmpeg<span> </span>-y<span> </span>-framerate<span> </span><span>24</span><span> </span>-i<span> </span>work/&lt;id&gt;/loop/loop_frames/f%04d.png<span> </span><span>\</span>
+<span>  </span>-vf<span> </span><span>"scale=3840:2160:flags=lanczos,unsharp=5:5:0.5:5:5:0.0"</span><span> </span><span>\</span>
+<span>  </span>-c:v<span> </span>libx265<span> </span>-crf<span> </span><span>16</span><span> </span>-preset<span> </span>slow<span> </span>-pix_fmt<span> </span>yuv420p10le<span> </span>-tag:v<span> </span>hvc1<span> </span>-g<span> </span><span>240</span><span> </span>-keyint_min<span> </span><span>240</span><span> </span>-sc_threshold<span> </span><span>0</span><span> </span><span>\</span>
+<span>  </span>-movflags<span> </span>+faststart<span> </span>work/&lt;id&gt;/loop4k/&lt;id&gt;_loop10s_4k24.mp4
+<span># 2) checks: 240 frames, 3840x2160</span>
+ffprobe<span> </span>-v<span> </span>error<span> </span>-select_streams<span> </span>v:0<span> </span>-count_frames<span> </span>-show_entries<span> </span><span>stream</span><span>=</span>nb_read_frames,width,height<span> </span>-of<span> </span><span>default</span><span>=</span><span>nw</span><span>=1</span><span> </span>work/&lt;id&gt;/loop4k/&lt;id&gt;_loop10s_4k24.mp4
+<span># 3) round trip: downscale the 4K loop and compare to the approved 1080p loop (want mean PSNR &gt;= 35 dB)</span>
+ffmpeg<span> </span>-v<span> </span>error<span> </span>-i<span> </span>work/&lt;id&gt;/loop4k/&lt;id&gt;_loop10s_4k24.mp4<span> </span>-i<span> </span>work/&lt;id&gt;/loop/&lt;id&gt;_loop10s_1080p24.mp4<span> </span><span>\</span>
+<span>  </span>-filter_complex<span> </span><span>"[0:v]scale=1920:1080:flags=lanczos[a];[a][1:v]psnr=stats_file=work/&lt;id&gt;/loop4k/psnr.log"</span><span> </span>-f<span> </span>null<span> </span>-<span> </span><span>2</span>&gt;&amp;<span>1</span><span> </span>|<span> </span>tail<span> </span>-2
+<span># 4) three full-size crops for Claude to look at (animated region, locked region, mask edge): edit x,y</span>
+ffmpeg<span> </span>-y<span> </span>-v<span> </span>error<span> </span>-ss<span> </span><span>3</span><span> </span>-i<span> </span>work/&lt;id&gt;/loop4k/&lt;id&gt;_loop10s_4k24.mp4<span> </span>-frames:v<span> </span><span>1</span><span> </span>-vf<span> </span><span>"crop=1280:720:1200:600"</span><span> </span>work/&lt;id&gt;/loop4k/crop_animated.png
+<span># 5) 4K hour (same as §9, with the 4K loop); check size before upload</span>
+ffmpeg<span> </span>-y<span> </span>-stream_loop<span> </span><span>359</span><span> </span>-i<span> </span>work/&lt;id&gt;/loop4k/&lt;id&gt;_loop10s_4k24.mp4<span> </span>-i<span> </span>work/&lt;id&gt;/music_60min.m4a<span> </span><span>\</span>
+<span>  </span>-map<span> </span><span>0</span>:v<span> </span>-map<span> </span><span>1</span>:a<span> </span>-c<span> </span>copy<span> </span>-t<span> </span><span>3600</span><span> </span>-movflags<span> </span>+faststart<span> </span>output/&lt;id&gt;_1hr_4k24.mp4
+ls<span> </span>-lh<span> </span>output/&lt;id&gt;_1hr_4k24.mp4
+ffprobe<span> </span>-v<span> </span>error<span> </span>-select_streams<span> </span>v:0<span> </span>-count_packets<span> </span>-show_entries<span> </span><span>stream</span><span>=</span>nb_read_packets<span> </span>-of<span> </span><span>csv</span><span>=</span><span>p</span><span>=0</span><span> </span>output/&lt;id&gt;_1hr_4k24.mp4<span>   </span><span># 86400</span>
+cp<span> </span>work/&lt;id&gt;/loop4k/&lt;id&gt;_loop10s_4k24.mp4<span> </span>output/&lt;id&gt;_loop10s_4k24_silent.mp4
+</code></pre>
+
+<p>The ffmpeg mechanics above (Lanczos+HEVC encode, frame count, PSNR check, <code>-stream_loop</code> copy) were tested on a synthetic 48-frame clip; the real quality and file size on an actual loop are not yet known.
+If you use Draw Things for any upscale step, sizes must be multiples of 64: use 3840×2176 and crop <code>crop=3840:2160:0:8</code>. If HEVC does not stream-copy cleanly 360 times or your uploader dislikes it, use <code>libx264 -crf 15</code> instead.</p>
 <h2 id="8-full-hour-of-audio-review-2-m-has-server-startstop">8. Full hour of audio → Review 2  (§M has server start/stop)</h2>
 <pre style="line-height: 125%;"><span></span><code><span>$PY</span><span> </span><span>$SC</span>/music_build.py<span> </span>--minutes<span> </span><span>60</span><span> </span>--out<span> </span>work/&lt;id&gt;/music_60min<span> </span><span>\</span>
 <span>  </span>--prompt<span> </span><span>"&lt;approved prompt&gt;"</span><span> </span>--keys<span> </span><span>"D minor,F major,A minor,C major,G minor"</span><span> </span>--bpms<span> </span><span>"44,40,46,42"</span><span>       </span><span># ~20 min; resumable</span>

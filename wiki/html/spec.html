@@ -35,8 +35,8 @@ hr{border:0;border-top:1px solid var(--line);margin:2em 0}
 @media (max-width:600px){h1{font-size:1.6rem}}
 </style></head><body>
 <header class="top"><nav><span class="brand">Project-V</span><a href="index.html">Home</a><a href="spec.html" class=on>Spec</a><a href="runbook.html">Runbook</a><a href="lessons.html">Lessons</a><a href="music.html">Music</a><a href="models.html">Models</a><a href="posting-plan.html">Posting plan</a><a href="video-zen1.html">Video-Zen1</a></nav></header><main><h1 id="spec-scene-idea-1-hour-ambient-loop-video-v4-generic">SPEC — Scene idea → 1-hour ambient loop video (v4, generic)</h1>
-<p><strong>Input:</strong> a one-line scene idea. <strong>Output:</strong> a 1-hour, 1080p, 24 fps YouTube-ready video with original soft music and ambience, plus the separate audio track and a silent 10-second loop so the audio can be swapped later.</p>
-<p>Status: v4.0 · 2026-09-23 · derived from the first video, <code>Video-Zen1</code> (snowy zen tea room), which produced the reference result. Items not yet proven are marked <strong><span class="badge unv">UNVERIFIED</span></strong>.</p>
+<p><strong>Input:</strong> a one-line scene idea. <strong>Output:</strong> a 1-hour, 1080p (and optionally 4K) 24 fps YouTube-ready video with original soft music and ambience, plus the separate audio track and a silent 10-second loop so the audio can be swapped later.</p>
+<p>Status: v4.2 · 2026-09-23 · derived from the first video, <code>Video-Zen1</code> (snowy zen tea room), which produced the reference result. v4.1 added the user's <strong>"alive everywhere" rule</strong> (§1.4). v4.2 adds an optional <strong>4K master</strong> step (stage 7b). Items not yet proven are marked <strong><span class="badge unv">UNVERIFIED</span></strong>.</p>
 <p>Where things live: this wiki (<code>Project-V/wiki/</code>) holds the repeatable steps and HTML; every video has its own folder <code>Project-V/Video-&lt;Shortname&gt;&lt;n&gt;/</code>; shared scripts are in <code>Project-V/scripts/</code>. See §3.</p>
 <p>Companion docs: <a href="runbook.html">Runbook</a> (exact commands) · <a href="lessons.html">Lessons</a> (what failed and why) · <a href="music.html">Music</a> · <a href="models.html">Models</a> · <a href="posting-plan.html">Posting plan</a> · HTML versions in <code>wiki/html/</code> (open <code>wiki/html/index.html</code>).</p>
 <hr />
@@ -60,6 +60,16 @@ hr{border:0;border-top:1px solid var(--line);margin:2em 0}
 <td>3600.000 s, 1920×1080, 24 fps, H.264 + AAC 256 kbps, about 1.1 GB. Upload this.</td>
 </tr>
 <tr>
+<td><code>&lt;id&gt;_1hr_4k24.mp4</code> <em>(optional, stage 7b)</em></td>
+<td>The 4K version</td>
+<td>3600.000 s, 3840×2160, 24 fps, HEVC or H.264 + the same AAC. Size depends on the encode (several GB, check before uploading). <strong><span class="badge unv">UNVERIFIED</span></strong></td>
+</tr>
+<tr>
+<td><code>&lt;id&gt;_loop10s_4k24_silent.mp4</code> <em>(optional, stage 7b)</em></td>
+<td>The 4K seamless loop, no audio</td>
+<td>4K master picture for re-muxing.</td>
+</tr>
+<tr>
 <td><code>&lt;id&gt;_audio_60min.m4a</code></td>
 <td>The full-length mix (music + ambience)</td>
 <td>Kept separately so the audio can be replaced later. About 110 MB.</td>
@@ -74,14 +84,21 @@ hr{border:0;border-top:1px solid var(--line);margin:2em 0}
 <p>Everything else (frames, candidates, samples, ProRes, previews, listening packs) is scratch and is deleted at the end (stage 9). The folder keeps only: <code>input/&lt;id&gt;.png</code> (the chosen image), <code>jobs/</code> (prompts, masks, settings), <code>README.md</code>, <code>RUNLOG.md</code> and <code>qc-report.md</code>.</p>
 <h3 id="13-human-approvals-the-only-times-youre-needed">1.3 Human approvals (the only times you're needed)</h3>
 <p><strong>Phase 1 — approve before any heavy rendering</strong> (about 15 minutes of your time). Claude does not start video rendering until all three are approved:
-1. <strong>Image</strong> (stage 1): pick one of 4 numbered candidates.
+1. <strong>Image</strong> (stage 1): pick one of 4 numbered candidates (8 from two compositions if the first round is rejected).
 2. <strong>What animates</strong> (stage 2): approve the motion list and the mask overlay picture (which parts move, which stay frozen).
 3. <strong>Audio</strong> (stage 3): pick one of three 30-second styles, then approve it again with ambience added.</p>
 <p><strong>Phase 2 — final review</strong> (about 20 minutes):
 4. <strong>The loop</strong> (stage 7): watch the 10-second loop repeating; can you see the loop point? Do the effects look right?
 5. <strong>The hour of audio</strong> (stage 8): listen to the <strong>listening pack</strong> (about a minute of the riskiest and random moments from all through the hour) and confirm nothing is screechy, scratchy, or unpleasant.
 6. Upload to YouTube yourself (§10).</p>
-<h3 id="14-roles">1.4 Roles</h3>
+<h3 id="14-style-rule-from-the-user-video-zen3-the-picture-must-feel-alive-everywhere">1.4 Style rule (from the user, Video-Zen3): the picture must feel alive everywhere</h3>
+<p>The first video animated only a small part of the frame (snow in the doorway, a flame, a cup), and the rest looked static. <strong>Do not repeat that.</strong>
+- <strong>Broad motion:</strong> the animated area is a large share of the frame, and the moving things are spread across <strong>different areas</strong> (left, right, foreground, background, top, bottom), so no viewer thinks "only one small part is alive". Aim for <strong>5–7 moving elements</strong> in at least 3 separate zones, not 2–3.
+- <strong>Looser scenes are allowed:</strong> a rigid frame (window, shoji) is no longer required. Where the scene has no rigid anchor, <strong>assume the stabilizer fallback</strong> (§10, Lessons A15) and plan for it from the start, instead of choosing a scene only to avoid drift.
+- <strong>Lock only what must be rigid</strong> (mug, book, lamp base, furniture edges). Everything else that can plausibly move (weather, clouds/mist, distant lights, glass droplets, curtains, flames, glow, foliage) is in the animated regions. Drift is still measured on the <code>lock</code> regions (Lessons A14); the stabilizer, not a small mask, is what protects the frame.
+- <strong>Cost accepted:</strong> more moving area means more drift and seam risk. Run the 3-seed drift probe (stage 5) as usual, use the stabilizer when needed, and check the seam sheet on every animated boundary.
+- <strong>Cityscapes are viewed from high up</strong> (roughly floor 30+ looking out over and down at the skyline), not from street level.</p>
+<h3 id="15-roles">1.5 Roles</h3>
 <table>
 <thead>
 <tr>
@@ -118,12 +135,12 @@ hr{border:0;border-top:1px solid var(--line);margin:2em 0}
 <pre style="line-height: 125%;"><span></span><code>idea ─► 1 Image ─► 2 What animates ─► 3 Audio sample ──[ PHASE 1: 3 approvals ]──►
         (4 cands)   (masks, motion)    (3 styles + ambience)
 
-   4 Prompt ─► 5 Drift probe ─► 6 Two clips ─► 7 Loop build ─[ review: loop ]─► 8 Full audio ─[ review: listening pack ]─► 9 Mux, deliver, clean up
+   4 Prompt ─► 5 Drift probe ─► 6 Two clips ─► 7 Loop build ─[ review: loop ]─► (7b 4K master, optional) ─► 8 Full audio ─[ review: listening pack ]─► 9 Mux, deliver, clean up
    (P5)        (3 seeds)        (A and B)      (QC gates)                        (1 h, harshness-checked)
 </code></pre>
 
 <p>Design principles (each paid for by a failure):
-1. <strong>Only the parts that should move come from AI video.</strong> Everything else is the original image, pixel-locked by a mask.
+1. <strong>Only rigid things are locked; everything that can plausibly move is animated, spread over the whole frame</strong> (§1.4). Locked areas come from the original image, pixel-locked by a mask.
 2. <strong>The loop is built, not generated.</strong> Two clips from the same image, chained A → B → A with crossfades.
 3. <strong>Measure the camera first.</strong> Image-to-video models drift and zoom; test drift on 3 seeds before final clips.
 4. <strong>Describe a photograph, not a scene.</strong> The prompt lists what is frozen and the only things that move. Never write "the camera does not move".
@@ -240,6 +257,11 @@ hr{border:0;border-top:1px solid var(--line);margin:2em 0}
 <td>240 = 2 × 120; exactly 360 loops = 1 hour</td>
 </tr>
 <tr>
+<td>4K master (optional)</td>
+<td><strong>3840×2160</strong>, upscale the finished 240-frame loop once, then stream-copy it 360× (the hour is never upscaled)</td>
+<td>4× the pixels of 1080p but only 240 frames to process; see stage 7b <strong><span class="badge unv">UNVERIFIED</span></strong></td>
+</tr>
+<tr>
 <td>Video model settings</td>
 <td>8 steps, sampler TCD Trailing, shift 5, CFG 1 (negative prompt and guidance overrides have no effect)</td>
 <td>Recommended preset</td>
@@ -293,8 +315,9 @@ hr{border:0;border-top:1px solid var(--line);margin:2em 0}
 </ul>
 <h3 id="stage-1-scene-idea-image-csu-10-min-approval-1">Stage 1 — Scene idea → image (C+S+U, ~10 min) → Approval 1</h3>
 <p><strong>1.1 Plan the scene for animation</strong> (Claude, before writing the prompt):
-- <strong>Frame:</strong> a static, eye-level view <strong>from inside looking out</strong> through an opening (open shoji, window, veranda, torii): the opening gives hard mask edges and the inside stays locked. A <strong>full-frame outdoor scene</strong> with no rigid frame (bamboo garden with mist) drifted 6–17 px per clip on every seed (Lessons A12): compose a rigid foreground element (veranda post, shoji edge) into the image, or plan on the stabilize fallback.
-- <strong>2–3 moving elements</strong>, from the proven list first (snow, fire/flame, steam; §7). Each against a <strong>plain or soft background</strong>, away from image edges and from foreground objects.
+- <strong>Frame:</strong> a static, eye-level view, usually <strong>from inside looking out</strong> through a large opening (window wall, shoji, veranda). A rigid frame helps but is <strong>not required</strong> (§1.4): a looser scene is fine if you plan the stabilize fallback. A full-frame outdoor scene with no rigid frame drifted 6–17 px per clip on every seed (Lessons A12), so budget for stabilizing it.
+- <strong>5–7 moving elements spread over ≥ 3 zones of the frame</strong> (§1.4), from the proven list first (snow, fire/flame, steam; §7), then the unverified ones (rain, mist/clouds, curtains, glass droplets, twinkling lights). Put a moving element in each of the left, right, foreground and background where the scene allows. Prefer <strong>soft backgrounds</strong> behind each one and keep them off foreground objects.
+- <strong>Generate candidates from 2 different compositions</strong> when the idea allows (e.g. two viewpoints), so the pick is real.
 - <strong>Particles (snow/rain) only outside.</strong> Avoid indoor surfaces that could look like frozen particles (a fluffy blanket near the doorway picked up "snow" specks).
 - <strong>No people, animals, text, mirrors/reflections of moving things.</strong> No clutter.
 - <strong>Lighting:</strong> warm interior vs cool exterior, dusk/night (the channel's look).</p>
@@ -340,6 +363,15 @@ hr{border:0;border-top:1px solid var(--line);margin:2em 0}
 - <strong>Gates:</strong> <code>seam_ratio ≤ 1.3</code> · <code>locked_pixels_identical = true</code> · <code>luma_std_detrended ≤ 1.0</code> · <code>luma_max_jump ≤ 1.5</code>.
 - Claude looks at the seam sheet (frames 232–239 then 0–7) and one full-size frame.
 - <strong>Review 1 (U):</strong> you watch the loop repeating: loop point visible? effects right?</p>
+<h3 id="stage-7b-4k-master-optional-scu-1015-min-after-review-1-unverified">Stage 7b — 4K master (optional, S+C+U, ~10–15 min) → after Review 1 <strong><span class="badge unv">UNVERIFIED</span></strong></h3>
+<p><strong>Do the video at 1080p first; make 4K at the end from the approved loop.</strong> Generating the AI clips at 4K is not worth it: LTX would need about 14× the pixels of 1024×576 (memory and time), the 201-frame request cap still applies, and Draw Things sizes must be multiples of 64 (2160 is not; 2176 is). The 4K step is cheap because it works on <strong>one 10-second loop (240 frames)</strong>, and the hour is made by repeating that loop, so the hour is never upscaled.
+1. <strong>Start from the approved 1080p loop</strong> (<code>loop_frames/f0001..f0240.png</code> from stage 7). Do not rebuild the loop; the seam and the locked pixels were already verified.
+2. <strong>Upscale each frame to 3840×2160.</strong> Default: <code>ffmpeg</code> Lanczos with a light sharpen (no new tools). Better, if available: an AI upscaler on the frames (LTX spatial upscaler x2 in Draw Things, or another image upscaler; whether <code>draw-things-cli</code> can drive it is <strong><span class="badge unv">UNVERIFIED</span></strong>; any Draw Things route must use 3840×2176 and crop to 2160). Optional quality step: upscale the still plate once (one image) and re-composite the animated layer over it, so the locked areas are truly sharp at 4K; watch the mask edge for a soft seam and raise <code>feather_px</code> if you see one.
+3. <strong>Encode the 4K loop</strong> with a closed GOP and a keyframe every 240 frames (<code>-g 240 -keyint_min 240 -sc_threshold 0</code>), 24 fps, <code>yuv420p</code>. It must stream-copy cleanly 360 times like the 1080p loop.
+4. <strong>Gates:</strong> exactly 240 frames · 3840×2160 · downscaling the 4K loop back to 1920×1080 matches the approved 1080p loop (mean PSNR ≥ 35 dB, no visible change) · <code>seam_ratio ≤ 1.3</code> re-measured on the 4K loop · locked areas unchanged after the round trip · after the mux, video packets <strong>86,400</strong> and duration <strong>3600.000 s</strong>.
+5. Claude looks at three full-size 4K <strong>crops</strong> (an animated region, a locked region, a mask edge) and the seam sheet, and reports the file size of the 4K hour before you upload.
+6. <strong>Review 1b (U):</strong> watch the 4K loop repeating (same questions as Review 1 plus: any soft halo, ringing, or shimmering at the mask edge?). If it is not better than 1080p, skip 4K and deliver the 1080p file.
+Cost: more disk and upload time; YouTube processing takes longer. The 1080p file is always kept.</p>
 <h3 id="stage-8-full-hour-of-audio-checked-for-softness-scu-20-min-review-2">Stage 8 — Full hour of audio, checked for softness (S+C+U, ~20 min) → Review 2</h3>
 <p><code>music_build.py --minutes 60</code> (with the approved prompt/BPMs/keys) does, per piece: generate → soften → <strong>check with <code>audio_qc.py</code></strong> → if any harsh event, regenerate with a new seed (up to 4 takes; the least-bad take is kept with a warning if all fail). Then it crossfades the pieces, applies the slow leveler, mixes the ambience, fades, writes the AAC and <strong>checks the finished hour again</strong>.
 - <strong>What "soft" means here (checked, not assumed):</strong> no screech/whistle (sustained high-pitched tone), no harsh brightness, no scratch/static, no crackle/glitch bursts, no clicks/pops, no clipping, no dropouts. Sudden loud notes are reported as warnings.
@@ -348,7 +380,7 @@ hr{border:0;border-top:1px solid var(--line);margin:2em 0}
 - <strong>Listening pack (U):</strong> the script writes <code>&lt;out&gt;_qc/listening_pack.mp3</code> — 6 riskiest moments (spread through the hour) + 3 random spots, ~72 s — and <code>listening_pack.txt</code> with the timestamps. Claude sends it. <strong>Review 2 (U):</strong> you listen and confirm it is pleasant throughout; if any moment bothers you, tell Claude the pack number and the piece is regenerated.</p>
 <h3 id="stage-9-mux-deliver-clean-up-document-c-10-min">Stage 9 — Mux, deliver, clean up, document (C, ~10 min)</h3>
 <ol>
-<li>Mux the audio onto 360 loops (stream copy) → <code>&lt;id&gt;_1hr_1080p24.mp4</code>. Verify: 3600.000 s, 86,400 video packets.</li>
+<li>Mux the audio onto 360 loops (stream copy) → <code>&lt;id&gt;_1hr_1080p24.mp4</code>; if stage 7b was done, also → <code>&lt;id&gt;_1hr_4k24.mp4</code> from the 4K loop. Verify each: 3600.000 s, 86,400 video packets.</li>
 <li>Rename to the three final names (§1.2); delete everything else under <code>output/</code> and all of <code>work/</code>.</li>
 <li>Fill <code>RUNLOG.md</code> (what was done, numbers, verdicts, surprises, and the recipe: image prompt + seed, video prompt, seeds, music settings); add anything new to <a href="lessons.html">Lessons</a>.</li>
 <li><code>../.venv/bin/python ../scripts/build_docs.py</code> (from <code>Project-V/</code>) to rebuild <code>wiki/html/</code>.</li>
@@ -427,7 +459,7 @@ hr{border:0;border-top:1px solid var(--line);margin:2em 0}
 </tr>
 </tbody>
 </table>
-<p>Rules: at most 3–4 moving things; every one needs a region; describe direction and speed; never "wind/gust" unless intended.</p>
+<p>Rules: aim for 5–7 moving things in ≥ 3 zones (§1.4), but every one needs a region and a plain-words line in the approved motion list; describe direction and speed; never "wind/gust" unless intended. If the prompt gets long, the 3-seed probe decides how many effects the model can carry; drop the weakest and record it in Lessons.</p>
 <hr />
 <h2 id="8-jobjson-schema">8. <code>job.json</code> schema</h2>
 <pre style="line-height: 125%;"><span></span><code>{
@@ -612,6 +644,7 @@ hr{border:0;border-top:1px solid var(--line);margin:2em 0}
 <li><strong>Other lengths</strong> (30 min, 3 h, 10 h): change <code>--minutes</code> and <code>-stream_loop</code>; not run.</li>
 <li><strong>Audio check limits</strong> were calibrated on one hour of one video; if it flags too much or misses something you hear, tune <code>LIMITS</code> in <code>scripts/audio_qc.py</code> using the excerpts and record the change in Lessons.</li>
 <li><strong>Wan 2.2 I2V</strong> isn't installed (only T2V); LTX-2.3 was enough.</li>
+<li><strong>4K (stage 7b)</strong> is designed, not run: whether the LTX x2 spatial upscaler works through <code>draw-things-cli</code>, the best upscale method, the 4K file size and whether it looks better on YouTube than the 1080p file are all open. Record the results in Lessons.</li>
 </ol></main>
 <script>document.querySelectorAll('pre').forEach(function(p){var b=document.createElement('button');b.className='copy';b.textContent='Copy';
 b.onclick=function(){navigator.clipboard&&navigator.clipboard.writeText(p.innerText.replace(/Copy$/,'').trim());b.textContent='Copied';setTimeout(function(){b.textContent='Copy'},1200)};p.appendChild(b)});</script>

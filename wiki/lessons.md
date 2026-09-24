@@ -72,6 +72,8 @@ Read this before starting a new job. Each row is something that actually happene
 |---|---|---|
 | P1 | Rendering started before the user had confirmed the image, what moves, and the music | **Approve first, render later:** image, animation plan (mask overlay + plain-words list) and audio sample are approved before any long render (SPEC §1.3) |
 | P2 | Wiki, scripts and HTML lived inside one video's folder | One folder per video (`Video-<Shortname><n>`); wiki, shared scripts and HTML in `Project-V/wiki/` and `Project-V/scripts/`; one git repo for all |
+| P3 | Video-Zen3, round 1: I proposed a rainy window nook where only the glass, the steam and one lamp would move. The user rejected it: only a small part of the picture felt "alive". The first round was also a street-level city view | **Alive everywhere (SPEC §1.4):** 5–7 moving elements in ≥ 3 zones, a large animated area, lock only rigid objects, looser scenes allowed with the stabilizer assumed; cityscapes from a high floor (30+). Do not choose a scene just to keep the animated area small |
+| P4 | Only 4 candidates gave too little to choose from once the direction was wrong | When the user rejects the direction, generate **8 candidates from two compositions**, not another 4 of the same |
 
 ## E. Working style that worked
 - Confirm risky/large actions (moving 71 GB of models; deleting) and verify sizes before deleting.

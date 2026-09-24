@@ -99,6 +99,32 @@ cat work/<id>/loop/qc_final.json
 ```
 Writes `loop_frames/`, `plate.png`, `mask.png`, `<id>_loop10s_1080p24.mp4`, a 60 s preview, `qc_final.json`, `sheet_seam.png`. Gates: `seam_ratio ≤ 1.3`, `locked_pixels_identical: true`, `luma_std_detrended ≤ 1.0`, `luma_max_jump ≤ 1.5`. Claude reads `sheet_seam.png` and a full frame, then sends the loop (and the 60 s preview) for Review 1.
 
+## 7b. 4K master (optional) → Review 1b **[UNVERIFIED]**
+Do this only after Review 1 approved the 1080p loop. It upscales the 240 loop frames once; the hour is the 4K loop repeated. Details and gates: SPEC stage 7b.
+```bash
+mkdir -p work/<id>/loop4k
+# 1) upscale every loop frame to 3840x2160 (Lanczos + light sharpen; swap for an AI upscaler if you have one)
+ffmpeg -y -framerate 24 -i work/<id>/loop/loop_frames/f%04d.png \
+  -vf "scale=3840:2160:flags=lanczos,unsharp=5:5:0.5:5:5:0.0" \
+  -c:v libx265 -crf 16 -preset slow -pix_fmt yuv420p10le -tag:v hvc1 -g 240 -keyint_min 240 -sc_threshold 0 \
+  -movflags +faststart work/<id>/loop4k/<id>_loop10s_4k24.mp4
+# 2) checks: 240 frames, 3840x2160
+ffprobe -v error -select_streams v:0 -count_frames -show_entries stream=nb_read_frames,width,height -of default=nw=1 work/<id>/loop4k/<id>_loop10s_4k24.mp4
+# 3) round trip: downscale the 4K loop and compare to the approved 1080p loop (want mean PSNR >= 35 dB)
+ffmpeg -v error -i work/<id>/loop4k/<id>_loop10s_4k24.mp4 -i work/<id>/loop/<id>_loop10s_1080p24.mp4 \
+  -filter_complex "[0:v]scale=1920:1080:flags=lanczos[a];[a][1:v]psnr=stats_file=work/<id>/loop4k/psnr.log" -f null - 2>&1 | tail -2
+# 4) three full-size crops for Claude to look at (animated region, locked region, mask edge): edit x,y
+ffmpeg -y -v error -ss 3 -i work/<id>/loop4k/<id>_loop10s_4k24.mp4 -frames:v 1 -vf "crop=1280:720:1200:600" work/<id>/loop4k/crop_animated.png
+# 5) 4K hour (same as §9, with the 4K loop); check size before upload
+ffmpeg -y -stream_loop 359 -i work/<id>/loop4k/<id>_loop10s_4k24.mp4 -i work/<id>/music_60min.m4a \
+  -map 0:v -map 1:a -c copy -t 3600 -movflags +faststart output/<id>_1hr_4k24.mp4
+ls -lh output/<id>_1hr_4k24.mp4
+ffprobe -v error -select_streams v:0 -count_packets -show_entries stream=nb_read_packets -of csv=p=0 output/<id>_1hr_4k24.mp4   # 86400
+cp work/<id>/loop4k/<id>_loop10s_4k24.mp4 output/<id>_loop10s_4k24_silent.mp4
+```
+The ffmpeg mechanics above (Lanczos+HEVC encode, frame count, PSNR check, `-stream_loop` copy) were tested on a synthetic 48-frame clip; the real quality and file size on an actual loop are not yet known.
+If you use Draw Things for any upscale step, sizes must be multiples of 64: use 3840×2176 and crop `crop=3840:2160:0:8`. If HEVC does not stream-copy cleanly 360 times or your uploader dislikes it, use `libx264 -crf 15` instead.
+
 ## 8. Full hour of audio → Review 2  (§M has server start/stop)
 ```bash
 $PY $SC/music_build.py --minutes 60 --out work/<id>/music_60min \
