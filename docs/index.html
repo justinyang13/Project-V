@@ -1,0 +1,107 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Image to 1-hour loop video — Video-Zen1</title><style>:root{--bg:#fbfaf8;--card:#ffffff;--ink:#1d2129;--mute:#5f6875;--line:#e3e0da;--accent:#2f6f8f;--accent-ink:#ffffff;--code:#f2efe9;--ok:#1f7a4d;--ok-bg:#e3f3ea;--warn:#8a5a00;--warn-bg:#fdf1d6;--claude:#7a4fb5;--script:#2f6f8f;--user:#b5561f}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#14171c;--card:#1b1f26;--ink:#e8e6e1;--mute:#98a1ad;--line:#2b313a;--accent:#7ab6d3;--accent-ink:#0d1a22;--code:#222730;--ok:#63c790;--ok-bg:#183326;--warn:#e8b95a;--warn-bg:#3a2f14;--claude:#b79be0;--script:#7ab6d3;--user:#eb9a6c}}
+:root[data-theme="dark"]{--bg:#14171c;--card:#1b1f26;--ink:#e8e6e1;--mute:#98a1ad;--line:#2b313a;--accent:#7ab6d3;--accent-ink:#0d1a22;--code:#222730;--ok:#63c790;--ok-bg:#183326;--warn:#e8b95a;--warn-bg:#3a2f14;--claude:#b79be0;--script:#7ab6d3;--user:#eb9a6c}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+header.top{position:sticky;top:0;z-index:5;background:var(--card);border-bottom:1px solid var(--line)}
+header.top nav{max-width:1000px;margin:0 auto;padding:10px 16px;display:flex;gap:6px 18px;flex-wrap:wrap;align-items:center}
+header.top .brand{font-weight:700;margin-right:auto}
+header.top a{color:var(--mute);text-decoration:none;font-size:14px}
+header.top a:hover,header.top a.on{color:var(--accent);text-decoration:underline}
+main{max-width:1000px;margin:0 auto;padding:24px 16px 80px}
+h1{font-size:2rem;line-height:1.2;margin:.2em 0 .4em}h2{margin-top:2.2em;padding-top:.4em;border-top:1px solid var(--line);font-size:1.4rem}h3{margin-top:1.6em;font-size:1.1rem}
+a{color:var(--accent)}
+code{background:var(--code);padding:.1em .35em;border-radius:4px;font:13.5px/1.4 ui-monospace,SFMono-Regular,Menlo,monospace}
+pre{background:var(--code);border:1px solid var(--line);border-radius:8px;padding:12px 14px;overflow:auto;position:relative}pre code{background:none;padding:0;font-size:13px;white-space:pre}
+table{border-collapse:collapse;width:100%;margin:1em 0;font-size:14.5px;display:block;overflow-x:auto}
+th,td{border:1px solid var(--line);padding:7px 10px;text-align:left;vertical-align:top}th{background:var(--code)}
+blockquote{margin:1em 0;padding:.6em 1em;border-left:4px solid var(--accent);background:var(--code);border-radius:0 8px 8px 0}
+hr{border:0;border-top:1px solid var(--line);margin:2em 0}
+.badge{display:inline-block;padding:0 .5em;border-radius:99px;font-size:.78em;font-weight:600;white-space:nowrap}
+.badge.unv{background:var(--warn-bg);color:var(--warn)}.badge.ver{background:var(--ok-bg);color:var(--ok)}
+.copy{position:absolute;top:6px;right:6px;font-size:12px;padding:3px 9px;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:6px;cursor:pointer}
+.lede{font-size:1.15rem;color:var(--mute);max-width:70ch}
+.hero{padding:8px 0 4px}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:12px;margin:14px 0}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.card h3{margin:.1em 0 .3em;font-size:1.02rem}.card p{margin:.3em 0;font-size:14.5px;color:var(--mute)}
+.card .num{display:inline-grid;place-items:center;width:26px;height:26px;border-radius:50%;background:var(--accent);color:var(--accent-ink);font-weight:700;font-size:13px;margin-right:8px}
+.tag{display:inline-block;font-size:12px;font-weight:600;padding:1px 8px;border-radius:99px;border:1px solid currentColor;margin:2px 4px 0 0}
+.tag.c{color:var(--claude)}.tag.s{color:var(--script)}.tag.u{color:var(--user)}
+.gate{font-size:13.5px;border-top:1px dashed var(--line);margin-top:8px;padding-top:6px;color:var(--ink)}
+.out{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
+.kick{position:relative}
+@media (max-width:600px){h1{font-size:1.6rem}}
+</style></head><body>
+<header class="top"><nav><span class="brand">Video-Zen1</span><a href="index.html" class=on>Home</a><a href="spec.html">Spec</a><a href="runbook.html">Runbook</a><a href="lessons.html">Lessons</a><a href="music.html">Music</a><a href="models.html">Models</a><a href="job-001.html">Job 001 log</a></nav></header><main><section class="hero">
+  <h1>Image → 1-hour ambient loop video</h1>
+  <p class="lede">Give Claude one image. It analyses the scene, animates only what should move (snow, fire, steam…), builds a seamless 10-second loop, composes original piano music with quiet ambience, and delivers a one-hour 1080p video plus the audio and the silent loop.</p>
+</section>
+
+<h2 id="output">What you get</h2>
+<div class="out">
+  <div class="card"><h3>1 · Final video</h3><p><code>&lt;id&gt;_1hr_1080p24.mp4</code></p><p>3600.000 s · 1920×1080 · 24 fps · H.264 + AAC · about 1.1 GB. This is the file you upload.</p></div>
+  <div class="card"><h3>2 · Full-length audio</h3><p><code>&lt;id&gt;_audio_60min.m4a</code></p><p>Music + ambience, kept separate so the audio can be replaced later. About 110 MB.</p></div>
+  <div class="card"><h3>3 · Silent loop</h3><p><code>&lt;id&gt;_loop10s_1080p24_silent.mp4</code></p><p>The seamless 10-second picture master (2.8 MB). Re-mux with any audio for a new long video.</p></div>
+</div>
+
+<h2 id="start">Start a new job</h2>
+<p>In this project with Claude Code, paste this and give the path to your image:</p>
+<pre class="kick"><code>Run SPEC.md for this image: &lt;path to image&gt;. I want the one-hour video as the output.
+Follow the stages and gates in SPEC.md, use draw-things-cli for video (validate it first, stage 0),
+stop for my three sign-offs (loop, music sample, final excerpts), then deliver only the three final files
+and clean up.</code></pre>
+
+<h2 id="flow">The nine stages</h2>
+<p><span class="tag c">Claude</span> decides · <span class="tag s">Script</span> renders and measures · <span class="tag u">You</span> sign off. Every stage has a numeric gate.</p>
+<div class="cards">
+  <div class="card"><h3><span class="num">0</span>Preflight</h3><span class="tag s">Script</span><span class="tag c">Claude</span><p>Models, disk, nothing heavy running. Validate <code>draw-things-cli</code> (not yet proven).</p></div>
+  <div class="card"><h3><span class="num">1</span>Intake</h3><span class="tag c">Claude</span><p>Copy the image to <code>input/</code>, make the job folder.</p></div>
+  <div class="card"><h3><span class="num">2</span>Scene analysis &amp; masks</h3><span class="tag c">Claude</span><p>List what moves; crop 16:9; draw <em>animated</em>, <em>lock</em> and <em>QC</em> regions on real edges → <code>job.json</code>.</p><div class="gate">Gate: overlay reviewed; polygons on real edges</div></div>
+  <div class="card"><h3><span class="num">3</span>Prompt</h3><span class="tag c">Claude</span><p>Strict "cinemagraph" template: a locked photograph where only the named things move. Never mention the camera.</p></div>
+  <div class="card"><h3><span class="num">4</span>Drift probe</h3><span class="tag s">Script</span><span class="tag c">Claude</span><p>3 seeds × 121 frames. Measure camera drift and whether the effects really move.</p><div class="gate">Gate: drift ≤ 0.7 px on ≥ 2 seeds · snow ↓ ≥ 65 % · steam ↑ ≥ 60 %</div></div>
+  <div class="card"><h3><span class="num">5</span>Two clips A &amp; B</h3><span class="tag s">Script</span><p>145 frames each at 1024×576 from the two best seeds. Same image, so they can't drift apart.</p></div>
+  <div class="card"><h3><span class="num">6</span>Loop build</h3><span class="tag s">Script</span><span class="tag u">Sign-off A</span><p>Chain A → B → A with 1 s crossfades = 240 frames (10 s). AI only inside masks; the rest is the original image.</p><div class="gate">Gate: seam ratio ≤ 1.3 · locked pixels identical · brightness std ≤ 1.0 · you can't see the loop point</div></div>
+  <div class="card"><h3><span class="num">7</span>Music &amp; ambience</h3><span class="tag s">Script</span><span class="tag u">Sign-off B</span><p>Three 30-second samples (you pick), then the ambience mixed 14 dB under. Explicit tempo and key.</p></div>
+  <div class="card"><h3><span class="num">8</span>Full hour</h3><span class="tag s">Script</span><span class="tag u">Sign-off C</span><p>26 piano pieces crossfaded, slow leveler, ambience, AAC, stream-copied onto 360 loops.</p><div class="gate">Gate: exactly 3600.000 s · 86,400 frames · ≈ −22.5 LUFS · no near-silence</div></div>
+  <div class="card"><h3><span class="num">9</span>Deliver &amp; clean up</h3><span class="tag c">Claude</span><p>Keep the three files; delete scratch; write the run log; rebuild these pages; commit.</p></div>
+</div>
+
+<h2 id="principles">Six rules that made it work</h2>
+<ol>
+  <li><b>Only what should move comes from AI.</b> Everything else is the original image, pixel-locked by a mask.</li>
+  <li><b>Build the loop, don't generate it.</b> Two clips from the same image, chained A → B → A.</li>
+  <li><b>Measure the camera first.</b> Models zoom and drift; check on 3 seeds before rendering anything final.</li>
+  <li><b>Describe a photograph, not a scene.</b> "One single locked photograph… the only motion is…". Words like "the camera never zooms" made drift worse.</li>
+  <li><b>One heavy model at a time</b> on the 64 GB Mac (video, music, LLMs never together).</li>
+  <li><b>Numbers gate every stage;</b> Claude can't hear or watch, so you make the three sign-offs.</li>
+</ol>
+
+<h2 id="results">Job 001 results (snowy zen garden)</h2>
+<table>
+<tr><th>Check</th><th>Result</th><th>Limit</th></tr>
+<tr><td>Camera drift (both clips)</td><td>0.1 px</td><td>≤ 0.7 px</td></tr>
+<tr><td>Seam ratio (frame 239 → 0)</td><td>0.97</td><td>≤ 1.3</td></tr>
+<tr><td>Locked pixels identical to the source</td><td>yes</td><td>yes</td></tr>
+<tr><td>Brightness steadiness (video)</td><td>0.16</td><td>≤ 1.0</td></tr>
+<tr><td>Snow moving down / steam moving up</td><td>97–98 % / 92–94 %</td><td>≥ 65 % / ≥ 60 %</td></tr>
+<tr><td>Final video</td><td>3600.000 s, 86,400 frames, 1.1 GB</td><td>exact</td></tr>
+<tr><td>Audio</td><td>−22.5 LUFS, peak 0.67, no silent stretch</td><td>≈ −22 LUFS</td></tr>
+<tr><td>Your review</td><td>loop point not visible; fire, steam, snow OK</td><td>—</td></tr>
+</table>
+<p>Machine time on the M5 Max for the happy path is about 30–35 minutes plus your listening time; job 001 took longer because of the camera-drift investigation.</p>
+
+<h2 id="docs">Read next</h2>
+<div class="cards">
+  <div class="card"><h3><a href="spec.html">Spec</a></h3><p>The full contract, stages, parameters, decision table.</p></div>
+  <div class="card"><h3><a href="runbook.html">Runbook</a></h3><p>Exact commands for every stage.</p></div>
+  <div class="card"><h3><a href="lessons.html">Lessons</a></h3><p>Everything that failed and the rule it produced.</p></div>
+  <div class="card"><h3><a href="music.html">Music</a></h3><p>Local music + ambience recipe.</p></div>
+  <div class="card"><h3><a href="models.html">Models</a></h3><p>Where models live; the no-duplicate rule.</p></div>
+  <div class="card"><h3><a href="job-001.html">Job 001 log</a></h3><p>Step-by-step history of the first video.</p></div>
+</div>
+</main>
+<script>document.querySelectorAll('pre').forEach(function(p){var b=document.createElement('button');b.className='copy';b.textContent='Copy';
+b.onclick=function(){navigator.clipboard&&navigator.clipboard.writeText(p.innerText.replace(/Copy$/,'').trim());b.textContent='Copied';setTimeout(function(){b.textContent='Copy'},1200)};p.appendChild(b)});</script>
+</body></html>

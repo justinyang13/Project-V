@@ -1,0 +1,83 @@
+{
+  "id": "001-snow-tea",
+  "source": "input/001-snow-tea.webp",
+  "source_size": [1728, 960],
+
+  "plate": {
+    "_note": "Crop source to 16:9, then scale to output size. All region coords below are in SOURCE pixels.",
+    "crop": [10, 0, 1717, 960],
+    "output_size": [1920, 1080]
+  },
+
+  "loop": {
+    "period_s": 10.0,
+    "fps": 24,
+    "crossfade_s": 1.0,
+    "crossfade_curve": "smoothstep",
+    "hero_min_length_s": 11.0
+  },
+
+  "regions": {
+    "exterior": {
+      "role": "animated",
+      "poly": [[318, 0], [1200, 0], [1200, 712], [318, 712]],
+      "feather_px": 4,
+      "blend_at_seam": "linear",
+      "_note": "Snow garden seen through the doorway. Edges sit on the shoji frames so the seam is hidden."
+    },
+    "steam": {
+      "role": "animated",
+      "poly": [[975, 380], [1110, 380], [1110, 620], [975, 620]],
+      "feather_px": 8,
+      "blend_at_seam": "linear"
+    },
+    "lock_table_blanket": {
+      "role": "lock",
+      "poly": [[590, 712], [660, 678], [700, 650], [760, 636], [860, 640], [905, 634], [1200, 634], [1200, 712]]
+    },
+    "lock_cup": {
+      "role": "lock",
+      "poly": [[975, 616], [1100, 616], [1118, 706], [958, 706]]
+    },
+    "fire_qc": {
+      "role": "qc_only",
+      "poly": [[1105, 295], [1195, 295], [1195, 405], [1105, 405]]
+    },
+    "snow_qc": {
+      "role": "qc_only",
+      "poly": [[330, 20], [960, 20], [960, 560], [330, 560]]
+    }
+  },
+
+  "models": {
+    "wan22_a14b_i2v": {
+      "dt_base_config": "jobs/_dt_base/wan22_a14b_i2v.json",
+      "native_fps": 16,
+      "draft": { "width": 832, "height": 480, "num_frames": 81 },
+      "final": { "width": 1280, "height": 720, "num_frames": 177 },
+      "_frames_rule": "4n+1"
+    },
+    "ltx2": {
+      "dt_base_config": "jobs/_dt_base/ltx2_i2v.json",
+      "native_fps": 24,
+      "draft": { "width": 768, "height": 448, "num_frames": 121 },
+      "final": { "width": 1280, "height": 736, "num_frames": 265, "pad_plate_to": [1280, 736] },
+      "_frames_rule": "8n+1; width/height multiple of 32"
+    }
+  },
+
+  "prompts": "jobs/001-snow-tea/prompts.md",
+
+  "qc_thresholds": {
+    "seam_ratio_max": 1.3,
+    "plate_drift_px_max": 0.5,
+    "luma_flicker_std_max": 1.0,
+    "luma_jump_max": 1.5,
+    "color_drift_deltaE_max": 2.0,
+    "snow_down_fraction_min": 0.65,
+    "steam_up_fraction_min": 0.6,
+    "snow_count_cv_max": 0.15,
+    "rubric_min_each": 4,
+    "rubric_seam_min": 5
+  }
+}

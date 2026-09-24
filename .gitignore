@@ -1,0 +1,11 @@
+# big/regenerable — never commit
+output/
+work/
+tools/
+.venv/
+__pycache__/
+*.pyc
+.DS_Store
+*.mov
+*.wav
+*.flac
