@@ -34,6 +34,18 @@ Result: 1.1 GB, 3600.000 s, 86,400 video frames (exactly 24 × 3600), music ≈ 
 - Not verified by ear by Claude (it can't listen): no voice-like artifacts, exact instrument realism. The user reviewed the 30 s clips; the full hour is spot-checked by excerpts.
 - Two of three "free Japanese music" sites the user cited as a style reference did not load (cert error / suspended account); the third was a frame wrapper. They were used only as a style hint, nothing was downloaded.
 
+## Healing piano with rain (Video-Zen4; from the user's feedback)
+**What the user approved:** a "healing song" = very slow, soft piano with a warm airy pad far in the background, D minor, 44 BPM, prompt: *"Very slow, soft, healing ambient piano. Sparse felt piano notes, warm and muted, played very softly with long sustain and lots of silence, a warm airy pad far in the background. Peaceful, calm, tender, comforting, a quiet rainy night by the sea. no drums, no percussion, no vocals, no sharp sounds."* (seed 32 sample; the hour used keys D minor, F major, A minor, C major, G minor and BPM 44, 40, 46, 42).
+**Three styles offered, each checked with `audio_qc`:** A piano + pad (chosen), B cello + soft piano, C Rhodes + pad. Harp and nylon-guitar takes failed the check (too bright) even after the low-pass; add "muted, low register, dark rounded tone, no bright sounds" and lower the low-pass to 5.5 kHz with a −5 dB shelf at 2.5 kHz when a style fails.
+**Known problem, not yet solved by ear:** "lots of silence" in the prompt makes the piano fall to near-silence every ~5 s (Lessons D12). Ask for a steadier pad and more frequent notes in the prompt, or lift the tails with `scripts/upcomp.py`; check the 1-second envelope of the finished hour, and let the user hear it before the full render.
+
+### Rain (replaces the procedural rain, which the user rejected as "white noise")
+- **Model:** MOSS-SoundEffect (`OpenMOSS-Team/MOSS-SoundEffect`, Apache 2.0, 16.7 GB) plus its tokenizer `MOSS-Audio-Tokenizer` (7.1 GB), both in `/Volumes/SSD-4T-LR/AI/Models`. Free, no account. Runs in its own environment `tools/moss-env` (Python 3.12, torch, transformers 5.0.0, soundfile, pillow, opencv). `hf download` stalled on the exFAT SSD (file locks); plain `curl -C -` per file worked.
+- **Prompt the user approved (clip r1):** *"Gentle steady rain falling on wet stone streets and tiled roofs at night, soft, soothing and continuous, no thunder, no voices, no music"*, 30 s, mono 24 kHz. Four types were offered (roof/street, eaves and drips, coast with waves, light street rain); the user picked roof/street. The coast clip had a strong tone and about 14 dB of swing: skip "waves" in a rain prompt.
+- **Level:** rain −36 LUFS under music −22 LUFS ("subtle", approved) against a "clear" −30 LUFS.
+- **Hour:** `scripts/rain_gen.py` (jobs file, model loaded once) makes about 50 clips; `scripts/rain_bed.py` checks each clip (limits set from the approved clip), builds left and right from different random orders with 5 s crossfades, and writes a listening pack. 19 of 49 clips passed. Then `music_build.py --amb_wav <bed.wav> --amb_lufs -36`.
+- **Checking:** run `audio_qc` on the music alone, the rain alone and the mix, and judge the mix on clicks, clipping, HF bursts, whistles and dropouts (Lessons D13). Give the user a pack cut from the real mix.
+
 ## YouTube notes (from web search on 2026-09-23; verify current policy yourself)
 - No YouTube feature loops a short video under a longer audio track: upload one file. 1 h ≈ 1.1 GB (~8 min at 20 Mbps up).
 - YouTube's "inauthentic content" (repetitive / mass-produced) rules are enforced per channel and hit ambient/lo-fi channels often; disclose AI-generated content in Studio.

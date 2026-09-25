@@ -1,10 +1,24 @@
-"""Camera-drift metric: track features between frame 0 and frame i inside the static ROOM area (left shoji + right lamp/shoji),
-fit a similarity transform, report scale and translation. Usage: qc_drift.py <frames_dir> [step]"""
+"""(--job <id>: ROI = everything that is NOT animated in jobs/<id>/job.json, i.e. lock regions and untouched areas, animated regions dilated by 16 px excluded; Lessons A14.)
+Camera-drift metric: track features between frame 0 and frame i inside the static ROOM area (left shoji + right lamp/shoji),
+fit a similarity transform, report scale and translation. Usage: qc_drift.py <frames_dir> [step] [--job <id>]"""
 import sys, glob, cv2, numpy as np
-d = sys.argv[1]; step = int(sys.argv[2]) if len(sys.argv) > 2 else 20
+import json
+args = [x for x in sys.argv[1:]]
+JOB = args[args.index("--job") + 1] if "--job" in args else None
+if JOB: i = args.index("--job"); del args[i:i + 2]
+d = args[0]; step = int(args[1]) if len(args) > 1 else 20
 fs = sorted(glob.glob(f"{d}/f*.png")); g0 = cv2.cvtColor(cv2.imread(fs[0]), cv2.COLOR_BGR2GRAY)
 H, W = g0.shape
-mask = np.zeros_like(g0); mask[:, : int(W*.18)] = 255; mask[:, int(W*.68):] = 255   # room only (shoji left / lamp+shoji right)
+mask = np.zeros_like(g0); mask[:, : int(W*.18)] = 255; mask[:, int(W*.68):] = 255   # room only (shoji left / lamp+shoji right); first video only
+if JOB:
+    job = json.load(open(f"jobs/{JOB}/job.json")); x0, y0, x1, y1 = job["plate"]["crop"]; sc = W / (x1 - x0)
+    anim = np.zeros_like(g0)
+    for r in job["regions"].values():
+        if r["role"] == "animated": cv2.fillPoly(anim, [np.array([[(x - x0) * sc, (y - y0) * sc] for x, y in r["poly"]], np.int32)], 255)
+    for r in job["regions"].values():
+        if r["role"] == "lock": cv2.fillPoly(anim, [np.array([[(x - x0) * sc, (y - y0) * sc] for x, y in r["poly"]], np.int32)], 0)
+    anim = cv2.dilate(anim, np.ones((33, 33), np.uint8))
+    mask = 255 - anim; print("ROI = non-animated area,", int((mask > 0).sum() * 100 / mask.size), "% of frame")
 orb = cv2.ORB_create(1500); k0, d0 = orb.detectAndCompute(g0, mask)
 bf = cv2.BFMatcher(cv2.NORM_HAMMING, crossCheck=True)
 print("frame  scale   dx_px   dy_px  inliers")

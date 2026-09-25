@@ -47,6 +47,21 @@ The reference run animated only a small part of the frame (snow in the doorway, 
 - **Cost accepted:** more moving area means more drift and seam risk. Run the 3-seed drift probe (stage 5) as usual, use the stabilizer when needed, and check the seam sheet on every animated boundary.
 - **Cityscapes are viewed from high up** (roughly floor 30+ looking out over and down at the skyline), not from street level.
 
+### 1.4b Style rules from the user (Video-Zen4): rain animation and the song
+**Rain animation.** Rain that reads as "white lines" was rejected four times. Build it like this (`scripts/rain_overlay.py`, Runbook §R, Lessons R1–R7):
+- **Water, not white lines:** see-through streaks, tapered at both ends and soft, that pick up the colour of the light around them (glow near lanterns and neon, almost invisible in dark corners), with a hint of refraction. Never paint pure white.
+- **Straight down.** No lean.
+- **Depth:** drops of different sizes at different distances, from a depth map of the picture (Depth Anything V2 Small). Far, small drops show only over far things; near things (table, rail, lanterns) hide them. Rain must be visible over the whole frame, not only the sky.
+- **No big drops.** Large near drops were "very distracting". With `--size 0.5` the largest remaining streak is about 46 px long and 2 px wide at 1080p; never the first version's 210 px long, 11 px wide blurry ones.
+- **Subtle.** "Too heavy" came twice. Approved look: `--strength 0.9 --splash 0.96 --size 0.5 --light 0.5` (about 0.35 / 255 mean change to the picture). Start there, not at full strength.
+- **Splashes on every surface the rain hits** (ground and stairs, rails, plants, counters, awnings), because they sell depth and "raining everywhere", but a lot of them is distracting: the approved count is about 1,600–1,850 events per 10-second loop, after the user cut the first version by 40 %.
+- **Show the user a 10-second loop, not a still,** at each change. Judge rain in motion; stills hide the problem.
+
+**The song.** Healing, soft piano with rain ambience, at the approved music −22 LUFS and rain −36 LUFS (14 dB under, "subtle").
+- **It must not go quiet every few seconds.** Sparse piano with "lots of silence" faded to near-silence every ~5 s (17 % of 1-second windows were more than 6 dB below the median). The 20 s slow leveler cannot fix that. Plan for it from the start: either a prompt with a steadier pad and more frequent notes, or the fast upward compressor `scripts/upcomp.py` (Lessons D12).
+- **Rain audio comes from a local model, not synthesis.** The procedural rain of `ambience.py` was rejected twice ("white noise"). Use MOSS-SoundEffect (Apache 2.0) via `scripts/rain_gen.py` and `scripts/rain_bed.py` (Music §Rain).
+- **The audio check must be run on the music alone and the rain alone**, because the softness limits were calibrated without rain (Lessons D13).
+
 ### 1.5 Roles
 | Who | Does |
 |---|---|
@@ -255,7 +270,7 @@ Proven so far: snow, fire, steam. Others are expectations only.
 | Snow | "tiny snowflakes falling gently downward outside" | down, slow | `moving_down ≥ 65 %` | **Proven** (97–98 %) |
 | Fire / candle / lantern flame | "the small brazier flame flickering" | in place, irregular | luma std over time > 0 | **Proven** |
 | Steam from a cup | "thin steam curling up from the tea cup" | up, thin | `moving_up ≥ 60 %` | **Proven** (92–94 %) |
-| Rain | "fine rain falling straight down" | down | as snow | [UNVERIFIED] (also needs rain ambience) |
+| Rain | "fine rain falling straight down" | down | as snow | [UNVERIFIED] (also needs rain ambience). **For Video-Zen4 the rain was not made by the video model but as a procedural layer (`rain_overlay.py`, §1.4b), and the rain sound by MOSS-SoundEffect (Music §Rain).** |
 | Smoke / incense | "a thin thread of smoke rising and curling" | up | as steam | [UNVERIFIED] |
 | Fog / mist | "slow drifting mist" | sideways, very slow | flow magnitude | [UNVERIFIED] |
 | Falling leaves / petals | "a few leaves drifting slowly down" | down, sparse | as snow | [UNVERIFIED] |

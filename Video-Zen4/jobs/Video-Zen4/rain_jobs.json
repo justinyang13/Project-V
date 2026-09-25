@@ -1,0 +1,6 @@
+[
+ {"tag": "r1_roof_street", "prompt": "Gentle steady rain falling on wet stone streets and tiled roofs at night, soft, soothing and continuous, no thunder, no voices, no music", "dur": 30, "seed": 11},
+ {"tag": "r2_eaves_drips", "prompt": "Soft rain falling on a wooden awning and stone stairs, water dripping from the eaves into puddles, calm and soothing, continuous, no thunder, no voices, no music", "dur": 30, "seed": 12},
+ {"tag": "r3_coast", "prompt": "Gentle rain at night on a rocky sea coast, soft waves washing over rocks in the distance, steady light rain, calm and soothing, no thunder, no voices, no music", "dur": 30, "seed": 13},
+ {"tag": "r4_light", "prompt": "Light steady rain in a quiet old street at night, fine raindrops on wet pavement and leaves, very soft and even, no thunder, no voices, no music", "dur": 30, "seed": 14}
+]

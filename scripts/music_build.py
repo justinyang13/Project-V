@@ -1,5 +1,6 @@
 """Build a long ambient track: N piano pieces (ACE-Step, local) crossfaded + procedural ambience, leveled, encoded, checked.
 Run from the video folder:  ../.venv/bin/python ../scripts/music_build.py --minutes 60 --out output/<job>/music_60min
+Ambience: procedural (ambience.py) or a ready-made stereo file (--amb_wav, e.g. the MOSS rain bed from rain_bed.py).
 Music style: --prompt/--keys/--bpms (defaults = the soft piano approved on job 001).
 Every piece is checked with audio_qc (screech, harshness, scratch, crackle, clicks, clipping, dropouts) AFTER the softening filters;
 a piece with any harsh event is regenerated with a new seed (up to --tries), and the least-bad take is kept if all fail.
@@ -19,8 +20,8 @@ ap.add_argument("--prompt", default=("Very slow, soft, gentle ambient piano. Spa
     "and lots of silence, a faint distant low flute and a warm airy pad far in the background. Peaceful, calm, tender, sleepy, Japanese winter night. "
     "no drums, no percussion, no vocals, no sharp sounds."))
 ap.add_argument("--keys", default="D minor,F major,A minor,D minor,C major,G minor"); ap.add_argument("--bpms", default="44,40,46,42")
-ap.add_argument("--tries", type=int, default=4, help="takes per piece before keeping the least-bad one")
-ap.add_argument("--filters", default="lowpass=f=6500,highshelf=f=3000:g=-3")
+ap.add_argument("--no_ambience", action="store_true", help="music only, no ambience layer (Video-Zen3: the user rejected the synthesized rain)"); ap.add_argument("--amb_args", default="", help="extra args for ambience.py, e.g. '--rain 1 --fire 0.25 --wind 0.3 --crackle 0.3'"); ap.add_argument("--tries", type=int, default=4, help="takes per piece before keeping the least-bad one")
+ap.add_argument("--amb_wav", default=None, help="ready-made ambience (stereo wav, >= the track length), e.g. the MOSS rain bed from rain_bed.py; replaces the procedural ambience"); ap.add_argument("--filters", default="lowpass=f=6500,highshelf=f=3000:g=-3")
 a = ap.parse_args()
 T = a.minutes * 60; W = a.work; os.makedirs(W, exist_ok=True); os.makedirs(os.path.dirname(a.out) or ".", exist_ok=True)
 PROMPT = a.prompt; KEYS = [k.strip() for k in a.keys.split(",")]; BPMS = [int(b) for b in a.bpms.split(",")]
@@ -108,16 +109,17 @@ def slow_level(x, lo=-8.0, hi=3.0, win=20):
 music = slow_level(music)
 
 # 2) ambience in 124 s chunks (seeded), 4 s equal-power crossfades
-chunks = []; nc = int(np.ceil((T + 20) / 120))
+chunks = []; nc = 0 if (a.no_ambience or a.amb_wav) else int(np.ceil((T + 20) / 120))
 for i in range(nc):
     f = f"{W}/amb{i:02d}.wav"
-    if not os.path.exists(f): run([sys.executable, os.path.join(HERE, "ambience.py"), "--dur", "124", "--seed", str(500 + i), "--nofade", "--out", f])
+    if not os.path.exists(f): run([sys.executable, os.path.join(HERE, "ambience.py"), "--dur", "124", "--seed", str(500 + i), "--nofade", *a.amb_args.split(), "--out", f])
     chunks.append(decode(f))
-amb = crossfade_chain(chunks, 4.0); print("ambience length s:", len(amb) / SR, flush=True)
+amb = np.zeros_like(music) if a.no_ambience else (decode(a.amb_wav) if a.amb_wav else crossfade_chain(chunks, 4.0)); print("ambience length s:", len(amb) / SR, flush=True)
+if a.amb_wav and len(amb) < T * SR: raise SystemExit(f"--amb_wav is shorter ({len(amb) / SR:.0f} s) than the requested {T:.0f} s")
 
 # 3) mix, fade, level
 N = int(T * SR); music, amb = music[:N], amb[:N]
-amb *= 10 ** ((a.amb_lufs - lufs(amb)) / 20)
+if not a.no_ambience: amb *= 10 ** ((a.amb_lufs - lufs(amb)) / 20)
 mix = music + amb
 fi, fo = int(3 * SR), int(10 * SR); mix[:fi] *= np.linspace(0, 1, fi)[:, None]; mix[-fo:] *= np.linspace(1, 0, fo)[:, None]
 pk = np.abs(mix).max()

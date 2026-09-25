@@ -161,6 +161,24 @@ cd /Users/justin/Code/Project-V/tools/ACE-Step-1.5 && ACESTEP_CHECKPOINTS_DIR=/V
 # ready when: curl -s http://127.0.0.1:8001/health returns 200  (music_build.py also restarts it by itself if it dies)
 ```
 
+## R. Rain layer and rain sound (Video-Zen4; approved settings, see SPEC §1.4b)
+```bash
+# 1) depth map of the plate (once per picture; 0 = near .. 1 = far), Depth Anything V2 Small in /Volumes/SSD-4T-LR/AI/Models/Depth-Anything-V2-Small
+../tools/moss-env/bin/python <one-off script that saves work/<id>/depth.npy from input/<id>.png cropped to the plate>
+# 2) splash surfaces: regions with "role": "splash" and "kind": ground | top | rail (with "line" and "width") | leaf, "n" events per loop, in jobs/<id>/job.json
+# 3) procedural steam / flicker / rain on top of the finished loop frames (each step reads the previous step's frames)
+../.venv/bin/python ../scripts/flicker.py     --job <id> --frames work/<id>/loop        --out work/<id>/loop_flicker
+../.venv/bin/python ../scripts/rain_overlay.py --job <id> --frames work/<id>/loop_flicker --out work/<id>/loop_rain --strength 0.9 --splash 0.96 --size 0.5 --light 0.5
+ffmpeg -framerate 24 -i work/<id>/loop_rain/f%04d.png -c:v libx264 -crf 19 -preset slow -pix_fmt yuv420p -g 240 -keyint_min 240 -sc_threshold 0 -movflags +faststart work/<id>/loop.mp4
+# 4) rain sound: ~50 clips of 30 s, then the hour
+../tools/moss-env/bin/python ../scripts/rain_gen.py --jobs jobs/<id>/rain_jobs.json --out work/rain_bed     # [{"tag","prompt","dur":30,"seed"}, ...]
+../.venv/bin/python ../scripts/rain_bed.py --clips work/rain_bed --ref <approved clip tag> --minutes 61 --out work/<id>/rain_bed_61min.wav
+../.venv/bin/python ../scripts/music_build.py --minutes 60 --out work/<id>/music_60min --amb_wav work/<id>/rain_bed_61min.wav --amb_lufs -36 ...
+# 5) quiet dips in the finished piano: measure the 1 s envelope, then lift the tails and let the user hear it
+../.venv/bin/python ../scripts/upcomp.py in.wav out.wav --max_up 9 --ratio 0.8 --release 1.6        # test B; C = --max_up 12 --ratio 0.95 --release 1.2
+```
+`rain_overlay.py` options: `--strength`, `--density` (streaks), `--splash` (events), `--size` (drop size), `--light` (how white), `--slant` (0 = straight down), `--refract`, `--only N` (test one frame). Scripts: `rain_overlay.py`, `rain_gen.py`, `rain_bed.py`, `flicker.py`, `steam_overlay.py`, `upcomp.py`, `stabilize.py`.
+
 ## Swap. Put different audio on the picture later
 ```bash
 ffmpeg -y -stream_loop 359 -i output/<id>_loop10s_1080p24_silent.mp4 -i <new_audio>.m4a -map 0:v -map 1:a -c copy -t 3600 -movflags +faststart output/<id>_1hr_v2.mp4

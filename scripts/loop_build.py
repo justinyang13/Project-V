@@ -39,7 +39,18 @@ for r in R.values():
 for r in R.values():
     if r["role"] == "lock": M = np.minimum(M, 255 - poly_mask(r["poly"]))
 feather = max(R["exterior"].get("feather_px", 4) * sc, 1)
-Mf = cv2.GaussianBlur(M, (0, 0), feather).astype(np.float32)[..., None] / 255.0
+if job["loop"].get("per_region_feather"):   # each animated region blurred with its own feather_px (Video-Zen3+); default = exterior's feather for all (Video-Zen1)
+    lockm = np.zeros((OH, OW), np.uint8)
+    for r in R.values():
+        if r["role"] == "lock": lockm = np.maximum(lockm, poly_mask(r["poly"]))
+    Mf = np.zeros((OH, OW), np.float32)
+    for r in R.values():
+        if r["role"] == "animated":
+            m = np.minimum(poly_mask(r["poly"]), 255 - lockm)
+            Mf = np.maximum(Mf, cv2.GaussianBlur(m, (0, 0), max(r.get("feather_px", 4) * sc, 1)).astype(np.float32) / 255.0)
+    Mf = Mf[..., None]
+else:
+    Mf = cv2.GaussianBlur(M, (0, 0), feather).astype(np.float32)[..., None] / 255.0
 lock_all = np.zeros((OH, OW), np.uint8)
 for r in R.values():
     if r["role"] == "lock": lock_all = np.maximum(lock_all, poly_mask(r["poly"]))
@@ -58,6 +69,22 @@ def fr(files, i):
     return cache[k]
 def smooth(x): x = min(max(x, 0.0), 1.0); return x * x * (3 - 2 * x)
 
+# optional (Video-Zen4): per-region colour match so the AI pixels have the plate's brightness and contrast (the model adds haze and brightens a few %),
+# gain = std_plate / std_ai (clamped 0.8..1.4), offset so the means agree; and a mild sharpen (AI clips are 1024x576, the plate is 1080p)
+G = np.ones((OH, OW, 3), np.float32); O = np.zeros((OH, OW, 3), np.float32); SH = float(job["loop"].get("ai_sharpen", 0))
+if job["loop"].get("match_region_gain"):
+    ref = np.mean([cv2.resize(fr(A, i), (OW, OH), interpolation=cv2.INTER_AREA) for i in range(24, 120, 12)], 0)
+    accg = np.zeros((OH, OW, 3), np.float32); acco = np.zeros((OH, OW, 3), np.float32); num = np.zeros((OH, OW, 1), np.float32)
+    for n, r in R.items():
+        if r["role"] != "animated": continue
+        m = poly_mask(r["poly"]); sel = (m > 0) & (lock_all == 0)
+        if sel.sum() < 50: continue
+        pl, rf = plate[sel].astype(np.float32), ref[sel]
+        gain = np.clip(pl.std(0) / np.maximum(rf.std(0), 1), 0.8, 1.4) if job["loop"].get("match_region_contrast", True) else np.ones(3, np.float32)
+        off = pl.mean(0) - gain * rf.mean(0)
+        w = cv2.GaussianBlur(m, (0, 0), max(r.get("feather_px", 4) * sc, 1)).astype(np.float32)[..., None] / 255
+        accg += w * gain; acco += w * off; num += w; print(f"match {n}: gain {np.round(gain, 3)} offset {np.round(off, 1)}")
+    G = np.where(num > 1e-3, accg / np.maximum(num, 1e-3), 1.0).astype(np.float32); O = acco / np.maximum(num, 1e-3)
 os.makedirs(a.out, exist_ok=True); fdir = os.path.join(a.out, "loop_frames"); os.makedirs(fdir, exist_ok=True)
 for t in range(P):
     if t < F:            f = (1 - (w := smooth((t + .5) / F))) * fr(B, L + t) + w * fr(A, t)
@@ -65,6 +92,8 @@ for t in range(P):
     elif t < L + F:      f = (1 - (w := smooth((t - L + .5) / F))) * fr(A, t) + w * fr(B, t - L)
     else:                f = fr(B, t - L)
     up = cv2.resize(f, (OW, OH), interpolation=cv2.INTER_LANCZOS4)
+    if SH: up = cv2.addWeighted(up, 1 + SH, cv2.GaussianBlur(up, (0, 0), 1.6), -SH, 0)
+    up = up * G + O
     out = Mf * up + (1 - Mf) * plate
     cv2.imwrite(f"{fdir}/f{t:04d}.png", np.clip(out + .5, 0, 255).astype(np.uint8))
 cv2.imwrite(os.path.join(a.out, "plate.png"), plate); cv2.imwrite(os.path.join(a.out, "mask.png"), (Mf[..., 0] * 255).astype(np.uint8))

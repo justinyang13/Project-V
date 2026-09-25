@@ -149,6 +149,24 @@ hr{border:0;border-top:1px solid var(--line);margin:2em 0}
 <td>Model adds plausible motion to steam/smoke already in the image</td>
 <td>Make sure the steam is inside a <code>lock</code> region (or that it is what you want animated); check the contact sheet for motion you did not list</td>
 </tr>
+<tr>
+<td>A18</td>
+<td>Video-Zen3: the loop showed the <strong>clouds resetting</strong> twice per loop; the numeric gates all passed</td>
+<td>A -&gt; B -&gt; A crossfades a clip's drifted state into the other clip's fresh start. Random textures (rain, snow, steam) hide it; <strong>progressive drift (clouds, mist, smoke) does not</strong></td>
+<td>Don't animate progressive-drift effects with the A/B scheme. Options: keep large shapes from the plate + AI high-frequency detail + a loopable procedural sway; or a scrolling two-layer crossfade. Also check pattern correlation across the seams, not just frame difference</td>
+</tr>
+<tr>
+<td>A19</td>
+<td>Video-Zen3: two 145-frame clips darkened the whole window ~25 % in the last 40 frames; the 121-frame probes looked fine</td>
+<td>Exposure drift appears late in the clip</td>
+<td>Probe with the <strong>same frame count as the final clips</strong> (145) and check luma over the whole clip</td>
+</tr>
+<tr>
+<td>A20</td>
+<td>CLI video verified (Video-Zen3): <code>draw-things-cli generate --image plate --frames 145 --video-format prores422hq</code> gives exact frame count and size, ~3.5 min per clip after a ~3.5 min first load</td>
+<td>—</td>
+<td><code>scripts/dt_clip_cli.py</code> replaces the HTTP API path; the Draw Things app is not needed</td>
+</tr>
 </tbody>
 </table>
 <h2 id="b-compositing-and-qc">B. Compositing and QC</h2>
@@ -301,6 +319,97 @@ hr{border:0;border-top:1px solid var(--line);margin:2em 0}
 <td>The user preferred piano (v3b) over flute and koto</td>
 <td>Taste</td>
 <td>Offer three styles in stage 7 and let the user pick; piano + faint flute + pad was the winner</td>
+</tr>
+<tr>
+<td>D9</td>
+<td>Video-Zen3 and Video-Zen4: the user rejected every procedural rain ambience ("white noise")</td>
+<td><code>ambience.py</code> builds rain from synthetic drop ticks and band-limited noise; it never sounds like water</td>
+<td>Generate rain with a text-to-audio model. MOSS-SoundEffect (Apache 2.0, 8B + a 7 GB tokenizer, both free, no account) runs on the M5 Max via MPS in bfloat16: 30 s of audio in about 18 s after a 27 s load. Music §Rain has the recipe. Licence check: MMAudio, AudioLDM2 and Tango are non-commercial (CC BY-NC), so avoid them for a monetized channel</td>
+</tr>
+<tr>
+<td>D10</td>
+<td>MOSS rain clips vary a lot: of 49 clips only 19 passed my checks (loudness swing, sudden event, whistle, brightness)</td>
+<td>The model sometimes adds thunder, drips, wind or a different surface</td>
+<td>Generate about 50 clips of 30 s and keep the steady ones. Set the rejection limits <strong>from the clip the user approved</strong> (mine first rejected even that clip: swing 5.7 dB, event +11.7 dB, tone x16). Build the hour from random orders, different left and right (correlation 0.000), with 5 s equal-power crossfades and random start offsets. A single 30 s sample the user approves is only a sample: keep its seed and prompt</td>
+</tr>
+<tr>
+<td>D11</td>
+<td>The rain-only listening pack was approved, but the finished hour was still not right</td>
+<td>Approving rain alone says nothing about rain under the piano</td>
+<td>Have the user approve the <strong>mixed</strong> pack (piano + rain) at the real level, and give them both a "clear" (about −30 LUFS) and a "subtle" (−36 LUFS) rain. The user chose subtle</td>
+</tr>
+<tr>
+<td>D12</td>
+<td>"The music keep going quiet ... every 5 seconds" (the finished hour)</td>
+<td>Sparse, slow piano ("lots of silence" in the prompt) decays to near-silence between notes: 17 % of 1-second windows were more than 6 dB below the median, 5th percentile −11.7 dB. <code>slow_level</code> works over ~20 s and cannot see this</td>
+<td>Measure the 1 s envelope on the finished hour, not only 10 s windows. Options, cheapest first: <code>scripts/upcomp.py</code> (fast upward compressor: lifts tails, follows a note down fast and up slowly): on a test excerpt B (max +9 dB, ratio 0.8) gave 5 % / −6.2 dB and C (max +12 dB, ratio 0.95) gave 3 % / −4.6 dB; or change the prompt for a steadier pad and more frequent notes. <strong>[UNVERIFIED by ear: the user had not chosen B or C when the project stopped.]</strong> Do this before the full-hour render and let the user hear it</td>
+</tr>
+<tr>
+<td>D13</td>
+<td>The whole-hour <code>audio_qc</code> said FAIL with 901 harsh events after mixing in rain</td>
+<td>The limits (flatness ≥ 0.35 = scratch, HF ratio ≥ 0.10) were calibrated on piano only; steady rain is broadband noise and trips them (the rain bed alone gave 2,904 events); it is also brighter than a quiet piano moment</td>
+<td>Check three files: the music alone (finished hour, <strong>no ambience</strong>: 3 tiny events), the rain bed alone, and the mix; judge the mix only on the metrics rain cannot trigger (clicks, clipping, HF bursts, whistles, dropouts: all 0 here). Recalibrate <code>LIMITS</code> (or skip flatness/HF-ratio) when the ambience is rain. Send the user a pack made from the <strong>real mix</strong> at the flagged moments plus random spots</td>
+</tr>
+<tr>
+<td>D14</td>
+<td><code>music_build.py --amb_wav</code> refused a 3690 s rain bed for a 3600 s hour</td>
+<td>The check compared the bed with the music length (3700 s, 26 pieces), not with the requested time</td>
+<td>Compare with the requested length <code>--minutes × 60</code> (fixed). Make the rain bed at least the requested time plus 30 s</td>
+</tr>
+</tbody>
+</table>
+<h2 id="r-rain-animation-video-zen4-user-feedback-in-order">R. Rain animation (Video-Zen4; user feedback in order)</h2>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>User feedback</th>
+<th>Cause</th>
+<th>Rule</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>R1</td>
+<td>"The rain doesn't look real. It's like white lines ... a bit of transparency. It's not about too strong or faint"</td>
+<td>v1 drew 1 px white lines and screen-blended them</td>
+<td>See-through streaks that take the local scene light (heavily blurred copy of the frame plus a cool ambient), tapered, soft, with refraction of about 1.6 px. Never white</td>
+</tr>
+<tr>
+<td>R2</td>
+<td>"The direction of the rain is good [straight down]" but "it's too heavy, let's make it a lot less"</td>
+<td>The wind lean of 0.10 and 1,000+ streaks</td>
+<td>Straight down (<code>--slant 0</code>). Start at <code>--strength 0.8</code>, <code>--density 0.4</code>, then adjust in small steps</td>
+</tr>
+<tr>
+<td>R3</td>
+<td>"There is no depth. It doesn't look like raining everywhere. Maybe raindrops need different sizes; add more splashes on the coffee table, the ground, the rail, the plants"</td>
+<td>One layer, one size, only in the open</td>
+<td>Six depth layers from a depth map (Depth Anything V2 Small, 99 MB, Apache 2.0, no account; rank-normalise the map so every layer covers a real share of the picture). A layer is drawn only where the scene behind is farther. Add splash regions per surface with a kind: ground (ring and two droplets), top (counter, stools, awning), rail (flash and droplets along a line), leaf (small hop)</td>
+</tr>
+<tr>
+<td>R4</td>
+<td>"Reduce the splashes by 40 % and remove all the big raindrops. It's making too much distraction"</td>
+<td>The two nearest layers (10–11 px wide, blurred) and 2,600 splash events</td>
+<td>Remove the two nearest layers (they were 210 px / 140 px long), splash x0.96 (1,562 events). Big near drops and many splashes pull the eye away from the scene</td>
+</tr>
+<tr>
+<td>R5</td>
+<td>"Raindrops are still very big. Reduce by 50 % of the size, less white and more transparent"</td>
+<td>The remaining layers were still 92 px long, 3.8 px wide</td>
+<td>Add <code>--size 0.5</code> (length, width and blur x0.5, alpha x width when under 1 px) and <code>--light 0.5</code> (how much a drop lightens the scene; the old 0.9 read as white). <strong>Approved: <code>--strength 0.9 --splash 0.96 --size 0.5 --light 0.5</code></strong></td>
+</tr>
+<tr>
+<td>R6</td>
+<td>Not said, found while building: the video model's rain did nothing useful, and its sea and steam barely moved (sea flow 0.25 px per 4 frames, steam 59 % upward)</td>
+<td>The model boils textures in place and has no travel</td>
+<td>For particles and fine motion use a procedural layer that is seamless by construction (whole screens fallen per loop, splash events scheduled modulo the loop, sway with a whole number of cycles). It is verified by the loop point: 0.57 against 0.59 for a normal frame step</td>
+</tr>
+<tr>
+<td>R7</td>
+<td>The first review always looked at a still; the problem showed only in motion</td>
+<td>Streak length, speed and count cannot be judged in a frame</td>
+<td>Every change goes to the user as a 10-second loop mp4 (about 5–12 MB at crf 19), with the change described in one line. Encode with a closed GOP (<code>-g 240 -keyint_min 240 -sc_threshold 0</code>) so it stream-copies 360 times. File size: about 4.5–5 MB per 10 s loop with the light rain (about 1.6–1.8 GB for the hour), 23 MB with the heavy first rain</td>
 </tr>
 </tbody>
 </table>

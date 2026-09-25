@@ -98,6 +98,19 @@ hr{border:0;border-top:1px solid var(--line);margin:2em 0}
 - <strong>Lock only what must be rigid</strong> (mug, book, lamp base, furniture edges). Everything else that can plausibly move (weather, clouds/mist, distant lights, glass droplets, curtains, flames, glow, foliage) is in the animated regions. Drift is still measured on the <code>lock</code> regions (Lessons A14); the stabilizer, not a small mask, is what protects the frame.
 - <strong>Cost accepted:</strong> more moving area means more drift and seam risk. Run the 3-seed drift probe (stage 5) as usual, use the stabilizer when needed, and check the seam sheet on every animated boundary.
 - <strong>Cityscapes are viewed from high up</strong> (roughly floor 30+ looking out over and down at the skyline), not from street level.</p>
+<h3 id="14b-style-rules-from-the-user-video-zen4-rain-animation-and-the-song">1.4b Style rules from the user (Video-Zen4): rain animation and the song</h3>
+<p><strong>Rain animation.</strong> Rain that reads as "white lines" was rejected four times. Build it like this (<code>scripts/rain_overlay.py</code>, Runbook §R, Lessons R1–R7):
+- <strong>Water, not white lines:</strong> see-through streaks, tapered at both ends and soft, that pick up the colour of the light around them (glow near lanterns and neon, almost invisible in dark corners), with a hint of refraction. Never paint pure white.
+- <strong>Straight down.</strong> No lean.
+- <strong>Depth:</strong> drops of different sizes at different distances, from a depth map of the picture (Depth Anything V2 Small). Far, small drops show only over far things; near things (table, rail, lanterns) hide them. Rain must be visible over the whole frame, not only the sky.
+- <strong>No big drops.</strong> Large near drops were "very distracting". With <code>--size 0.5</code> the largest remaining streak is about 46 px long and 2 px wide at 1080p; never the first version's 210 px long, 11 px wide blurry ones.
+- <strong>Subtle.</strong> "Too heavy" came twice. Approved look: <code>--strength 0.9 --splash 0.96 --size 0.5 --light 0.5</code> (about 0.35 / 255 mean change to the picture). Start there, not at full strength.
+- <strong>Splashes on every surface the rain hits</strong> (ground and stairs, rails, plants, counters, awnings), because they sell depth and "raining everywhere", but a lot of them is distracting: the approved count is about 1,600–1,850 events per 10-second loop, after the user cut the first version by 40 %.
+- <strong>Show the user a 10-second loop, not a still,</strong> at each change. Judge rain in motion; stills hide the problem.</p>
+<p><strong>The song.</strong> Healing, soft piano with rain ambience, at the approved music −22 LUFS and rain −36 LUFS (14 dB under, "subtle").
+- <strong>It must not go quiet every few seconds.</strong> Sparse piano with "lots of silence" faded to near-silence every ~5 s (17 % of 1-second windows were more than 6 dB below the median). The 20 s slow leveler cannot fix that. Plan for it from the start: either a prompt with a steadier pad and more frequent notes, or the fast upward compressor <code>scripts/upcomp.py</code> (Lessons D12).
+- <strong>Rain audio comes from a local model, not synthesis.</strong> The procedural rain of <code>ambience.py</code> was rejected twice ("white noise"). Use MOSS-SoundEffect (Apache 2.0) via <code>scripts/rain_gen.py</code> and <code>scripts/rain_bed.py</code> (Music §Rain).
+- <strong>The audio check must be run on the music alone and the rain alone</strong>, because the softness limits were calibrated without rain (Lessons D13).</p>
 <h3 id="15-roles">1.5 Roles</h3>
 <table>
 <thead>
@@ -433,7 +446,7 @@ Cost: more disk and upload time; YouTube processing takes longer. The 1080p file
 <td>"fine rain falling straight down"</td>
 <td>down</td>
 <td>as snow</td>
-<td><span class="badge unv">UNVERIFIED</span> (also needs rain ambience)</td>
+<td><span class="badge unv">UNVERIFIED</span> (also needs rain ambience). <strong>For Video-Zen4 the rain was not made by the video model but as a procedural layer (<code>rain_overlay.py</code>, §1.4b), and the rain sound by MOSS-SoundEffect (Music §Rain).</strong></td>
 </tr>
 <tr>
 <td>Smoke / incense</td>
