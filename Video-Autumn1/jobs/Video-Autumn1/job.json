@@ -1,0 +1,354 @@
+{
+ "id": "Video-Autumn1",
+ "source": "input/Video-Autumn1.png",
+ "source_size": [
+  1920,
+  1088
+ ],
+ "plate": {
+  "crop": [
+   0,
+   4,
+   1920,
+   1084
+  ],
+  "output_size": [
+   1920,
+   1080
+  ]
+ },
+ "loop": {
+  "period_s": 10.0,
+  "fps": 24,
+  "crossfade_s": 1.0,
+  "crossfade_curve": "smoothstep",
+  "per_region_feather": true,
+  "match_region_gain": true,
+  "match_region_contrast": true,
+  "ai_sharpen": 0.9
+ },
+ "regions": {
+  "bowl_steam": {
+   "role": "animated",
+   "poly": [
+    [
+     989,
+     572
+    ],
+    [
+     1126,
+     572
+    ],
+    [
+     1126,
+     763
+    ],
+    [
+     989,
+     763
+    ]
+   ],
+   "feather_px": 8
+  },
+  "brazier_smoke": {
+   "role": "animated",
+   "poly": [
+    [
+     1138,
+     565
+    ],
+    [
+     1351,
+     565
+    ],
+    [
+     1351,
+     788
+    ],
+    [
+     1138,
+     788
+    ]
+   ],
+   "feather_px": 8
+  },
+  "steam_src": {
+   "role": "steam_src",
+   "origin": [
+    1057,
+    757
+   ],
+   "height": 230,
+   "width": 64,
+   "lean": 8
+  },
+  "flicker_lantern_1": {
+   "role": "flicker",
+   "poly": [
+    [
+     412,
+     230
+    ],
+    [
+     627,
+     230
+    ],
+    [
+     627,
+     710
+    ],
+    [
+     412,
+     710
+    ]
+   ],
+   "feather_px": 5,
+   "amp": 0.12
+  },
+  "flicker_lantern_2": {
+   "role": "flicker",
+   "poly": [
+    [
+     869,
+     263
+    ],
+    [
+     1015,
+     263
+    ],
+    [
+     1015,
+     559
+    ],
+    [
+     869,
+     559
+    ]
+   ],
+   "feather_px": 5,
+   "amp": 0.12
+  },
+  "flicker_embers": {
+   "role": "flicker",
+   "poly": [
+    [
+     1153,
+     780
+    ],
+    [
+     1336,
+     780
+    ],
+    [
+     1336,
+     897
+    ],
+    [
+     1153,
+     897
+    ]
+   ],
+   "feather_px": 4,
+   "amp": 0.16
+  },
+  "lock_cup": {
+   "role": "lock",
+   "poly": [
+    [
+     1004,
+     757
+    ],
+    [
+     1111,
+     757
+    ],
+    [
+     1111,
+     826
+    ],
+    [
+     1004,
+     826
+    ]
+   ]
+  },
+  "lock_bench": {
+   "role": "lock",
+   "poly": [
+    [
+     775,
+     780
+    ],
+    [
+     1656,
+     780
+    ],
+    [
+     1656,
+     1084
+    ],
+    [
+     775,
+     1084
+    ]
+   ]
+  },
+  "qc_bowl_steam": {
+   "role": "qc_only",
+   "poly": [
+    [
+     989,
+     572
+    ],
+    [
+     1126,
+     572
+    ],
+    [
+     1126,
+     763
+    ],
+    [
+     989,
+     763
+    ]
+   ]
+  },
+  "qc_brazier_smoke": {
+   "role": "qc_only",
+   "poly": [
+    [
+     1138,
+     565
+    ],
+    [
+     1351,
+     565
+    ],
+    [
+     1351,
+     788
+    ],
+    [
+     1138,
+     788
+    ]
+   ]
+  },
+  "splash_ground": {
+   "role": "splash",
+   "kind": "ground",
+   "n": 700,
+   "poly": [
+    [
+     433,
+     770
+    ],
+    [
+     1651,
+     770
+    ],
+    [
+     1651,
+     1085
+    ],
+    [
+     433,
+     1085
+    ]
+   ]
+  },
+  "splash_bench": {
+   "role": "splash",
+   "kind": "top",
+   "n": 150,
+   "poly": [
+    [
+     775,
+     780
+    ],
+    [
+     1656,
+     780
+    ],
+    [
+     1656,
+     1084
+    ],
+    [
+     775,
+     1084
+    ]
+   ]
+  },
+  "splash_foliage": {
+   "role": "splash",
+   "kind": "leaf",
+   "n": 300,
+   "poly": [
+    [
+     485,
+     0
+    ],
+    [
+     1678,
+     0
+    ],
+    [
+     1678,
+     349
+    ],
+    [
+     485,
+     349
+    ]
+   ]
+  },
+  "splash_lant1": {
+   "role": "splash",
+   "kind": "top",
+   "n": 40,
+   "poly": [
+    [
+     412,
+     470
+    ],
+    [
+     627,
+     470
+    ],
+    [
+     627,
+     710
+    ],
+    [
+     412,
+     710
+    ]
+   ]
+  },
+  "splash_lant2": {
+   "role": "splash",
+   "kind": "top",
+   "n": 40,
+   "poly": [
+    [
+     869,
+     411
+    ],
+    [
+     1015,
+     411
+    ],
+    [
+     1015,
+     559
+    ],
+    [
+     869,
+     559
+    ]
+   ]
+  }
+ }
+}
