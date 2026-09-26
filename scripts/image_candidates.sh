@@ -13,7 +13,7 @@ for k in $(seq 1 "$N"); do
   S=$((SEED0 + (k - 1) * 11))
   F="$OUT/cand${k}_s${S}.png"
   [ -f "$F" ] && { echo "exists $F"; continue; }
-  draw-things-cli generate --model z_image_turbo_1.0_q8p.ckpt --no-download-missing --disable-preview \
+  draw-things-cli generate --model "${DT_IMAGE_MODEL:-z_image_turbo_1.0_q8p.ckpt}" --no-download-missing --disable-preview \
     --prompt-file "jobs/$JOB/image_prompt.txt" --negative-prompt-file "jobs/$JOB/image_negative.txt" \
     --width 1920 --height 1088 --seed "$S" -o "$F" 2>&1 | grep -E "Wrote|Total generation time|rror" || true
 done

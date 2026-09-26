@@ -12,3 +12,10 @@ __pycache__/
 *.mov
 *.wav
 *.flac
+# Video-Story1: do not publish the book's full text/bible copies or the cover art copies (owner's decision)
+Video-Story1/input/refs/book_full_text_and_image_prompts.txt
+Video-Story1/input/refs/book_bible.md
+Video-Story1/input/refs/cover_front_art.png
+Video-Story1/input/canon_src/
+Video-Story1/research/draw_things_cli_help.txt
+Video-*/jobs/*/mask_overlay_preview*.png
