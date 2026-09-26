@@ -1,1 +1,0 @@
-model: flux_2_klein_9b_i8x.ckpt (FLUX.2 [klein] 9B), 1920x1088, seed 12, text-to-image (round 4, candidate 6); prompt image_prompt_final.txt, negative image_negative.txt
