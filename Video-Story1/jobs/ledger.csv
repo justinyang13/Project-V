@@ -1,0 +1,15 @@
+shot,book_page,day,time_of_day,sky_weather,location,characters_present,mei_state,tao_state,other_state,ground_water_state,seedlings,yun_pearl,tally_or_quote_on_screen,narration_line
+S01,n/a,n/a,morning,pale morning light,inside farmhouse kitchen,Nainai,Mei,n/a,n/a,n/a,n/a,n/a,n/a,"Every morning Mei's grandmother cuts a notch in a bamboo stick, and every morning the sky stays empty."
+S02,n/a,n/a,day,n/a,rice terraces above tile-roofed village,Uncle Shi,Mei,n/a,n/a,n/a,seedlings: yellow straw-coloured,n/a,n/a,"The wells of Bamboo Ridge Village are almost dry, the rice seedlings are turning yellow, and the rain-asking at the shrine has failed."
+S03,n/a,n/a,day,cloudless day,small dry stone shrine yard,Auntie Fen,Uncle Shi,n/a,n/a,n/a,n/a,n/a,n/a,n/a
+S04,n/a,n/a,dusk,n/a,stone courtyard,Yeye Gu,n/a,n/a,n/a,n/a,n/a,n/a,n/a,"Then someone remembers the old story of the dragon of Black Pool, high on the mountain."
+S05,n/a,n/a,night,n/a,village schoolroom,Mei,Uncle Shi,Nainai,n/a,n/a,n/a,n/a,n/a,n/a,"Mei, who freezes whenever she has to speak up, is the only one who says, ""I'll go.""
+"
+S06,n/a,n/a,day,n/a,narrow dirt path through bamboo forest,Mei,Tao,Hua,Old Grey,n/a,n/a,n/a,n/a,n/a,"With her chatty little brother in yellow rain boots, a know-it-all classmate who is secretly afraid of heights, and a patient water buffalo, she climbs through bamboo, over a rope bridge and into the clouds."
+S07,n/a,n/a,day,n/a,wooden plank and rope bridge over a misty gorge,Mei,Hua,n/a,n/a,n/a,n/a,n/a,n/a,n/a
+S08,n/a,n/a,day,n/a,Black Pool,Mei,Tao,Hua,n/a,n/a,cracked mud shore,almost-dry dark lake,n/a,n/a,n/a,"At the top she finds a dragon who is kind, polite and absolutely terrified of his own thunder."
+S09,n/a,n/a,day,n/a,n/a,n/a,n/a,n/a,n/a,n/a,n/a,n/a,n/a,n/a
+S10,n/a,n/a,day,n/a,Black Pool,Mei,n/a,n/a,n/a,n/a,cracked mud shore,almost-dry dark lake,n/a,n/a,n/a,n/a
+S11,n/a,day 120,dusk,dusky violet sky with mist,stone shrine yard of a mountain village,Mei,n/a,n/a,n/a,n/a,n/a,n/a,n/a,n/a
+S12,n/a,day 120,night,dark boiling grey-green storm cloud,village yard,Mei,Tao,n/a,n/a,n/a,n/a,n/a,n/a,n/a,n/a
+S13,n/a,n/a,day,soft grey rain clouds with misty sky,village yard,Mei,Tao,Nainai,n/a,n/a,muddy village yard,n/a,n/a,n/a,n/a,n/a

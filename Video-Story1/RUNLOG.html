@@ -1,0 +1,272 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Video-Story1 — Project-V</title><style>:root{--bg:#fbfaf8;--card:#ffffff;--ink:#1d2129;--mute:#5f6875;--line:#e3e0da;--accent:#2f6f8f;--accent-ink:#ffffff;--code:#f2efe9;--ok:#1f7a4d;--ok-bg:#e3f3ea;--warn:#8a5a00;--warn-bg:#fdf1d6;--claude:#7a4fb5;--script:#2f6f8f;--user:#b5561f}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#14171c;--card:#1b1f26;--ink:#e8e6e1;--mute:#98a1ad;--line:#2b313a;--accent:#7ab6d3;--accent-ink:#0d1a22;--code:#222730;--ok:#63c790;--ok-bg:#183326;--warn:#e8b95a;--warn-bg:#3a2f14;--claude:#b79be0;--script:#7ab6d3;--user:#eb9a6c}}
+:root[data-theme="dark"]{--bg:#14171c;--card:#1b1f26;--ink:#e8e6e1;--mute:#98a1ad;--line:#2b313a;--accent:#7ab6d3;--accent-ink:#0d1a22;--code:#222730;--ok:#63c790;--ok-bg:#183326;--warn:#e8b95a;--warn-bg:#3a2f14;--claude:#b79be0;--script:#7ab6d3;--user:#eb9a6c}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+header.top{position:sticky;top:0;z-index:5;background:var(--card);border-bottom:1px solid var(--line)}
+header.top nav{max-width:1000px;margin:0 auto;padding:10px 16px;display:flex;gap:6px 18px;flex-wrap:wrap;align-items:center}
+header.top .brand{font-weight:700;margin-right:auto}
+header.top a{color:var(--mute);text-decoration:none;font-size:14px}
+header.top a:hover,header.top a.on{color:var(--accent);text-decoration:underline}
+main{max-width:1000px;margin:0 auto;padding:24px 16px 80px}
+h1{font-size:2rem;line-height:1.2;margin:.2em 0 .4em}h2{margin-top:2.2em;padding-top:.4em;border-top:1px solid var(--line);font-size:1.4rem}h3{margin-top:1.6em;font-size:1.1rem}
+a{color:var(--accent)}
+code{background:var(--code);padding:.1em .35em;border-radius:4px;font:13.5px/1.4 ui-monospace,SFMono-Regular,Menlo,monospace}
+pre{background:var(--code);border:1px solid var(--line);border-radius:8px;padding:12px 14px;overflow:auto;position:relative}pre code{background:none;padding:0;font-size:13px;white-space:pre}
+table{border-collapse:collapse;width:100%;margin:1em 0;font-size:14.5px;display:block;overflow-x:auto}
+th,td{border:1px solid var(--line);padding:7px 10px;text-align:left;vertical-align:top}th{background:var(--code)}
+blockquote{margin:1em 0;padding:.6em 1em;border-left:4px solid var(--accent);background:var(--code);border-radius:0 8px 8px 0}
+hr{border:0;border-top:1px solid var(--line);margin:2em 0}
+.badge{display:inline-block;padding:0 .5em;border-radius:99px;font-size:.78em;font-weight:600;white-space:nowrap}
+.badge.unv{background:var(--warn-bg);color:var(--warn)}.badge.ver{background:var(--ok-bg);color:var(--ok)}
+.copy{position:absolute;top:6px;right:6px;font-size:12px;padding:3px 9px;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:6px;cursor:pointer}
+.lede{font-size:1.15rem;color:var(--mute);max-width:70ch}
+.hero{padding:8px 0 4px}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:12px;margin:14px 0}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.card h3{margin:.1em 0 .3em;font-size:1.02rem}.card p{margin:.3em 0;font-size:14.5px;color:var(--mute)}
+.card .num{display:inline-grid;place-items:center;width:26px;height:26px;border-radius:50%;background:var(--accent);color:var(--accent-ink);font-weight:700;font-size:13px;margin-right:8px}
+.tag{display:inline-block;font-size:12px;font-weight:600;padding:1px 8px;border-radius:99px;border:1px solid currentColor;margin:2px 4px 0 0}
+.tag.c{color:var(--claude)}.tag.s{color:var(--script)}.tag.u{color:var(--user)}
+.gate{font-size:13.5px;border-top:1px dashed var(--line);margin-top:8px;padding-top:6px;color:var(--ink)}
+.out{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
+.kick{position:relative}
+@media (max-width:600px){h1{font-size:1.6rem}}
+</style></head><body>
+<header class="top"><nav><span class="brand">Project-V</span><a href="https://justinyang13.github.io/Project-V/">Master docs</a><a href="https://justinyang13.github.io/Project-V/spec.html">Spec</a><a href="https://justinyang13.github.io/Project-V/runbook.html">Runbook</a><a href="https://justinyang13.github.io/Project-V/lessons.html">Lessons</a><a href="https://justinyang13.github.io/Project-V/music.html">Music</a><a href="https://justinyang13.github.io/Project-V/models.html">Models</a><a href="https://justinyang13.github.io/Project-V/posting-plan.html">Posting plan</a></nav></header><main><h1 id="runlog-video-story1-mei-and-the-dragon-who-feared-thunder-trailer">RUNLOG — Video-Story1 ("Mei and the Dragon Who Feared Thunder" trailer)</h1>
+<p>The rundown of every step, in order, written as the work happens. Spec: <a href="spec.html">SPEC.md</a> · Canon: <a href="https://github.com/justinyang13/Project-V/blob/main/CANON.md">CANON.md</a>.</p>
+<p><strong>Entry template</strong> (copy for each step):</p>
+<pre style="line-height: 125%;"><span></span><code>### &lt;n&gt;. &lt;short title&gt;  ·  &lt;date time&gt;  ·  who: Claude | Qwen | script | user
+- Why:
+- Command / tool (exact):
+- Parameters (model, seed, size, steps):
+- Output files:
+- Numbers / result:
+- Decision / next:
+</code></pre>
+
+<h2 id="status-board">Status board</h2>
+<table>
+<thead>
+<tr>
+<th>Stage</th>
+<th>State</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Study of the book</td>
+<td>done (1–2)</td>
+</tr>
+<tr>
+<td>Plan agreed with user</td>
+<td>done (3–4)</td>
+</tr>
+<tr>
+<td>SPEC v0.1 + CANON + RUNLOG</td>
+<td>written (5); user then asked for the video overnight: gates G1–G5 self-approved by Claude</td>
+</tr>
+<tr>
+<td>Keyframes, animation, audio, assembly</td>
+<td><strong>done</strong>, trailer delivered in <code>output/</code> (31)</td>
+</tr>
+<tr>
+<td>Stage 0 tech tests</td>
+<td>done: T0.1 style (Z Image Turbo), T0.2 consistency (cover-head composite for Yun), T0.3 LTX on painting (works, seed choice matters), T0.5 voice (Qwen3-TTS Serena), T0.6 music/sound (ACE-Step, MOSS)</td>
+</tr>
+<tr>
+<td>G1 canon sheets … G6 final</td>
+<td>not started</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="1-read-the-whole-book-2026-09-25-who-claude">1. Read the whole book  ·  2026-09-25  ·  who: Claude</h3>
+<ul>
+<li>Why: the user wants me to know the characters and world inside out; consistency is the key.</li>
+<li>Tool: read <code>source/bible.md</code>, <code>source/outline.md</code>, all 20 <code>source/chapters/chNN.json</code> (100 pages of text + per-page image prompts), viewed cover and all 100 illustrations as contact sheets.</li>
+<li>Output: notes saved to memory (<code>project-video-story1</code>, <code>reference-mei-book-canon</code>); text + image prompts dumped to <code>input/refs/book_full_text_and_image_prompts.txt</code>.</li>
+<li>Result: canon and timeline understood (CANON.md). Found <strong>book problems</strong>: art drift (Yun cover vs interior; Tao's boots brown on p041; Hua's jeans/sneakers not in the bible; Nainai's jacket grey-brown on p080/p095; Yun's size and pose vary); Captain the tadpole dropped after ch7; tea gift is both a "red paper bundle" and a "bamboo tube"; the book's images are 640×640 (too small to reuse). Decisions in CANON §6.</li>
+</ul>
+<h3 id="2-checked-what-tools-exist-2026-09-25-who-claude">2. Checked what tools exist  ·  2026-09-25  ·  who: Claude</h3>
+<ul>
+<li>Read Project-V SPEC/models/lessons, <code>draw-things-cli --help</code>, <code>models list</code>, <code>train lora --help</code>, SSD model folder.</li>
+<li>Result: <strong><code>draw-things-cli train lora</code> exists</strong> (local LoRA training, dataset of images + .txt captions) and Qwen-Image-Edit-2511 / FLUX.2 klein are in the CLI's model list: options for character consistency. Installed on the SSD: klein 9B, Z Image Turbo, qwen_3_vl_4b, LTX-2.3 22B distilled + upscalers, Depth-Anything-V2-Small, ACE-Step, MOSS. Video via CLI is verified (Project-V lesson A20).</li>
+<li>Found how the book art was made: <code>/Users/justin/Code/Maxi/factory/books/mei-and-the-dragon-who-feared-thunder/style.json</code> (style prefix, per-character "looks" strings, cover prompts with seeds) and <code>gen_images.py</code> (Z Image Turbo, 768 px pages, seed_base 21000). Copied <code>book_style.json</code>, <code>cover_front_art.png</code> (1024×1536 art-only cover), <code>book_bible.md</code> into <code>input/refs/</code>.</li>
+</ul>
+<h3 id="3-plan-presented-to-user-2026-09-25-who-claude">3. Plan presented to user  ·  2026-09-25  ·  who: Claude</h3>
+<ul>
+<li>Presented the study, the consistency system, stages and questions.</li>
+</ul>
+<h3 id="4-user-decisions-2026-09-25-who-user">4. User decisions  ·  2026-09-25  ·  who: user</h3>
+<ul>
+<li>60–90 s trailer · 16:9 for YouTube · match the book watercolor exactly · Yun = cover version exactly (serpentine) · narrator chosen by Claude · music yes · not for Zen Hour Music, language rule applies, use book titles/words only · free downloads OK · "don't go idle, use local AI".</li>
+<li>Later: "start with spec and rundown file; record the steps as much as possible."</li>
+</ul>
+<h3 id="5-wrote-specmd-v01-canonmd-this-runlog-2026-09-25-who-claude">5. Wrote SPEC.md v0.1, CANON.md, this RUNLOG  ·  2026-09-25  ·  who: Claude</h3>
+<ul>
+<li>Created folder <code>Project-V/Video-Story1/{input/refs,jobs,output,work,research}</code>.</li>
+<li>SPEC covers: contract, gates G1–G6, draft 13-shot trailer script (book words only), Stage 0 tests T0.1–T0.6, consistency system (canon sheets, identity strings, continuity ledger, keyframe checklist), image/motion/audio/text specs, roles, never-idle rules, documentation rules, risks, open items.</li>
+<li>Decision: the standing memory says "FLUX.2 klein 9B, not Z Image Turbo" for Project-V pictures, but the book art was made with Z Image Turbo and the user wants an exact match. Not decided by Claude: T0.1 measures both; a one-time exception is asked of the user only if klein cannot match (SPEC §12 item 2).</li>
+</ul>
+<h3 id="6-background-research-by-local-ai-qwen-2026-09-25-2308-who-qwen-qwen3827b-direct-ollama-api-via-claudebinqwen_agentpy-web-tools-1200-s-limit-each">6. Background research by local AI (Qwen)  ·  2026-09-25 23:08  ·  who: Qwen (qwen3.8:27b, direct Ollama API via <code>~/.claude/bin/qwen_agent.py</code>, web tools, 1200 s limit each)</h3>
+<ul>
+<li>Script: <code>research/run_research.sh</code> runs three tasks in sequence, each writing a report: <code>tts_report.md</code> (free local narrator voices for Apple Silicon), <code>consistency_report.md</code> (character LoRA training with the Draw Things CLI, reference editing, multi-character tips), <code>ltx_report.md</code> (keeping painted faces stable in LTX-2.3 image-to-video). Completion flag: <code>research/research_done.flag</code>.</li>
+<li>Status: running (TTS report still being written at 23:15).</li>
+<li>Rule: Qwen's facts get spot-checked by Claude before they enter the SPEC/RUNBOOK (registry: it can invent details).</li>
+</ul>
+<h3 id="7-t01-style-match-first-result-flux2-klein-9b-2026-09-25-2312-who-claude-draw-things-cli">7. T0.1 style match, first result (FLUX.2 klein 9B)  ·  2026-09-25 23:12  ·  who: Claude + Draw Things CLI</h3>
+<ul>
+<li>Why: "match the book down to exact"; the book's images came from Z Image Turbo, the user's standing choice is klein.</li>
+<li>Command: <code>DRAWTHINGS_MODELS_DIR=/Volumes/SSD-4T-LR/AI/Models draw-things-cli generate --model flux_2_klein_9b_i8x.ckpt --no-download-missing --disable-preview --width 1024 --height 1536 --seed {731,733,735} --prompt-file work/t0_style/prompt_cover.txt --output work/t0_style/klein_&lt;seed&gt;.png</code> (prompt = the book's <code>covers.front3.prompt</code>; script <code>work/t0_style/run.sh</code>).</li>
+<li>Result: 43 s per image including model load; 4 sampling steps. Comparison sheet <code>work/t0_style/compare.jpg</code> (cover + 3 klein).</li>
+<li>Looks (Claude viewing): klein reproduces the <strong>gouache/coloured-pencil paper-grain family</strong> well, but <strong>not the exact cover</strong>: Mei got a <strong>zip puffer jacket with patches</strong> (cover: padded jacket with cloth <strong>knot buttons</strong>) and a <strong>conical bamboo hat</strong> (cover: wide round straw hat); Yun's head is sharper, more spiky and realistic, greener than the cover's teal, antlers browner and larger, a <strong>silver pearl hangs under the chin</strong> (good: the pearl is canon, the cover doesn't show it), a soft feathery grey mane is missing; background mountains are cleaner/paler than the cover's ink-wash peaks.</li>
+<li>Verdict so far: text prompt alone does not give "exact"; this confirms the need for the reference-based consistency method (T0.2). Z Image Turbo baseline for the same 3 seeds is rendering (<code>work/t0_style/run_z.sh</code>, files <code>z_&lt;seed&gt;.png</code>) so the two can be compared fairly.</li>
+</ul>
+<h3 id="8-t01-style-match-verdict-z-image-turbo-baseline-2026-09-25-2319-who-claude">8. T0.1 style match, verdict (Z Image Turbo baseline)  ·  2026-09-25 23:19  ·  who: Claude</h3>
+<ul>
+<li>Command: same as 7 with <code>--model z_image_turbo_1.0_q8p.ckpt</code> (script <code>work/t0_style/run_z.sh</code>), seeds 731/733/735, same prompt. Sheet: <code>work/t0_style/compare_z_vs_klein.jpg</code> (cover, z731, z733, z735, klein731).</li>
+<li>Result (Claude viewing): <strong>Z Image Turbo with the book's prompt reproduces the cover look almost exactly</strong> (seed 733 gives the same composition, teal serpentine Yun with grey mane, round straw hat, knot-button padded jacket, ink-wash peaks). <strong>FLUX.2 klein 9B does not</strong> (zip puffer jacket, conical hat, spiky realistic dragon, pale cleaner mountains).</li>
+<li>Consequence: "match the book down to exact" and "cover-exact Yun" need Z Image Turbo as the base look. This conflicts with the standing rule "FLUX.2 klein only, never Z Image Turbo" (memory feedback-image-model-flux2-klein). Not overridden by Claude: <strong>user asked</strong> (see 9).</li>
+<li>Possible middle path to test if the user prefers klein: klein with reference images from the cover (method A of T0.2) or a klein LoRA trained on Z-Image-made canon images. Both are extra work and may still not be exact.</li>
+</ul>
+<h3 id="9-user-decision-z-image-turbo-for-this-project-only-2026-09-25-2322-who-user">9. User decision: Z Image Turbo for this project only  ·  2026-09-25 23:22  ·  who: user</h3>
+<ul>
+<li>Asked via a question dialog; answer: "Z Image Turbo, this project only". Recorded as SPEC D10; standing klein rule unchanged for other videos. Memory note updated.</li>
+</ul>
+<h3 id="10-qwen-research-failed-once-fixed-the-tool-restarted-2026-09-25-2324-who-claude-qwen">10. Qwen research failed once, fixed the tool, restarted  ·  2026-09-25 23:24  ·  who: Claude + Qwen</h3>
+<ul>
+<li>What happened: all three Qwen reports of run 1 were empty or refused ("No results" for every query). Cause: <code>web_search</code> scrapes DuckDuckGo, which now returns a bot-challenge page. Qwen also could not find <code>draw-things-cli</code> (it is not on the web index it saw).</li>
+<li>Fix (Claude configured the local agent; user rule "configure Qwen to handle more"): <code>~/.claude/bin/qwen_agent.py</code> <code>web_search</code> now falls back to the <strong>GitHub repo search API and HuggingFace model search API</strong> (no keys); backup at <code>qwen_agent.py.bak</code>. Tested: query "kokoro" returns hexgrad/kokoro (Apache-2.0) and the HF model card.</li>
+<li>Restart: <code>research/run_research2.sh</code> (900 s limit per task, grounded prompts, real CLI help saved in <code>research/draw_things_cli_help.txt</code>); run-1 outputs moved to <code>research/failed_run1/</code>. Reports: <code>tts_report.md</code>, <code>consistency_report.md</code>, <code>ltx_report.md</code>, flag <code>research_done.flag</code>.</li>
+<li>Lesson candidate: local research needs a search backend that does not bot-block; check <code>web_search</code> before delegating web research.</li>
+</ul>
+<h3 id="11-t02-candidate-batch-z-image-turbo-mei-yun-2026-09-25-2331-who-claude-script">11. T0.2 candidate batch (Z Image Turbo, Mei + Yun)  ·  2026-09-25 23:31  ·  who: Claude + script</h3>
+<ul>
+<li>Why: find out how well the CANON identity strings alone hold Mei and Yun across 6 varied scenes × 4 seeds each (the baseline "method A0"), and produce the raw material for a character LoRA (method B) if strings alone drift.</li>
+<li>Command: <code>scripts/t02_batch.py</code> (background, log <code>work/t02_batch.log</code>); model <code>z_image_turbo_1.0_q8p.ckpt</code>, 1024×576, seeds 7101–7104, book style prefix + CANON §2 Mei string / Yun cover-based string (+ pearl phrase in the two pearl scenes). Every prompt and seed is saved in <code>jobs/t02/prompts.json</code>.</li>
+<li>Speed: ≈ 25 s per image. 48 images.</li>
+<li>LoRA check: <code>draw-things-cli train lora --model z_image_turbo_1.0_q8p.ckpt --dataset &lt;dir&gt; --dry-run</code> accepts Z Image Turbo (default rank 32, resolution 512, name lora_output); a real training run is not done yet <strong><span class="badge unv">UNVERIFIED</span></strong>.</li>
+<li>Next: contact sheets → Claude scores them with the SPEC §5.4 checklist → decide A0 vs LoRA.</li>
+</ul>
+<h3 id="12-t02-batch-verdict-claude-viewing-workt02sheet_meijpg-sheet_yunjpg-2026-09-25-2350">12. T0.2 batch verdict (Claude viewing <code>work/t02/sheet_mei.jpg</code>, <code>sheet_yun.jpg</code>)  ·  2026-09-25 23:50</h3>
+<ul>
+<li><strong>Mei (24 images): identity holds.</strong> Same face, two braids with red string, wide straw hat, blue padded jacket with knot buttons and patch, brown trousers/cloth shoes in 24/24. Small drifts: patch position moves, blue is brighter/cleaner than the cover's faded blue, hat shape varies slightly. Weakness is <strong>composition, not identity</strong>: the scene words are often ignored (a "classroom" became a bench outdoors with a chalkboard, "climb from behind" showed her from the front) and she is small and centred.</li>
+<li><strong>Yun (24 images): consistent with himself, but not the cover.</strong> Every image has teal scales, cream belly plates, brown antlers, grey mane; but the face is <strong>cuter and more cartoon (pig-like snout, round eyes)</strong>, smaller and with front legs, less elegant than the cover's long refined head. So strings alone give "a Yun", not "the cover Yun". Pearl reads as a silver bead hanging from the whisker (needs a decision at G1).</li>
+<li><strong>New artifact found:</strong> tiny face-like blobs and dots on rocks, roofs and ground in many images (Yun sheet especially). Likely caused by the style prefix words "expressive kind faces". Fix: drop that phrase for scenes and for Yun, or add positive scoping (Lesson from the novel job: positive scoping beats negative words).</li>
+<li>Verdict: method A0 (strings + fixed style) is good enough for Mei and the human cast in wide shots, <strong>not enough for cover-exact Yun</strong>. Next: method B, a Yun LoRA (and probably Mei) trained on curated images, plus img2img from the cover crop for the Yun head.</li>
+</ul>
+<h3 id="13-delegation-plan-for-local-ai-written-2026-09-25-who-claude-at-the-users-request">13. Delegation plan for local AI written  ·  2026-09-25  ·  who: Claude (at the user's request)</h3>
+<ul>
+<li>Added SPEC §9.1: per stage, which local worker does what, what Claude checks, and each worker's known limit.</li>
+</ul>
+<h3 id="14-user-goes-to-sleep-i-want-the-video-in-the-morning-2026-09-26-0010-who-user-claude">14. User goes to sleep: "I want the video in the morning"  ·  2026-09-26 00:10  ·  who: user, Claude</h3>
+<ul>
+<li>Instruction: deliver the finished trailer by morning; no input needed from the user meanwhile.</li>
+<li>Decisions by Claude (recorded so they can be reviewed): (a) gates G1–G5 are self-approved using SPEC §5.4 and the numeric checks; each self-approval is logged with the evidence; (b) Mac kept awake with <code>caffeinate -dims -t 43200</code>; (c) status line to the user at least every 5 min (new machine rule); (d) keyframes at 1024×576 (Z Image Turbo), video clips at 1024×576, final upscale to 1920×1080; (e) TTS and Qwen may run beside Draw Things, ACE-Step and MOSS only after the video renders.</li>
+<li>Also found: the first Yun run at 00:03 failed (system Python has no PIL); scripts now use <code>Project-V/.venv/bin/python</code>. Nothing had been running between 23:50 and 00:03 (I only work while a turn is active); this was told to the user.</li>
+</ul>
+<h3 id="15-cover-reference-fix-and-cover-reproducibility-2026-09-26-0025-who-claude">15. Cover-reference fix and cover reproducibility  ·  2026-09-26 00:25  ·  who: Claude</h3>
+<ul>
+<li>Bug found: the Yun i2i test (<code>scripts/yun_i2i.py</code>) used <code>cover_front_final.png</code>, which has the title text baked in ("RED THUNDER" appeared in every render). Fixed: reference is now the <strong>art-only</strong> <code>cover_front4.png</code> (copied to <code>input/refs/cover_front_art.png</code>, crops in <code>input/canon_src/</code>).</li>
+<li>Important fact: <code>cover_front4.png</code> and my own Z Image Turbo render of the same prompt with seed 733 differ by 0.21/255 on average, i.e. <strong>the cover is exactly reproducible</strong> (same model, prompt, seed, size 1024×1536). So "cover-exact Yun" can be re-rendered at will, and Z Image Turbo is confirmed as the right model.</li>
+<li>The first Yun i2i run (with text) still showed the head is preserved at strengths 0.35–0.65 (i2i keeps the cover head closely); the run will be redone on the art-only crop.</li>
+</ul>
+<h3 id="16-github-check-ins-blocked-by-the-permission-system-2026-09-26-0028-who-claude">16. GitHub check-ins blocked by the permission system  ·  2026-09-26 00:28  ·  who: Claude</h3>
+<ul>
+<li>User asked for regular GitHub check-ins. <code>git commit &amp;&amp; git push</code> to the public repo <code>justinyang13/Project-V</code> was denied twice by the auto-mode classifier ("Out-of-Place Publication"; earlier the jCore backup push was denied as "Sensitive-Source Provenance"). Not worked around.</li>
+<li>State: files are staged locally (<code>git add .gitignore Video-Story1</code>); nothing committed or pushed. <code>.gitignore</code> now excludes the book's full text, bible copy, cover art copies and crops.</li>
+<li>Needs the user: allow the push (add a <code>Bash(git push:*)</code> permission rule in Claude Code settings, or approve when asked). Progress is meanwhile recorded in this RUNLOG.</li>
+</ul>
+<h3 id="17-keyframes-s01s07-non-yun-shots-2026-09-26-0026-who-claude-script">17. Keyframes S01–S07 (non-Yun shots)  ·  2026-09-26 00:26  ·  who: Claude + script</h3>
+<ul>
+<li><code>scripts/keyframes.py jobs/shots_nonyun.json</code> → <code>work/kf/&lt;shot&gt;_&lt;seed&gt;.png</code>, 4 seeds (9101–9104), 1024×576, Z Image Turbo, book style prefix <strong>without</strong> "expressive kind faces" (removed to avoid the face-blob artifact), identity strings from <code>jobs/identity.json</code>. ≈ 10 s per image.</li>
+</ul>
+<h3 id="18-keyframe-selection-s01s07-self-approved-gate-g3-part-1-2026-09-26-0040-who-claude">18. Keyframe selection S01–S07 (self-approved gate G3, part 1)  ·  2026-09-26 00:40  ·  who: Claude</h3>
+<ul>
+<li>Viewed <code>work/kf/sheet_nonyun.jpg</code>, <code>sheet_reroll1.jpg</code>. Picks (recorded in <code>jobs/selected.json</code>): S01_9102, S02r_9202, S03_9102, S04_9101, S05_9101, S06r_9202, S07_9101.</li>
+<li>Problems found and fixed: S02 first came out lush green (story needs a drought): re-rendered with "parched pale yellow and brown, cracked ochre soil, no green fields" (S02r, seeds 9201–9204): fixed. S06 gave Mei the map (Hua's prop): reworded, 1 of 4 seeds correct. Known small flaws kept: S06 has a stray paper on the ground; S05 is a daylight classroom, not dim; Mei's hat looks conical in some S02 seeds.</li>
+</ul>
+<h3 id="19-yun-into-the-shots-cover-head-pasted-blended-2026-09-26-0055-who-claude-script">19. Yun into the shots: cover head pasted + blended  ·  2026-09-26 00:55  ·  who: Claude + script</h3>
+<ul>
+<li>Problem: strings alone give a cuter, smaller Yun (T0.2); LoRA from one image would only learn one view.</li>
+<li>Method (<code>scripts/yun_compose.py</code>): render the scene <strong>without</strong> Yun (children, boulder/lake/village, empty mist area) → paste the art-only cover Yun head (crop 230,230,960,810 of <code>cover_front4.png</code>, feathered edge) → Z Image Turbo image-to-image at strength 0.4–0.65 with a Yun+scene prompt (<code>jobs/blend/S*.txt</code>) to blend light and edges. GrabCut cut-out was tried first and failed (lost antlers/eyes).</li>
+<li>Result (Claude viewing <code>sheet_S09c.jpg</code>, <code>sheet_yunshots.jpg</code>): <strong>the head stays the cover's design in every shot</strong>, children keep their look, mist blends. S08 uses an upper-head crop (<code>YUN_CROP=380,250,860,610</code>) with the boulder strip pasted back in front (<code>YUN_OCCLUDE</code>), i2i 0.55. S12 strength 0.65 gives a slightly open mouth and yellowish eye (accepted).</li>
+<li>Picks: S08c_s55, S09c_9302_s40, S10c_s40, S11c_s45, S12c_s65, S13c_s40. All 13 keyframes copied to <code>input/keyframes/S01–S13.png</code> (1024×576). G3 self-approved.</li>
+<li>Known weak points: Yun is always the cover's 3/4 view looking down-left (no other angles); no pearl visible except a faint glow; S11 Yun is small in the frame.</li>
+</ul>
+<h3 id="20-answer-to-the-user-shouldnt-you-use-ltx-or-wan-2026-09-26-0058-who-claude">20. Answer to the user: "shouldn't you use LTX or Wan?"  ·  2026-09-26 00:58  ·  who: Claude</h3>
+<ul>
+<li>Yes, LTX-2.3 animates each keyframe (stage 5, started 01:00). Wan 2.2 on the SSD is text-to-video only and cannot animate a given picture (Project-V lesson).</li>
+</ul>
+<h3 id="21-ltx-23-animation-queue-seed-101-all-13-shots-2026-09-26-0100-who-script-scriptsanimatepy">21. LTX-2.3 animation queue (seed 101, all 13 shots)  ·  2026-09-26 01:00  ·  who: script <code>scripts/animate.py</code></h3>
+<ul>
+<li>Motion prompts in <code>jobs/motion.json</code>: painted illustration, everything frozen except a short list of gentle motions; camera never mentioned (Project-V A2/A13; Qwen's research suggested the opposite, empirical lesson wins). Model <code>ltx_2.3_22b_distilled_1.1_q8p.ckpt</code>, 145 frames, 1024×576, 8 steps, cfg 1.0; output prores → h264, frames every 12 for contact sheets. Order: S09, S12, S08, S10, S07, S13, S11, S06, S01–S05. Log <code>work/animate_q1.log</code>.</li>
+</ul>
+<h3 id="22-narration-qwen3-tts-serena-2026-09-26-0030-who-claude-mlx-audio">22. Narration (Qwen3-TTS "Serena")  ·  2026-09-26 00:30  ·  who: Claude + mlx-audio</h3>
+<ul>
+<li>Installed free: <code>mlx-audio</code> in <code>Project-V/tools/tts-venv</code> (uv, Python 3.12; git-ignored). Model <code>mlx-community/Qwen3-TTS-12Hz-0.6B-CustomVoice-8bit</code> (Apache-2.0, chosen from the Qwen research report, <code>research/tts_report.md</code>), cache <code>HF_HOME=/Volumes/SSD-4T-LR/AI/hf-cache</code>. First run failed ("Speech tokenizer not loaded"): macOS <code>._*</code> junk files on the exFAT cache; deleted them from my cache folder, then it worked.</li>
+<li><code>scripts/narrate.py Serena serena</code> → <code>work/tts/lines/serena_N1..N7_000.wav</code>; text = the book's own back-cover sentences (<code>jobs/narration.json</code>, verbatim). Voice instruction: slow, warm, gentle bedtime-story read-aloud. Durations 7.4 / 10.1 / 7.0 / 7.8 / 16.1 / 7.9 / 6.2 s (62.5 s). The <code>--speed 1.12</code> option did not shorten it (8.0 s vs 7.4 s for N1, sampling varies), so the timeline uses <code>atempo 1.08</code> on the speed-1.0 lines.</li>
+<li>The user said "you pick the voice": Claude picked Serena (the report's "warm, gentle young female"). Not heard by Claude; the user's ears decide.</li>
+</ul>
+<h3 id="23-text-cards-and-end-card-2026-09-26-0040-who-claude-scriptscardspy">23. Text cards and end card  ·  2026-09-26 00:40  ·  who: Claude + <code>scripts/cards.py</code></h3>
+<ul>
+<li>Georgia Italic for the tally line and quotes, Avenir Next Heavy for the end-card title (the cover's font family), colours from the book's cover meta. End card = cover-palette background, the art-only cover on the right, kicker/title/tagline on the left. All words are the book's (title, subtitle, tagline "Some voices shake. Use them anyway.", quotes p024/p049/p060/p090).</li>
+</ul>
+<h3 id="24-timeline-assembler-captions-language-check-2026-09-26-0050-who-claude">24. Timeline, assembler, captions, language check  ·  2026-09-26 00:50  ·  who: Claude</h3>
+<ul>
+<li><code>jobs/timeline.json</code> (88.0 s total: 13 shots + 6.6 s end card, 0.5 s dissolves, narration and card times), <code>scripts/assemble.py</code> (ffmpeg), <code>scripts/make_srt.py</code> (15 captions), <code>scripts/lang_check.py</code> (blocking; PASS).</li>
+<li>Qwen ledger (<code>jobs/ledger.csv</code>) was delegated; its output is thin (many "n/a") so Claude fills gaps later. Qwen was unloaded (<code>ollama stop</code>) at 00:35 because memory was at 69 GB used with LTX rendering.</li>
+</ul>
+<h3 id="25-ltx-23-animation-pass-1-seed-101-all-13-shots-2026-09-26-00320113-who-script-animatepy">25. LTX-2.3 animation, pass 1 (seed 101, all 13 shots)  ·  2026-09-26 00:32–01:13  ·  who: script <code>animate.py</code></h3>
+<ul>
+<li>13 clips, 145 frames each, 1024×576, ≈ 210–285 s per clip (a first <code>ffmpeg -vsync</code> frame-extract line failed on every clip; harmless, fixed to <code>-fps_mode passthrough</code>). Output frame rate is 25 fps (145 frames = 5.8 s); the assembler re-times to 24 fps.</li>
+<li>Memory note: with Qwen (19 GB) loaded the Mac hit 69 GB used; <code>ollama stop qwen3.8:27b</code> fixed it. Rule: unload Qwen before video renders.</li>
+<li>Review (Claude, <code>progress/06_*.jpg</code>, <code>07_*.jpg</code>, frames 0/70/144 of each clip): good: S01 S02 S04 S05 S07 S09 S10 S11 S12 (Yun's head stays the cover design; children keep their look). <strong>Problems:</strong> S03 has a glitch at ~frame 70 (golden crossed sticks fly through the air); S06 pushes in strongly (faces grow, buffalo cropped); S13 Tao runs out of frame by the end; S08 Yun's head drifts a little on the boulder; S12 Tao's tiger emblem became a round badge (keyframe, blend strength). Plan: pass 2 with seed 202 for S03, S06, S13, S08, S07 (S03/S06/S13 prompts tightened: nothing flies, everyone stays in place).</li>
+</ul>
+<h3 id="26-music-ace-step-15-2026-09-26-01150120-who-claude-music_genpy">26. Music (ACE-Step 1.5)  ·  2026-09-26 01:15–01:20  ·  who: Claude + <code>music_gen.py</code></h3>
+<ul>
+<li>Server <code>tools/ACE-Step-1.5/start_api_server_macos.sh</code> (checkpoints on the SSD). 90 s pieces take ≈ 46 s. Round 1 (<code>trailer_11</code>, <code>trailer_22</code>, prompt with bamboo flute + zither + strings, 72 bpm, D major): both <strong>failed <code>audio_qc.py</code></strong> (13 and 12 harsh/clipping events, sample peaks above 0 dBFS). Rework: post-process (low-pass 9–9.5 kHz, −4 dB, limiter 0.75) cut events to 3; round 2 with a "very soft, warm, mellow, no bright or shrill notes, no bells" prompt (seeds 33/44/55/66) gave, after the same post-process, 10/5/2/1 events.</li>
+<li>Pick: <code>soft_55</code> (2 events, both in the first 0.5 s; a 1.5 s fade-in leaves 1 event: hf_ratio 0.33 at 0.5 s, a ratio artifact at near-silence; not audible harshness by measurement, <strong>user to confirm by ear</strong>). Level profile: quiet start (−27 dB), swell −18 dB from 55 to 75 s (matches shots S09–S12), gentle end. File <code>work/audio/music.wav</code>. Server stopped afterwards.</li>
+</ul>
+<h3 id="27-sound-effects-moss-soundeffect-2026-09-26-0120-who-claude-rain_genpy">27. Sound effects (MOSS-SoundEffect)  ·  2026-09-26 01:20  ·  who: Claude + <code>rain_gen.py</code></h3>
+<ul>
+<li>21 clips (7 sounds × 3 seeds), ≈ 10 s each (<code>jobs/sound_jobs.json</code>). QC table: only <code>thunder_1</code>, <code>thunder_2</code>, <code>thunder_3</code> passed outright; others flagged for hiss/harsh events. Choices: thunder_1 (single rolling peak at 6 s, mean −22.7 dB), rain_3 (steady 3 dB range), cheer_2 (steady), bamboo_1, pool_1 (steady), bell_1, roomtone_1. Processed by <code>scripts/sfx_build.py</code> (low-pass 4.5–8 kHz, gain, fades). Thunder gets a 4.5 kHz low-pass and −3 dB so it rolls warmly, not sharp.</li>
+</ul>
+<h3 id="28-first-full-assembly-v1-2026-09-26-0123-who-claude-assemblepy">28. First full assembly (v1)  ·  2026-09-26 01:23  ·  who: Claude + <code>assemble.py</code></h3>
+<ul>
+<li><code>output/Video-Story1_trailer_1080p24.mp4</code>: 88.000 s, 1920×1080, 24 fps, H.264 + AAC 48 kHz stereo, 64 MB. Voice: Serena lines at atempo 1.08; music ducked under voice (sidechain); 8 sound layers; loudnorm. Measured: <strong>−13.8 LUFS integrated, LRA 6.3 LU, true peak −1.4 dBTP</strong>. Picture-only test cut (14 s to render) reviewed frame by frame (<code>progress/08_*.jpg</code>). Language check PASS. Later adjustments: cards for "I'll go." and "Because so am I." re-timed to the spoken lines; 2.5 s audio fade-out; true-peak target −2.</li>
+</ul>
+<h3 id="29-ltx-pass-2-seed-202-s03-s06-s13-s08-s07-2026-09-26-0130-who-script">29. LTX pass 2 (seed 202: S03, S06, S13, S08, S07)  ·  2026-09-26 01:30  ·  who: script</h3>
+<ul>
+<li>Started; then pick the better clip per shot (<code>jobs/clip_choice.json</code>), re-assemble, re-measure.</li>
+</ul>
+<h3 id="30-ltx-passes-2-and-3-clip-choices-2026-09-26-01300147-who-claude-script">30. LTX passes 2 and 3, clip choices  ·  2026-09-26 01:30–01:47  ·  who: Claude + script</h3>
+<ul>
+<li>Pass 2 (seed 202: S03, S06, S13, S08, S07) and pass 3 (seed 303: S03, S06 with simpler prompts, the words "sticks/bamboo/willow" removed). Frame sheets in <code>progress/</code>. Results: <strong>S03_303</strong> clean (dust and clouds drift; the floating-sticks glitch was on seeds 101 and 202); <strong>S06_303</strong> keeps the group framed with faces intact (101 and 202 pushed in); <strong>S13_202</strong> keeps Tao in frame (101 lost him; expression a bit stiffer); <strong>S08_202</strong> Yun rises above the boulder (better than 101); <strong>S07_202</strong> steady. Choices in <code>jobs/clip_choice.json</code>: S03→303, S06→303, S07→202, S08→202, S13→202; all others seed 101.</li>
+<li>Known small flaws kept: S12 Tao's tiger emblem reads as a round badge; S06 a stray paper on the ground; S05 daylight classroom; S01 Nainai's notch is implied, not clearly cut.</li>
+</ul>
+<h3 id="31-final-assembly-and-delivery-check-2026-09-26-0149-who-claude-assemblepy">31. Final assembly and delivery check  ·  2026-09-26 01:49  ·  who: Claude + <code>assemble.py</code></h3>
+<ul>
+<li>Files in <code>output/</code>: <code>Video-Story1_trailer_1080p24.mp4</code> (<strong>88.000 s</strong>, 1920×1080, 24 fps, H.264 + AAC 48 kHz stereo, 63.2 MB), <code>_audio.m4a</code> (2.9 MB), <code>_silent_1080p24.mp4</code> (60.3 MB), <code>_captions.srt</code> (15 captions), <code>_thumbnail.png</code> (1280×720, cover-style end card), <code>_description.txt</code> (the book's own title, subtitle, blurb, tagline).</li>
+<li>Numbers: <strong>−13.9 LUFS integrated, LRA 6.0 LU, peak −1.9 dBFS</strong>; <code>blackdetect</code>/<code>freezedetect</code>: none; <strong>language check PASS</strong> (5 files, none of the four banned words); narration lines: 0 clicks, 0 clipping, 0 whistle/tone events (<code>hf_ratio</code> and dropout flags are consonants and pauses; the piano-tuned limits do not apply to speech).</li>
+<li>Length 88 s: inside the user's 60–90 s window.</li>
+<li>Not done / deferred: the <code>work/</code> folder (clips, keyframes, audio stems) is kept, not deleted, so the user can ask for changes; Project-V's cleanup rule ("delete work/ at the end") waits for the user's approval of the trailer. GitHub push is blocked (16).</li>
+</ul>
+<h3 id="32-what-only-the-user-can-judge-open-items">32. What only the user can judge (open items)</h3>
+<ol>
+<li>Listen to the narration (Qwen3-TTS "Serena", speed ×1.08): warmth, pace, any odd words. Claude cannot hear.</li>
+<li>Listen to the music (ACE-Step <code>soft_55</code>): one measured flag at 0.5 s (ratio artifact), otherwise clean; is the swell right for the thunder?</li>
+<li>Sound effects: joyful thunder at 70.8 s, village cheer, rain; too loud or too quiet?</li>
+<li>Picture: is Yun cover-exact enough in S09–S12 (head is the cover's, always the same 3/4 view)? Tao's tiger badge in S12.</li>
+<li>Approvals still open from the SPEC: publishing place, whether to allow <code>git push</code> (permission rule).</li>
+</ol>
+<h3 id="33-waiting-on-next-who-claude">33. Waiting on / next  ·  who: Claude</h3>
+<ul>
+<li>Next actions (in parallel, never idle): (a) finish the T0.1 A/B; (b) read Qwen's three reports and verify key claims; (c) prepare the T0.2 test: crop Mei and Yun references from the cover, run method A (klein with reference image), B (LoRA training dry-run to learn time/cost), C (Qwen-Image-Edit-2511: check size and licence before download; user approved free downloads); (d) draft the ledger with Qwen once the user approves the script.</li>
+<li>Waiting on user: review of SPEC v0.1 (open items in SPEC §12).</li>
+</ul></main>
+<script>document.querySelectorAll('pre').forEach(function(p){var b=document.createElement('button');b.className='copy';b.textContent='Copy';
+b.onclick=function(){navigator.clipboard&&navigator.clipboard.writeText(p.innerText.replace(/Copy$/,'').trim());b.textContent='Copied';setTimeout(function(){b.textContent='Copy'},1200)};p.appendChild(b)});</script>
+</body></html>

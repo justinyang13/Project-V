@@ -1,0 +1,434 @@
+[
+ {
+  "file": "mei_portrait_worried_7101.png",
+  "who": "mei",
+  "scene": "portrait_worried",
+  "seed": 7101,
+  "model": "z_image_turbo_1.0_q8p.ckpt",
+  "size": "1024x576",
+  "prompt": "Warm glowing storybook illustration in gouache and colored pencil, cozy detailed misty mountain scene in soft daylight and blue-green mist, dry ochre earth, green bamboo, expressive kind faces, rich but gentle colors, no text, no writing, no letters, no signs: close portrait of Mei facing the viewer with a worried little frown, misty bamboo behind her. Mei is a small thin 11-year-old girl with warm light skin sunburnt across the nose, big dark eyes, two short black braids tied with red string, a faded blue padded jacket with cloth knot buttons and a patched elbow, dark brown trousers, brown cloth shoes, and a wide straw hat. Spot illustration with soft vignette edges, expressive faces, no captions, no readable text."
+ },
+ {
+  "file": "mei_portrait_worried_7102.png",
+  "who": "mei",
+  "scene": "portrait_worried",
+  "seed": 7102,
+  "model": "z_image_turbo_1.0_q8p.ckpt",
+  "size": "1024x576",
+  "prompt": "Warm glowing storybook illustration in gouache and colored pencil, cozy detailed misty mountain scene in soft daylight and blue-green mist, dry ochre earth, green bamboo, expressive kind faces, rich but gentle colors, no text, no writing, no letters, no signs: close portrait of Mei facing the viewer with a worried little frown, misty bamboo behind her. Mei is a small thin 11-year-old girl with warm light skin sunburnt across the nose, big dark eyes, two short black braids tied with red string, a faded blue padded jacket with cloth knot buttons and a patched elbow, dark brown trousers, brown cloth shoes, and a wide straw hat. Spot illustration with soft vignette edges, expressive faces, no captions, no readable text."
+ },
+ {
+  "file": "mei_portrait_worried_7103.png",
+  "who": "mei",
+  "scene": "portrait_worried",
+  "seed": 7103,
+  "model": "z_image_turbo_1.0_q8p.ckpt",
+  "size": "1024x576",
+  "prompt": "Warm glowing storybook illustration in gouache and colored pencil, cozy detailed misty mountain scene in soft daylight and blue-green mist, dry ochre earth, green bamboo, expressive kind faces, rich but gentle colors, no text, no writing, no letters, no signs: close portrait of Mei facing the viewer with a worried little frown, misty bamboo behind her. Mei is a small thin 11-year-old girl with warm light skin sunburnt across the nose, big dark eyes, two short black braids tied with red string, a faded blue padded jacket with cloth knot buttons and a patched elbow, dark brown trousers, brown cloth shoes, and a wide straw hat. Spot illustration with soft vignette edges, expressive faces, no captions, no readable text."
+ },
+ {
+  "file": "mei_portrait_worried_7104.png",
+  "who": "mei",
+  "scene": "portrait_worried",
+  "seed": 7104,
+  "model": "z_image_turbo_1.0_q8p.ckpt",
+  "size": "1024x576",
+  "prompt": "Warm glowing storybook illustration in gouache and colored pencil, cozy detailed misty mountain scene in soft daylight and blue-green mist, dry ochre earth, green bamboo, expressive kind faces, rich but gentle colors, no text, no writing, no letters, no signs: close portrait of Mei facing the viewer with a worried little frown, misty bamboo behind her. Mei is a small thin 11-year-old girl with warm light skin sunburnt across the nose, big dark eyes, two short black braids tied with red string, a faded blue padded jacket with cloth knot buttons and a patched elbow, dark brown trousers, brown cloth shoes, and a wide straw hat. Spot illustration with soft vignette edges, expressive faces, no captions, no readable text."
+ },
+ {
+  "file": "mei_walk_side_7101.png",
+  "who": "mei",
+  "scene": "walk_side",
+  "seed": 7101,
+  "model": "z_image_turbo_1.0_q8p.ckpt",
+  "size": "1024x576",
+  "prompt": "Warm glowing storybook illustration in gouache and colored pencil, cozy detailed misty mountain scene in soft daylight and blue-green mist, dry ochre earth, green bamboo, expressive kind faces, rich but gentle colors, no text, no writing, no letters, no signs: Mei walks on a dirt path through a bamboo forest, seen from the side, carrying a small bamboo pole with two small buckets. Mei is a small thin 11-year-old girl with warm light skin sunburnt across the nose, big dark eyes, two short black braids tied with red string, a faded blue padded jacket with cloth knot buttons and a patched elbow, dark brown trousers, brown cloth shoes, and a wide straw hat. Spot illustration with soft vignette edges, expressive faces, no captions, no readable text."
+ },
+ {
+  "file": "mei_walk_side_7102.png",
+  "who": "mei",
+  "scene": "walk_side",
+  "seed": 7102,
+  "model": "z_image_turbo_1.0_q8p.ckpt",
+  "size": "1024x576",
+  "prompt": "Warm glowing storybook illustration in gouache and colored pencil, cozy detailed misty mountain scene in soft daylight and blue-green mist, dry ochre earth, green bamboo, expressive kind faces, rich but gentle colors, no text, no writing, no letters, no signs: Mei walks on a dirt path through a bamboo forest, seen from the side, carrying a small bamboo pole with two small buckets. Mei is a small thin 11-year-old girl with warm light skin sunburnt across the nose, big dark eyes, two short black braids tied with red string, a faded blue padded jacket with cloth knot buttons and a patched elbow, dark brown trousers, brown cloth shoes, and a wide straw hat. Spot illustration with soft vignette edges, expressive faces, no captions, no readable text."
+ },
+ {
+  "file": "mei_walk_side_7103.png",
+  "who": "mei",
+  "scene": "walk_side",
+  "seed": 7103,
+  "model": "z_image_turbo_1.0_q8p.ckpt",
+  "size": "1024x576",
+  "prompt": "Warm glowing storybook illustration in gouache and colored pencil, cozy detailed misty mountain scene in soft daylight and blue-green mist, dry ochre earth, green bamboo, expressive kind faces, rich but gentle colors, no text, no writing, no letters, no signs: Mei walks on a dirt path through a bamboo forest, seen from the side, carrying a small bamboo pole with two small buckets. Mei is a small thin 11-year-old girl with warm light skin sunburnt across the nose, big dark eyes, two short black braids tied with red string, a faded blue padded jacket with cloth knot buttons and a patched elbow, dark brown trousers, brown cloth shoes, and a wide straw hat. Spot illustration with soft vignette edges, expressive faces, no captions, no readable text."
+ },
+ {
+  "file": "mei_walk_side_7104.png",
+  "who": "mei",
+  "scene": "walk_side",
+  "seed": 7104,
+  "model": "z_image_turbo_1.0_q8p.ckpt",
+  "size": "1024x576",
+  "prompt": "Warm glowing storybook illustration in gouache and colored pencil, cozy detailed misty mountain scene in soft daylight and blue-green mist, dry ochre earth, green bamboo, expressive kind faces, rich but gentle colors, no text, no writing, no letters, no signs: Mei walks on a dirt path through a bamboo forest, seen from the side, carrying a small bamboo pole with two small buckets. Mei is a small thin 11-year-old girl with warm light skin sunburnt across the nose, big dark eyes, two short black braids tied with red string, a faded blue padded jacket with cloth knot buttons and a patched elbow, dark brown trousers, brown cloth shoes, and a wide straw hat. Spot illustration with soft vignette edges, expressive faces, no captions, no readable text."
+ },
+ {
+  "file": "mei_climb_back_7101.png",
+  "who": "mei",
+  "scene": "climb_back",
+  "seed": 7101,
+  "model": "z_image_turbo_1.0_q8p.ckpt",
+  "size": "1024x576",
+  "prompt": "Warm glowing storybook illustration in gouache and colored pencil, cozy detailed misty mountain scene in soft daylight and blue-green mist, dry ochre earth, green bamboo, expressive kind faces, rich but gentle colors, no text, no writing, no letters, no signs: Mei seen from behind climbing worn stone steps up into thick white mist. Mei is a small thin 11-year-old girl with warm light skin sunburnt across the nose, big dark eyes, two short black braids tied with red string, a faded blue padded jacket with cloth knot buttons and a patched elbow, dark brown trousers, brown cloth shoes, and a wide straw hat. Spot illustration with soft vignette edges, expressive faces, no captions, no readable text."
+ },
+ {
+  "file": "mei_climb_back_7102.png",
+  "who": "mei",
+  "scene": "climb_back",
+  "seed": 7102,
+  "model": "z_image_turbo_1.0_q8p.ckpt",
+  "size": "1024x576",
+  "prompt": "Warm glowing storybook illustration in gouache and colored pencil, cozy detailed misty mountain scene in soft daylight and blue-green mist, dry ochre earth, green bamboo, expressive kind faces, rich but gentle colors, no text, no writing, no letters, no signs: Mei seen from behind climbing worn stone steps up into thick white mist. Mei is a small thin 11-year-old girl with warm light skin sunburnt across the nose, big dark eyes, two short black braids tied with red string, a faded blue padded jacket with cloth knot buttons and a patched elbow, dark brown trousers, brown cloth shoes, and a wide straw hat. Spot illustration with soft vignette edges, expressive faces, no captions, no readable text."
+ },
+ {
+  "file": "mei_climb_back_7103.png",
+  "who": "mei",
+  "scene": "climb_back",
+  "seed": 7103,
+  "model": "z_image_turbo_1.0_q8p.ckpt",
+  "size": "1024x576",
+  "prompt": "Warm glowing storybook illustration in gouache and colored pencil, cozy detailed misty mountain scene in soft daylight and blue-green mist, dry ochre earth, green bamboo, expressive kind faces, rich but gentle colors, no text, no writing, no letters, no signs: Mei seen from behind climbing worn stone steps up into thick white mist. Mei is a small thin 11-year-old girl with warm light skin sunburnt across the nose, big dark eyes, two short black braids tied with red string, a faded blue padded jacket with cloth knot buttons and a patched elbow, dark brown trousers, brown cloth shoes, and a wide straw hat. Spot illustration with soft vignette edges, expressive faces, no captions, no readable text."
+ },
+ {
+  "file": "mei_climb_back_7104.png",
+  "who": "mei",
+  "scene": "climb_back",
+  "seed": 7104,
+  "model": "z_image_turbo_1.0_q8p.ckpt",
+  "size": "1024x576",
+  "prompt": "Warm glowing storybook illustration in gouache and colored pencil, cozy detailed misty mountain scene in soft daylight and blue-green mist, dry ochre earth, green bamboo, expressive kind faces, rich but gentle colors, no text, no writing, no letters, no signs: Mei seen from behind climbing worn stone steps up into thick white mist. Mei is a small thin 11-year-old girl with warm light skin sunburnt across the nose, big dark eyes, two short black braids tied with red string, a faded blue padded jacket with cloth knot buttons and a patched elbow, dark brown trousers, brown cloth shoes, and a wide straw hat. Spot illustration with soft vignette edges, expressive faces, no captions, no readable text."
+ },
+ {
+  "file": "mei_sit_glad_7101.png",
+  "who": "mei",
+  "scene": "sit_glad",
+  "seed": 7101,
+  "model": "z_image_turbo_1.0_q8p.ckpt",
+  "size": "1024x576",
+  "prompt": "Warm glowing storybook illustration in gouache and colored pencil, cozy detailed misty mountain scene in soft daylight and blue-green mist, dry ochre earth, green bamboo, expressive kind faces, rich but gentle colors, no text, no writing, no letters, no signs: Mei sits on a mossy rock looking up with a glad small smile, soft light through bamboo. Mei is a small thin 11-year-old girl with warm light skin sunburnt across the nose, big dark eyes, two short black braids tied with red string, a faded blue padded jacket with cloth knot buttons and a patched elbow, dark brown trousers, brown cloth shoes, and a wide straw hat. Spot illustration with soft vignette edges, expressive faces, no captions, no readable text."
+ },
+ {
+  "file": "mei_sit_glad_7102.png",
+  "who": "mei",
+  "scene": "sit_glad",
+  "seed": 7102,
+  "model": "z_image_turbo_1.0_q8p.ckpt",
+  "size": "1024x576",
+  "prompt": "Warm glowing storybook illustration in gouache and colored pencil, cozy detailed misty mountain scene in soft daylight and blue-green mist, dry ochre earth, green bamboo, expressive kind faces, rich but gentle colors, no text, no writing, no letters, no signs: Mei sits on a mossy rock looking up with a glad small smile, soft light through bamboo. Mei is a small thin 11-year-old girl with warm light skin sunburnt across the nose, big dark eyes, two short black braids tied with red string, a faded blue padded jacket with cloth knot buttons and a patched elbow, dark brown trousers, brown cloth shoes, and a wide straw hat. Spot illustration with soft vignette edges, expressive faces, no captions, no readable text."
+ },
+ {
+  "file": "mei_sit_glad_7103.png",
+  "who": "mei",
+  "scene": "sit_glad",
+  "seed": 7103,
+  "model": "z_image_turbo_1.0_q8p.ckpt",
+  "size": "1024x576",
+  "prompt": "Warm glowing storybook illustration in gouache and colored pencil, cozy detailed misty mountain scene in soft daylight and blue-green mist, dry ochre earth, green bamboo, expressive kind faces, rich but gentle colors, no text, no writing, no letters, no signs: Mei sits on a mossy rock looking up with a glad small smile, soft light through bamboo. Mei is a small thin 11-year-old girl with warm light skin sunburnt across the nose, big dark eyes, two short black braids tied with red string, a faded blue padded jacket with cloth knot buttons and a patched elbow, dark brown trousers, brown cloth shoes, and a wide straw hat. Spot illustration with soft vignette edges, expressive faces, no captions, no readable text."
+ },
+ {
+  "file": "mei_sit_glad_7104.png",
+  "who": "mei",
+  "scene": "sit_glad",
+  "seed": 7104,
+  "model": "z_image_turbo_1.0_q8p.ckpt",
+  "size": "1024x576",
+  "prompt": "Warm glowing storybook illustration in gouache and colored pencil, cozy detailed misty mountain scene in soft daylight and blue-green mist, dry ochre earth, green bamboo, expressive kind faces, rich but gentle colors, no text, no writing, no letters, no signs: Mei sits on a mossy rock looking up with a glad small smile, soft light through bamboo. Mei is a small thin 11-year-old girl with warm light skin sunburnt across the nose, big dark eyes, two short black braids tied with red string, a faded blue padded jacket with cloth knot buttons and a patched elbow, dark brown trousers, brown cloth shoes, and a wide straw hat. Spot illustration with soft vignette edges, expressive faces, no captions, no readable text."
+ },
+ {
+  "file": "mei_classroom_7101.png",
+  "who": "mei",
+  "scene": "classroom",
+  "seed": 7101,
+  "model": "z_image_turbo_1.0_q8p.ckpt",
+  "size": "1024x576",
+  "prompt": "Warm glowing storybook illustration in gouache and colored pencil, cozy detailed misty mountain scene in soft daylight and blue-green mist, dry ochre earth, green bamboo, expressive kind faces, rich but gentle colors, no text, no writing, no letters, no signs: Mei stands at a wooden bench in a dim schoolroom, one hand gripping the bench, chalkboard behind her. Mei is a small thin 11-year-old girl with warm light skin sunburnt across the nose, big dark eyes, two short black braids tied with red string, a faded blue padded jacket with cloth knot buttons and a patched elbow, dark brown trousers, brown cloth shoes, and a wide straw hat. Spot illustration with soft vignette edges, expressive faces, no captions, no readable text."
+ },
+ {
+  "file": "mei_classroom_7102.png",
+  "who": "mei",
+  "scene": "classroom",
+  "seed": 7102,
+  "model": "z_image_turbo_1.0_q8p.ckpt",
+  "size": "1024x576",
+  "prompt": "Warm glowing storybook illustration in gouache and colored pencil, cozy detailed misty mountain scene in soft daylight and blue-green mist, dry ochre earth, green bamboo, expressive kind faces, rich but gentle colors, no text, no writing, no letters, no signs: Mei stands at a wooden bench in a dim schoolroom, one hand gripping the bench, chalkboard behind her. Mei is a small thin 11-year-old girl with warm light skin sunburnt across the nose, big dark eyes, two short black braids tied with red string, a faded blue padded jacket with cloth knot buttons and a patched elbow, dark brown trousers, brown cloth shoes, and a wide straw hat. Spot illustration with soft vignette edges, expressive faces, no captions, no readable text."
+ },
+ {
+  "file": "mei_classroom_7103.png",
+  "who": "mei",
+  "scene": "classroom",
+  "seed": 7103,
+  "model": "z_image_turbo_1.0_q8p.ckpt",
+  "size": "1024x576",
+  "prompt": "Warm glowing storybook illustration in gouache and colored pencil, cozy detailed misty mountain scene in soft daylight and blue-green mist, dry ochre earth, green bamboo, expressive kind faces, rich but gentle colors, no text, no writing, no letters, no signs: Mei stands at a wooden bench in a dim schoolroom, one hand gripping the bench, chalkboard behind her. Mei is a small thin 11-year-old girl with warm light skin sunburnt across the nose, big dark eyes, two short black braids tied with red string, a faded blue padded jacket with cloth knot buttons and a patched elbow, dark brown trousers, brown cloth shoes, and a wide straw hat. Spot illustration with soft vignette edges, expressive faces, no captions, no readable text."
+ },
+ {
+  "file": "mei_classroom_7104.png",
+  "who": "mei",
+  "scene": "classroom",
+  "seed": 7104,
+  "model": "z_image_turbo_1.0_q8p.ckpt",
+  "size": "1024x576",
+  "prompt": "Warm glowing storybook illustration in gouache and colored pencil, cozy detailed misty mountain scene in soft daylight and blue-green mist, dry ochre earth, green bamboo, expressive kind faces, rich but gentle colors, no text, no writing, no letters, no signs: Mei stands at a wooden bench in a dim schoolroom, one hand gripping the bench, chalkboard behind her. Mei is a small thin 11-year-old girl with warm light skin sunburnt across the nose, big dark eyes, two short black braids tied with red string, a faded blue padded jacket with cloth knot buttons and a patched elbow, dark brown trousers, brown cloth shoes, and a wide straw hat. Spot illustration with soft vignette edges, expressive faces, no captions, no readable text."
+ },
+ {
+  "file": "mei_tea_full_7101.png",
+  "who": "mei",
+  "scene": "tea_full",
+  "seed": 7101,
+  "model": "z_image_turbo_1.0_q8p.ckpt",
+  "size": "1024x576",
+  "prompt": "Warm glowing storybook illustration in gouache and colored pencil, cozy detailed misty mountain scene in soft daylight and blue-green mist, dry ochre earth, green bamboo, expressive kind faces, rich but gentle colors, no text, no writing, no letters, no signs: full-length Mei stands holding a small red-paper bundle of tea in both hands, misty mountains and grey tile roofs behind her. Mei is a small thin 11-year-old girl with warm light skin sunburnt across the nose, big dark eyes, two short black braids tied with red string, a faded blue padded jacket with cloth knot buttons and a patched elbow, dark brown trousers, brown cloth shoes, and a wide straw hat. Spot illustration with soft vignette edges, expressive faces, no captions, no readable text."
+ },
+ {
+  "file": "mei_tea_full_7102.png",
+  "who": "mei",
+  "scene": "tea_full",
+  "seed": 7102,
+  "model": "z_image_turbo_1.0_q8p.ckpt",
+  "size": "1024x576",
+  "prompt": "Warm glowing storybook illustration in gouache and colored pencil, cozy detailed misty mountain scene in soft daylight and blue-green mist, dry ochre earth, green bamboo, expressive kind faces, rich but gentle colors, no text, no writing, no letters, no signs: full-length Mei stands holding a small red-paper bundle of tea in both hands, misty mountains and grey tile roofs behind her. Mei is a small thin 11-year-old girl with warm light skin sunburnt across the nose, big dark eyes, two short black braids tied with red string, a faded blue padded jacket with cloth knot buttons and a patched elbow, dark brown trousers, brown cloth shoes, and a wide straw hat. Spot illustration with soft vignette edges, expressive faces, no captions, no readable text."
+ },
+ {
+  "file": "mei_tea_full_7103.png",
+  "who": "mei",
+  "scene": "tea_full",
+  "seed": 7103,
+  "model": "z_image_turbo_1.0_q8p.ckpt",
+  "size": "1024x576",
+  "prompt": "Warm glowing storybook illustration in gouache and colored pencil, cozy detailed misty mountain scene in soft daylight and blue-green mist, dry ochre earth, green bamboo, expressive kind faces, rich but gentle colors, no text, no writing, no letters, no signs: full-length Mei stands holding a small red-paper bundle of tea in both hands, misty mountains and grey tile roofs behind her. Mei is a small thin 11-year-old girl with warm light skin sunburnt across the nose, big dark eyes, two short black braids tied with red string, a faded blue padded jacket with cloth knot buttons and a patched elbow, dark brown trousers, brown cloth shoes, and a wide straw hat. Spot illustration with soft vignette edges, expressive faces, no captions, no readable text."
+ },
+ {
+  "file": "mei_tea_full_7104.png",
+  "who": "mei",
+  "scene": "tea_full",
+  "seed": 7104,
+  "model": "z_image_turbo_1.0_q8p.ckpt",
+  "size": "1024x576",
+  "prompt": "Warm glowing storybook illustration in gouache and colored pencil, cozy detailed misty mountain scene in soft daylight and blue-green mist, dry ochre earth, green bamboo, expressive kind faces, rich but gentle colors, no text, no writing, no letters, no signs: full-length Mei stands holding a small red-paper bundle of tea in both hands, misty mountains and grey tile roofs behind her. Mei is a small thin 11-year-old girl with warm light skin sunburnt across the nose, big dark eyes, two short black braids tied with red string, a faded blue padded jacket with cloth knot buttons and a patched elbow, dark brown trousers, brown cloth shoes, and a wide straw hat. Spot illustration with soft vignette edges, expressive faces, no captions, no readable text."
+ },
+ {
+  "file": "yun_head_front_7101.png",
+  "who": "yun",
+  "scene": "head_front",
+  "seed": 7101,
+  "model": "z_image_turbo_1.0_q8p.ckpt",
+  "size": "1024x576",
+  "prompt": "Warm glowing storybook illustration in gouache and colored pencil, cozy detailed misty mountain scene in soft daylight and blue-green mist, dry ochre earth, green bamboo, expressive kind faces, rich but gentle colors, no text, no writing, no letters, no signs: close-up of Yun's head and long neck facing the viewer, amber eyes wide, soft white mist around him. Yun is a gentle serpentine sea-green teal dragon with rows of carp scales, pale gold-cream belly plates, soft brown branching stag antlers, a soft grey-white feathered mane and brows, pointed ears, wide worried amber eyes, a broad soft snout with a thin white whisker curling from the nose, no wings, mist curling round him like a scarf, and a round grey-white pearl under his chin. Spot illustration with soft vignette edges, expressive faces, no captions, no readable text."
+ },
+ {
+  "file": "yun_head_front_7102.png",
+  "who": "yun",
+  "scene": "head_front",
+  "seed": 7102,
+  "model": "z_image_turbo_1.0_q8p.ckpt",
+  "size": "1024x576",
+  "prompt": "Warm glowing storybook illustration in gouache and colored pencil, cozy detailed misty mountain scene in soft daylight and blue-green mist, dry ochre earth, green bamboo, expressive kind faces, rich but gentle colors, no text, no writing, no letters, no signs: close-up of Yun's head and long neck facing the viewer, amber eyes wide, soft white mist around him. Yun is a gentle serpentine sea-green teal dragon with rows of carp scales, pale gold-cream belly plates, soft brown branching stag antlers, a soft grey-white feathered mane and brows, pointed ears, wide worried amber eyes, a broad soft snout with a thin white whisker curling from the nose, no wings, mist curling round him like a scarf, and a round grey-white pearl under his chin. Spot illustration with soft vignette edges, expressive faces, no captions, no readable text."
+ },
+ {
+  "file": "yun_head_front_7103.png",
+  "who": "yun",
+  "scene": "head_front",
+  "seed": 7103,
+  "model": "z_image_turbo_1.0_q8p.ckpt",
+  "size": "1024x576",
+  "prompt": "Warm glowing storybook illustration in gouache and colored pencil, cozy detailed misty mountain scene in soft daylight and blue-green mist, dry ochre earth, green bamboo, expressive kind faces, rich but gentle colors, no text, no writing, no letters, no signs: close-up of Yun's head and long neck facing the viewer, amber eyes wide, soft white mist around him. Yun is a gentle serpentine sea-green teal dragon with rows of carp scales, pale gold-cream belly plates, soft brown branching stag antlers, a soft grey-white feathered mane and brows, pointed ears, wide worried amber eyes, a broad soft snout with a thin white whisker curling from the nose, no wings, mist curling round him like a scarf, and a round grey-white pearl under his chin. Spot illustration with soft vignette edges, expressive faces, no captions, no readable text."
+ },
+ {
+  "file": "yun_head_front_7104.png",
+  "who": "yun",
+  "scene": "head_front",
+  "seed": 7104,
+  "model": "z_image_turbo_1.0_q8p.ckpt",
+  "size": "1024x576",
+  "prompt": "Warm glowing storybook illustration in gouache and colored pencil, cozy detailed misty mountain scene in soft daylight and blue-green mist, dry ochre earth, green bamboo, expressive kind faces, rich but gentle colors, no text, no writing, no letters, no signs: close-up of Yun's head and long neck facing the viewer, amber eyes wide, soft white mist around him. Yun is a gentle serpentine sea-green teal dragon with rows of carp scales, pale gold-cream belly plates, soft brown branching stag antlers, a soft grey-white feathered mane and brows, pointed ears, wide worried amber eyes, a broad soft snout with a thin white whisker curling from the nose, no wings, mist curling round him like a scarf, and a round grey-white pearl under his chin. Spot illustration with soft vignette edges, expressive faces, no captions, no readable text."
+ },
+ {
+  "file": "yun_behind_rock_7101.png",
+  "who": "yun",
+  "scene": "behind_rock",
+  "seed": 7101,
+  "model": "z_image_turbo_1.0_q8p.ckpt",
+  "size": "1024x576",
+  "prompt": "Warm glowing storybook illustration in gouache and colored pencil, cozy detailed misty mountain scene in soft daylight and blue-green mist, dry ochre earth, green bamboo, expressive kind faces, rich but gentle colors, no text, no writing, no letters, no signs: Yun's head and antlers peek over a grey boulder at the edge of a small dark almost-dry mountain lake with cracked mud and pine trees. Yun is a gentle serpentine sea-green teal dragon with rows of carp scales, pale gold-cream belly plates, soft brown branching stag antlers, a soft grey-white feathered mane and brows, pointed ears, wide worried amber eyes, a broad soft snout with a thin white whisker curling from the nose, no wings, mist curling round him like a scarf. Spot illustration with soft vignette edges, expressive faces, no captions, no readable text."
+ },
+ {
+  "file": "yun_behind_rock_7102.png",
+  "who": "yun",
+  "scene": "behind_rock",
+  "seed": 7102,
+  "model": "z_image_turbo_1.0_q8p.ckpt",
+  "size": "1024x576",
+  "prompt": "Warm glowing storybook illustration in gouache and colored pencil, cozy detailed misty mountain scene in soft daylight and blue-green mist, dry ochre earth, green bamboo, expressive kind faces, rich but gentle colors, no text, no writing, no letters, no signs: Yun's head and antlers peek over a grey boulder at the edge of a small dark almost-dry mountain lake with cracked mud and pine trees. Yun is a gentle serpentine sea-green teal dragon with rows of carp scales, pale gold-cream belly plates, soft brown branching stag antlers, a soft grey-white feathered mane and brows, pointed ears, wide worried amber eyes, a broad soft snout with a thin white whisker curling from the nose, no wings, mist curling round him like a scarf. Spot illustration with soft vignette edges, expressive faces, no captions, no readable text."
+ },
+ {
+  "file": "yun_behind_rock_7103.png",
+  "who": "yun",
+  "scene": "behind_rock",
+  "seed": 7103,
+  "model": "z_image_turbo_1.0_q8p.ckpt",
+  "size": "1024x576",
+  "prompt": "Warm glowing storybook illustration in gouache and colored pencil, cozy detailed misty mountain scene in soft daylight and blue-green mist, dry ochre earth, green bamboo, expressive kind faces, rich but gentle colors, no text, no writing, no letters, no signs: Yun's head and antlers peek over a grey boulder at the edge of a small dark almost-dry mountain lake with cracked mud and pine trees. Yun is a gentle serpentine sea-green teal dragon with rows of carp scales, pale gold-cream belly plates, soft brown branching stag antlers, a soft grey-white feathered mane and brows, pointed ears, wide worried amber eyes, a broad soft snout with a thin white whisker curling from the nose, no wings, mist curling round him like a scarf. Spot illustration with soft vignette edges, expressive faces, no captions, no readable text."
+ },
+ {
+  "file": "yun_behind_rock_7104.png",
+  "who": "yun",
+  "scene": "behind_rock",
+  "seed": 7104,
+  "model": "z_image_turbo_1.0_q8p.ckpt",
+  "size": "1024x576",
+  "prompt": "Warm glowing storybook illustration in gouache and colored pencil, cozy detailed misty mountain scene in soft daylight and blue-green mist, dry ochre earth, green bamboo, expressive kind faces, rich but gentle colors, no text, no writing, no letters, no signs: Yun's head and antlers peek over a grey boulder at the edge of a small dark almost-dry mountain lake with cracked mud and pine trees. Yun is a gentle serpentine sea-green teal dragon with rows of carp scales, pale gold-cream belly plates, soft brown branching stag antlers, a soft grey-white feathered mane and brows, pointed ears, wide worried amber eyes, a broad soft snout with a thin white whisker curling from the nose, no wings, mist curling round him like a scarf. Spot illustration with soft vignette edges, expressive faces, no captions, no readable text."
+ },
+ {
+  "file": "yun_over_roofs_7101.png",
+  "who": "yun",
+  "scene": "over_roofs",
+  "seed": 7101,
+  "model": "z_image_turbo_1.0_q8p.ckpt",
+  "size": "1024x576",
+  "prompt": "Warm glowing storybook illustration in gouache and colored pencil, cozy detailed misty mountain scene in soft daylight and blue-green mist, dry ochre earth, green bamboo, expressive kind faces, rich but gentle colors, no text, no writing, no letters, no signs: Yun's long body coils in the air above grey tile roofs of a mountain village at dusk, lanterns glowing below. Yun is a gentle serpentine sea-green teal dragon with rows of carp scales, pale gold-cream belly plates, soft brown branching stag antlers, a soft grey-white feathered mane and brows, pointed ears, wide worried amber eyes, a broad soft snout with a thin white whisker curling from the nose, no wings, mist curling round him like a scarf. Spot illustration with soft vignette edges, expressive faces, no captions, no readable text."
+ },
+ {
+  "file": "yun_over_roofs_7102.png",
+  "who": "yun",
+  "scene": "over_roofs",
+  "seed": 7102,
+  "model": "z_image_turbo_1.0_q8p.ckpt",
+  "size": "1024x576",
+  "prompt": "Warm glowing storybook illustration in gouache and colored pencil, cozy detailed misty mountain scene in soft daylight and blue-green mist, dry ochre earth, green bamboo, expressive kind faces, rich but gentle colors, no text, no writing, no letters, no signs: Yun's long body coils in the air above grey tile roofs of a mountain village at dusk, lanterns glowing below. Yun is a gentle serpentine sea-green teal dragon with rows of carp scales, pale gold-cream belly plates, soft brown branching stag antlers, a soft grey-white feathered mane and brows, pointed ears, wide worried amber eyes, a broad soft snout with a thin white whisker curling from the nose, no wings, mist curling round him like a scarf. Spot illustration with soft vignette edges, expressive faces, no captions, no readable text."
+ },
+ {
+  "file": "yun_over_roofs_7103.png",
+  "who": "yun",
+  "scene": "over_roofs",
+  "seed": 7103,
+  "model": "z_image_turbo_1.0_q8p.ckpt",
+  "size": "1024x576",
+  "prompt": "Warm glowing storybook illustration in gouache and colored pencil, cozy detailed misty mountain scene in soft daylight and blue-green mist, dry ochre earth, green bamboo, expressive kind faces, rich but gentle colors, no text, no writing, no letters, no signs: Yun's long body coils in the air above grey tile roofs of a mountain village at dusk, lanterns glowing below. Yun is a gentle serpentine sea-green teal dragon with rows of carp scales, pale gold-cream belly plates, soft brown branching stag antlers, a soft grey-white feathered mane and brows, pointed ears, wide worried amber eyes, a broad soft snout with a thin white whisker curling from the nose, no wings, mist curling round him like a scarf. Spot illustration with soft vignette edges, expressive faces, no captions, no readable text."
+ },
+ {
+  "file": "yun_over_roofs_7104.png",
+  "who": "yun",
+  "scene": "over_roofs",
+  "seed": 7104,
+  "model": "z_image_turbo_1.0_q8p.ckpt",
+  "size": "1024x576",
+  "prompt": "Warm glowing storybook illustration in gouache and colored pencil, cozy detailed misty mountain scene in soft daylight and blue-green mist, dry ochre earth, green bamboo, expressive kind faces, rich but gentle colors, no text, no writing, no letters, no signs: Yun's long body coils in the air above grey tile roofs of a mountain village at dusk, lanterns glowing below. Yun is a gentle serpentine sea-green teal dragon with rows of carp scales, pale gold-cream belly plates, soft brown branching stag antlers, a soft grey-white feathered mane and brows, pointed ears, wide worried amber eyes, a broad soft snout with a thin white whisker curling from the nose, no wings, mist curling round him like a scarf. Spot illustration with soft vignette edges, expressive faces, no captions, no readable text."
+ },
+ {
+  "file": "yun_low_angle_7101.png",
+  "who": "yun",
+  "scene": "low_angle",
+  "seed": 7101,
+  "model": "z_image_turbo_1.0_q8p.ckpt",
+  "size": "1024x576",
+  "prompt": "Warm glowing storybook illustration in gouache and colored pencil, cozy detailed misty mountain scene in soft daylight and blue-green mist, dry ochre earth, green bamboo, expressive kind faces, rich but gentle colors, no text, no writing, no letters, no signs: low angle view of Yun looking down worriedly, mist drifting, green bamboo at the edge. Yun is a gentle serpentine sea-green teal dragon with rows of carp scales, pale gold-cream belly plates, soft brown branching stag antlers, a soft grey-white feathered mane and brows, pointed ears, wide worried amber eyes, a broad soft snout with a thin white whisker curling from the nose, no wings, mist curling round him like a scarf. Spot illustration with soft vignette edges, expressive faces, no captions, no readable text."
+ },
+ {
+  "file": "yun_low_angle_7102.png",
+  "who": "yun",
+  "scene": "low_angle",
+  "seed": 7102,
+  "model": "z_image_turbo_1.0_q8p.ckpt",
+  "size": "1024x576",
+  "prompt": "Warm glowing storybook illustration in gouache and colored pencil, cozy detailed misty mountain scene in soft daylight and blue-green mist, dry ochre earth, green bamboo, expressive kind faces, rich but gentle colors, no text, no writing, no letters, no signs: low angle view of Yun looking down worriedly, mist drifting, green bamboo at the edge. Yun is a gentle serpentine sea-green teal dragon with rows of carp scales, pale gold-cream belly plates, soft brown branching stag antlers, a soft grey-white feathered mane and brows, pointed ears, wide worried amber eyes, a broad soft snout with a thin white whisker curling from the nose, no wings, mist curling round him like a scarf. Spot illustration with soft vignette edges, expressive faces, no captions, no readable text."
+ },
+ {
+  "file": "yun_low_angle_7103.png",
+  "who": "yun",
+  "scene": "low_angle",
+  "seed": 7103,
+  "model": "z_image_turbo_1.0_q8p.ckpt",
+  "size": "1024x576",
+  "prompt": "Warm glowing storybook illustration in gouache and colored pencil, cozy detailed misty mountain scene in soft daylight and blue-green mist, dry ochre earth, green bamboo, expressive kind faces, rich but gentle colors, no text, no writing, no letters, no signs: low angle view of Yun looking down worriedly, mist drifting, green bamboo at the edge. Yun is a gentle serpentine sea-green teal dragon with rows of carp scales, pale gold-cream belly plates, soft brown branching stag antlers, a soft grey-white feathered mane and brows, pointed ears, wide worried amber eyes, a broad soft snout with a thin white whisker curling from the nose, no wings, mist curling round him like a scarf. Spot illustration with soft vignette edges, expressive faces, no captions, no readable text."
+ },
+ {
+  "file": "yun_low_angle_7104.png",
+  "who": "yun",
+  "scene": "low_angle",
+  "seed": 7104,
+  "model": "z_image_turbo_1.0_q8p.ckpt",
+  "size": "1024x576",
+  "prompt": "Warm glowing storybook illustration in gouache and colored pencil, cozy detailed misty mountain scene in soft daylight and blue-green mist, dry ochre earth, green bamboo, expressive kind faces, rich but gentle colors, no text, no writing, no letters, no signs: low angle view of Yun looking down worriedly, mist drifting, green bamboo at the edge. Yun is a gentle serpentine sea-green teal dragon with rows of carp scales, pale gold-cream belly plates, soft brown branching stag antlers, a soft grey-white feathered mane and brows, pointed ears, wide worried amber eyes, a broad soft snout with a thin white whisker curling from the nose, no wings, mist curling round him like a scarf. Spot illustration with soft vignette edges, expressive faces, no captions, no readable text."
+ },
+ {
+  "file": "yun_profile_7101.png",
+  "who": "yun",
+  "scene": "profile",
+  "seed": 7101,
+  "model": "z_image_turbo_1.0_q8p.ckpt",
+  "size": "1024x576",
+  "prompt": "Warm glowing storybook illustration in gouache and colored pencil, cozy detailed misty mountain scene in soft daylight and blue-green mist, dry ochre earth, green bamboo, expressive kind faces, rich but gentle colors, no text, no writing, no letters, no signs: Yun in side profile, mouth closed, floating through a misty valley of green terraces. Yun is a gentle serpentine sea-green teal dragon with rows of carp scales, pale gold-cream belly plates, soft brown branching stag antlers, a soft grey-white feathered mane and brows, pointed ears, wide worried amber eyes, a broad soft snout with a thin white whisker curling from the nose, no wings, mist curling round him like a scarf. Spot illustration with soft vignette edges, expressive faces, no captions, no readable text."
+ },
+ {
+  "file": "yun_profile_7102.png",
+  "who": "yun",
+  "scene": "profile",
+  "seed": 7102,
+  "model": "z_image_turbo_1.0_q8p.ckpt",
+  "size": "1024x576",
+  "prompt": "Warm glowing storybook illustration in gouache and colored pencil, cozy detailed misty mountain scene in soft daylight and blue-green mist, dry ochre earth, green bamboo, expressive kind faces, rich but gentle colors, no text, no writing, no letters, no signs: Yun in side profile, mouth closed, floating through a misty valley of green terraces. Yun is a gentle serpentine sea-green teal dragon with rows of carp scales, pale gold-cream belly plates, soft brown branching stag antlers, a soft grey-white feathered mane and brows, pointed ears, wide worried amber eyes, a broad soft snout with a thin white whisker curling from the nose, no wings, mist curling round him like a scarf. Spot illustration with soft vignette edges, expressive faces, no captions, no readable text."
+ },
+ {
+  "file": "yun_profile_7103.png",
+  "who": "yun",
+  "scene": "profile",
+  "seed": 7103,
+  "model": "z_image_turbo_1.0_q8p.ckpt",
+  "size": "1024x576",
+  "prompt": "Warm glowing storybook illustration in gouache and colored pencil, cozy detailed misty mountain scene in soft daylight and blue-green mist, dry ochre earth, green bamboo, expressive kind faces, rich but gentle colors, no text, no writing, no letters, no signs: Yun in side profile, mouth closed, floating through a misty valley of green terraces. Yun is a gentle serpentine sea-green teal dragon with rows of carp scales, pale gold-cream belly plates, soft brown branching stag antlers, a soft grey-white feathered mane and brows, pointed ears, wide worried amber eyes, a broad soft snout with a thin white whisker curling from the nose, no wings, mist curling round him like a scarf. Spot illustration with soft vignette edges, expressive faces, no captions, no readable text."
+ },
+ {
+  "file": "yun_profile_7104.png",
+  "who": "yun",
+  "scene": "profile",
+  "seed": 7104,
+  "model": "z_image_turbo_1.0_q8p.ckpt",
+  "size": "1024x576",
+  "prompt": "Warm glowing storybook illustration in gouache and colored pencil, cozy detailed misty mountain scene in soft daylight and blue-green mist, dry ochre earth, green bamboo, expressive kind faces, rich but gentle colors, no text, no writing, no letters, no signs: Yun in side profile, mouth closed, floating through a misty valley of green terraces. Yun is a gentle serpentine sea-green teal dragon with rows of carp scales, pale gold-cream belly plates, soft brown branching stag antlers, a soft grey-white feathered mane and brows, pointed ears, wide worried amber eyes, a broad soft snout with a thin white whisker curling from the nose, no wings, mist curling round him like a scarf. Spot illustration with soft vignette edges, expressive faces, no captions, no readable text."
+ },
+ {
+  "file": "yun_into_cloud_7101.png",
+  "who": "yun",
+  "scene": "into_cloud",
+  "seed": 7101,
+  "model": "z_image_turbo_1.0_q8p.ckpt",
+  "size": "1024x576",
+  "prompt": "Warm glowing storybook illustration in gouache and colored pencil, cozy detailed misty mountain scene in soft daylight and blue-green mist, dry ochre earth, green bamboo, expressive kind faces, rich but gentle colors, no text, no writing, no letters, no signs: Yun rises into a dark gathering storm cloud, body trembling, his pearl glowing, mist around him. Yun is a gentle serpentine sea-green teal dragon with rows of carp scales, pale gold-cream belly plates, soft brown branching stag antlers, a soft grey-white feathered mane and brows, pointed ears, wide worried amber eyes, a broad soft snout with a thin white whisker curling from the nose, no wings, mist curling round him like a scarf, and a round grey-white pearl under his chin. Spot illustration with soft vignette edges, expressive faces, no captions, no readable text."
+ },
+ {
+  "file": "yun_into_cloud_7102.png",
+  "who": "yun",
+  "scene": "into_cloud",
+  "seed": 7102,
+  "model": "z_image_turbo_1.0_q8p.ckpt",
+  "size": "1024x576",
+  "prompt": "Warm glowing storybook illustration in gouache and colored pencil, cozy detailed misty mountain scene in soft daylight and blue-green mist, dry ochre earth, green bamboo, expressive kind faces, rich but gentle colors, no text, no writing, no letters, no signs: Yun rises into a dark gathering storm cloud, body trembling, his pearl glowing, mist around him. Yun is a gentle serpentine sea-green teal dragon with rows of carp scales, pale gold-cream belly plates, soft brown branching stag antlers, a soft grey-white feathered mane and brows, pointed ears, wide worried amber eyes, a broad soft snout with a thin white whisker curling from the nose, no wings, mist curling round him like a scarf, and a round grey-white pearl under his chin. Spot illustration with soft vignette edges, expressive faces, no captions, no readable text."
+ },
+ {
+  "file": "yun_into_cloud_7103.png",
+  "who": "yun",
+  "scene": "into_cloud",
+  "seed": 7103,
+  "model": "z_image_turbo_1.0_q8p.ckpt",
+  "size": "1024x576",
+  "prompt": "Warm glowing storybook illustration in gouache and colored pencil, cozy detailed misty mountain scene in soft daylight and blue-green mist, dry ochre earth, green bamboo, expressive kind faces, rich but gentle colors, no text, no writing, no letters, no signs: Yun rises into a dark gathering storm cloud, body trembling, his pearl glowing, mist around him. Yun is a gentle serpentine sea-green teal dragon with rows of carp scales, pale gold-cream belly plates, soft brown branching stag antlers, a soft grey-white feathered mane and brows, pointed ears, wide worried amber eyes, a broad soft snout with a thin white whisker curling from the nose, no wings, mist curling round him like a scarf, and a round grey-white pearl under his chin. Spot illustration with soft vignette edges, expressive faces, no captions, no readable text."
+ },
+ {
+  "file": "yun_into_cloud_7104.png",
+  "who": "yun",
+  "scene": "into_cloud",
+  "seed": 7104,
+  "model": "z_image_turbo_1.0_q8p.ckpt",
+  "size": "1024x576",
+  "prompt": "Warm glowing storybook illustration in gouache and colored pencil, cozy detailed misty mountain scene in soft daylight and blue-green mist, dry ochre earth, green bamboo, expressive kind faces, rich but gentle colors, no text, no writing, no letters, no signs: Yun rises into a dark gathering storm cloud, body trembling, his pearl glowing, mist around him. Yun is a gentle serpentine sea-green teal dragon with rows of carp scales, pale gold-cream belly plates, soft brown branching stag antlers, a soft grey-white feathered mane and brows, pointed ears, wide worried amber eyes, a broad soft snout with a thin white whisker curling from the nose, no wings, mist curling round him like a scarf, and a round grey-white pearl under his chin. Spot illustration with soft vignette edges, expressive faces, no captions, no readable text."
+ }
+]

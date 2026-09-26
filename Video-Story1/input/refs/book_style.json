@@ -1,0 +1,76 @@
+{
+ "seed_base": 21000,
+ "style": "Warm glowing storybook illustration in gouache and colored pencil, cozy detailed misty mountain scene in soft daylight and blue-green mist, dry ochre earth, green bamboo, expressive kind faces, rich but gentle colors, no text, no writing, no letters, no signs: ",
+ "suffix": "Spot illustration with soft vignette edges, expressive faces, no captions, no readable text.",
+ "looks": [
+  [
+   "\\bMei\\b|\\bfaded blue padded jacket\\b|\\bblue padded jacket\\b",
+   "Mei is a small thin 11-year-old girl with warm light skin, big dark eyes, two short black braids tied with red string, a faded blue padded jacket with a patched elbow, dark brown trousers, brown cloth shoes, and a wide straw hat",
+   true
+  ],
+  [
+   "\\bTao\\b|\\byellow rain boots\\b|\\byellow rubber (rain )?boots\\b|\\btiger T-shirt\\b",
+   "Tao is a round-faced gap-toothed 7-year-old boy with short messy black hair, a green T-shirt with a big orange tiger on the chest, khaki shorts, and bright yellow rubber rain boots",
+   true
+  ],
+  [
+   "\\bNainai\\b",
+   "Nainai is a small straight-backed grandmother with grey hair in a bun with a wooden pin, a dark blue cotton jacket with cloth knot buttons, cloth shoes, and a bamboo walking stick"
+  ],
+  [
+   "\\bHua\\b",
+   "Hua is a tall neat 11-year-old girl with a high black ponytail tied with a yellow ribbon, a bright red zip jacket, blue jeans and white sneakers, no hat",
+   true
+  ],
+  [
+   "\\bShi\\b",
+   "Uncle Shi is a round tired man in a grey jacket and a blue cap holding a battered steel thermos"
+  ],
+  [
+   "\\bGu\\b",
+   "Yeye Gu is a very old man with long white eyebrows, a brown padded vest and a walking cane"
+  ],
+  [
+   "\\bFen\\b",
+   "Auntie Fen is a plump woman in a purple apron"
+  ],
+  [
+   "\\bLuo\\b",
+   "Teacher Luo is a young teacher with glasses and a red scarf"
+  ],
+  [
+   "(?-i:\\bOld Grey\\b)|\\bwater buffalo\\b|\\bbuffalo\\b",
+   "Old Grey is a huge calm grey water buffalo with wide curved horns and a small brass bell"
+  ],
+  [
+   "\\bYun\\b|\\bthe dragon\\b|(?<!paper )(?<!Dragon King )\\bdragon\\b(?! King)",
+   "Yun is a gentle long slender sea-green dragon like bamboo in mist, with a pale gold belly, carp-like scales, soft branching stag antlers, long white whiskers, big worried amber eyes, a small round bump on his head, a round grey-white pearl under his chin, no wings, mist curling around him like a scarf"
+  ]
+ ],
+ "covers": {
+  "front": {
+   "seed": 701,
+   "prompt": "Warm glowing storybook illustration in gouache and colored pencil, misty mountain village scene, soft blue-green mist, rich but gentle colors: an 11-year-old girl with light warm skin, two short black braids tied with red string, a faded blue padded jacket and a wide straw hat, carrying a small bamboo pole with two little wooden buckets, stands in the foreground looking up with wonder at a huge gentle sea-green dragon with a pale gold belly, soft stag antlers, long white whiskers, big kind amber eyes and no wings, who peeks shyly down at her from swirling clouds; behind them green terraced fields and grey tile roofs on a steep misty mountain; the top fifth of the picture is an empty smooth soft blue-grey sky"
+  },
+  "front2": {
+   "seed": 703,
+   "prompt": "Warm glowing storybook illustration in gouache and colored pencil, a steep mountain valley village with green and ochre terraced fields, grey tile-roofed farmhouses and bamboo groves in soft mist, a long gentle sea-green dragon with a pale gold belly drifting through the mist above the rooftops like a scarf, a tiny girl with two braids and a small boy in yellow rain boots on a path below looking up; the top fifth of the picture is an empty smooth soft blue-grey sky"
+  },
+  "back": {
+   "seed": 712,
+   "prompt": "Warm glowing storybook illustration in gouache and colored pencil, a quiet high mountain lake almost dry with cracked mud edges, dark still water, pine trees and thick soft mist, a single faint long green shape hidden in the mist, dusk light, calm empty smooth deep-teal area across the middle of the picture"
+  },
+  "front3": {
+   "seed": 731,
+   "prompt": "Warm glowing storybook illustration in gouache and colored pencil, cozy detailed misty mountain scene in soft daylight and blue-green mist, dry ochre earth, green bamboo, expressive kind faces, rich but gentle colors, no text, no writing, no letters, no signs: Mei, a small thin 11-year-old girl with warm light skin, big dark eyes, two short black braids tied with red string, a faded blue padded jacket with a patched elbow, and a wide straw hat, stands in the foreground holding a small red-paper bundle of tea in both hands and looking up with a brave nervous smile, while Yun, a gentle, long, slender sea-green dragon like bamboo in mist, with a pale gold belly, carp-like scales, soft branching stag antlers, long white whiskers, big kind worried amber eyes, a small round bump on his head, a round grey-white pearl under his chin, no wings, mist curling around him like a scarf, peeks shyly down at her from soft drifting clouds beside her; behind them green misty mountains and a few grey tile roofs far below; the top fifth of the picture is an empty smooth soft blue-grey sky"
+  },
+  "front4": {
+   "seed": 733,
+   "prompt": "Warm glowing storybook illustration in gouache and colored pencil, cozy detailed misty mountain scene in soft daylight and blue-green mist, dry ochre earth, green bamboo, expressive kind faces, rich but gentle colors, no text, no writing, no letters, no signs: Mei, a small thin 11-year-old girl with warm light skin, big dark eyes, two short black braids tied with red string, a faded blue padded jacket with a patched elbow, and a wide straw hat, stands in the foreground holding a small red-paper bundle of tea in both hands and looking up with a brave nervous smile, while Yun, a gentle, long, slender sea-green dragon like bamboo in mist, with a pale gold belly, carp-like scales, soft branching stag antlers, long white whiskers, big kind worried amber eyes, a small round bump on his head, a round grey-white pearl under his chin, no wings, mist curling around him like a scarf, peeks shyly down at her from soft drifting clouds beside her; behind them green misty mountains and a few grey tile roofs far below; the top fifth of the picture is an empty smooth soft blue-grey sky"
+  },
+  "back2": {
+   "seed": 741,
+   "prompt": "Warm glowing storybook illustration in gouache and colored pencil, cozy detailed misty mountain scene in soft daylight and blue-green mist, dry ochre earth, green bamboo, expressive kind faces, rich but gentle colors, no text, no writing, no letters, no signs: a quiet high mountain bowl at dusk with pine trees and thick drifting mist around a small dark lake that is almost dry, cracked mud shores, and Yun, a gentle, long, slender sea-green dragon like bamboo in mist, with a pale gold belly, carp-like scales, soft branching stag antlers, long white whiskers, big kind worried amber eyes, a small round bump on his head, a round grey-white pearl under his chin, no wings, mist curling around him like a scarf, curled small and shy behind a rock at the water's edge, only his antlers and one worried amber eye showing; calm smooth deep-teal misty area across the middle of the picture"
+  }
+ }
+}

@@ -1,0 +1,128 @@
+[
+ {
+  "tag": "bamboo_1",
+  "prompt": "Soft wind moving through a bamboo forest, bamboo stalks creaking and clicking gently, leaves rustling, calm and steady, no voices, no music, no birds",
+  "dur": 14,
+  "seed": 1
+ },
+ {
+  "tag": "bamboo_2",
+  "prompt": "Soft wind moving through a bamboo forest, bamboo stalks creaking and clicking gently, leaves rustling, calm and steady, no voices, no music, no birds",
+  "dur": 14,
+  "seed": 2
+ },
+ {
+  "tag": "bamboo_3",
+  "prompt": "Soft wind moving through a bamboo forest, bamboo stalks creaking and clicking gently, leaves rustling, calm and steady, no voices, no music, no birds",
+  "dur": 14,
+  "seed": 3
+ },
+ {
+  "tag": "pool_1",
+  "prompt": "A quiet high mountain lake in thin mist at dawn, faint soft wind, very distant single water drip, deep quiet stillness, no voices, no music",
+  "dur": 14,
+  "seed": 1
+ },
+ {
+  "tag": "pool_2",
+  "prompt": "A quiet high mountain lake in thin mist at dawn, faint soft wind, very distant single water drip, deep quiet stillness, no voices, no music",
+  "dur": 14,
+  "seed": 2
+ },
+ {
+  "tag": "pool_3",
+  "prompt": "A quiet high mountain lake in thin mist at dawn, faint soft wind, very distant single water drip, deep quiet stillness, no voices, no music",
+  "dur": 14,
+  "seed": 3
+ },
+ {
+  "tag": "bell_1",
+  "prompt": "A small brass bell on a water buffalo ringing softly and slowly a few times in the distance outdoors, gentle footsteps on a dirt path, no voices, no music",
+  "dur": 10,
+  "seed": 1
+ },
+ {
+  "tag": "bell_2",
+  "prompt": "A small brass bell on a water buffalo ringing softly and slowly a few times in the distance outdoors, gentle footsteps on a dirt path, no voices, no music",
+  "dur": 10,
+  "seed": 2
+ },
+ {
+  "tag": "bell_3",
+  "prompt": "A small brass bell on a water buffalo ringing softly and slowly a few times in the distance outdoors, gentle footsteps on a dirt path, no voices, no music",
+  "dur": 10,
+  "seed": 3
+ },
+ {
+  "tag": "cheer_1",
+  "prompt": "A whole village joyfully banging a big drum, pots and pans with wooden spoons and cheering and shouting together outdoors, warm and happy, lively rhythm",
+  "dur": 12,
+  "seed": 1
+ },
+ {
+  "tag": "cheer_2",
+  "prompt": "A whole village joyfully banging a big drum, pots and pans with wooden spoons and cheering and shouting together outdoors, warm and happy, lively rhythm",
+  "dur": 12,
+  "seed": 2
+ },
+ {
+  "tag": "cheer_3",
+  "prompt": "A whole village joyfully banging a big drum, pots and pans with wooden spoons and cheering and shouting together outdoors, warm and happy, lively rhythm",
+  "dur": 12,
+  "seed": 3
+ },
+ {
+  "tag": "thunder_1",
+  "prompt": "One long, deep, warm, rolling thunder rumbling across a mountain valley, low and round and soft-edged, gently rolling and fading away, no sharp crack",
+  "dur": 12,
+  "seed": 1
+ },
+ {
+  "tag": "thunder_2",
+  "prompt": "One long, deep, warm, rolling thunder rumbling across a mountain valley, low and round and soft-edged, gently rolling and fading away, no sharp crack",
+  "dur": 12,
+  "seed": 2
+ },
+ {
+  "tag": "thunder_3",
+  "prompt": "One long, deep, warm, rolling thunder rumbling across a mountain valley, low and round and soft-edged, gently rolling and fading away, no sharp crack",
+  "dur": 12,
+  "seed": 3
+ },
+ {
+  "tag": "rain_1",
+  "prompt": "Gentle steady rain falling on tile roofs and wet mud and leaves, soft and warm, a few soft drips, no thunder, no wind noise",
+  "dur": 16,
+  "seed": 1
+ },
+ {
+  "tag": "rain_2",
+  "prompt": "Gentle steady rain falling on tile roofs and wet mud and leaves, soft and warm, a few soft drips, no thunder, no wind noise",
+  "dur": 16,
+  "seed": 2
+ },
+ {
+  "tag": "rain_3",
+  "prompt": "Gentle steady rain falling on tile roofs and wet mud and leaves, soft and warm, a few soft drips, no thunder, no wind noise",
+  "dur": 16,
+  "seed": 3
+ },
+ {
+  "tag": "roomtone_1",
+  "prompt": "A very quiet farmhouse morning, faint distant wind outside, almost silence, soft room tone, a very faint bamboo creak",
+  "dur": 10,
+  "seed": 1
+ },
+ {
+  "tag": "roomtone_2",
+  "prompt": "A very quiet farmhouse morning, faint distant wind outside, almost silence, soft room tone, a very faint bamboo creak",
+  "dur": 10,
+  "seed": 2
+ },
+ {
+  "tag": "roomtone_3",
+  "prompt": "A very quiet farmhouse morning, faint distant wind outside, almost silence, soft room tone, a very faint bamboo creak",
+  "dur": 10,
+  "seed": 3
+ }
+]

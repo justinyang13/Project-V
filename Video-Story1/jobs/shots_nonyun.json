@@ -1,0 +1,67 @@
+[
+ {
+  "id": "S01",
+  "sec": 6.0,
+  "chars": [
+   "NAINAI",
+   "MEI_NOHAT"
+  ],
+  "scene": "Inside a simple farmhouse kitchen with a wooden door frame, small straight-backed Nainai cuts a notch in a bamboo stick hanging by the kitchen door while Mei, seen from the side, watches her in the pale morning light, just the two of them in the room, wide medium shot, a straw hat hangs on a hook by the door"
+ },
+ {
+  "id": "S02",
+  "sec": 5.5,
+  "chars": [
+   "SHI",
+   "MEI"
+  ],
+  "scene": "On steep green rice terraces above a tile-roofed village, round tired Uncle Shi pours tea from a battered steel thermos onto a bed of yellowing straw-coloured rice seedlings, brittle curled tea bushes in rows around him, Mei seen small in the far distance below with a bamboo pole, wide shot, misty mountains behind, dry ochre earth"
+ },
+ {
+  "id": "S03",
+  "sec": 5.0,
+  "chars": [
+   "FEN",
+   "SHI"
+  ],
+  "scene": "A small dry stone shrine yard in the middle of a cloudless day, a long red and gold paper dragon lies still on the dusty ground, Auntie Fen whispers to a neighbour, Uncle Shi anxiously twists the lid of his steel thermos, a few villagers wearing green willow branches on their heads, huge empty pale blue sky, wide shot"
+ },
+ {
+  "id": "S04",
+  "sec": 5.0,
+  "chars": [
+   "GU"
+  ],
+  "scene": "At dusk in a stone courtyard, Yeye Gu holds up a lit oil lamp and points with his cane toward a dark far mountain peak with a thin ribbon of mist curling round it, a few villagers standing listening in the shadows, warm lamp glow, medium shot"
+ },
+ {
+  "id": "S05",
+  "sec": 5.5,
+  "chars": [
+   "MEI",
+   "SHI",
+   "NAINAI"
+  ],
+  "scene": "In a dim village schoolroom lit by a lantern, small Mei stands up from a low wooden bench gripping the back of it with both hands, looking small against a dark blackboard, Uncle Shi sets his steel thermos down on the floor beside her, Nainai smiles softly from the back, villagers sitting on benches, medium shot"
+ },
+ {
+  "id": "S06",
+  "sec": 5.5,
+  "chars": [
+   "MEI",
+   "TAO",
+   "HUA",
+   "GREY"
+  ],
+  "scene": "Mei, Tao and Hua walk together up a narrow dirt path through a tall green bamboo forest with stripes of sunlight and mist, Old Grey the water buffalo walks beside them, Hua holds a folded map, wide shot seen from the side"
+ },
+ {
+  "id": "S07",
+  "sec": 5.5,
+  "chars": [
+   "MEI",
+   "HUA"
+  ],
+  "scene": "On a wooden plank and rope bridge over a deep misty gorge, Hua in front takes a shaky step gripping the rope rail while Mei walks backwards in front of her facing her, a calm grey water buffalo and a small boy in yellow rain boots already far ahead on the bridge, wide shot"
+ }
+]
