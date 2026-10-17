@@ -413,6 +413,79 @@ hr{border:0;border-top:1px solid var(--line);margin:2em 0}
 </tr>
 </tbody>
 </table>
+<h2 id="s-snow-animation-the-first-tram-and-corner-store-user-feedback-in-order-approved-v5">S. Snow animation (The First Tram and Corner Store; user feedback in order, approved v5)</h2>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>What the user said</th>
+<th>Cause</th>
+<th>Rule</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>S1</td>
+<td>v1: "too consistent... it should be bit more random; size: more variation; speed: slower"</td>
+<td>Speeds came from 2–3 whole-screen counts per layer, so flakes in a layer moved in lockstep; sizes ±30 % only</td>
+<td>Per-flake wrap height so each flake's speed is free and still loops; lognormal sizes; per-flake drift/wobble/twinkle; gusty wind</td>
+</tr>
+<tr>
+<td>S2</td>
+<td>v2: "snow dropping speed is a bit too slow now"</td>
+<td>Halved speeds overshot</td>
+<td>×1.4 of v2 (≈0.7 of v1): near 63–133 px/s, far 14–35 px/s @1080p</td>
+</tr>
+<tr>
+<td>S3</td>
+<td>v3: "more variation of some snow flakes more white"</td>
+<td>All flakes took the scene's light, so most looked the same grey-blue</td>
+<td>~22 % near-white flakes, the rest alpha 0.3–1.0</td>
+</tr>
+<tr>
+<td>S4</td>
+<td>v4: "make some of the snow sharper"</td>
+<td>Every flake had its layer's depth blur</td>
+<td>~30 % of flakes drawn crisp (0.35 px blur)</td>
+</tr>
+<tr>
+<td>S5</td>
+<td>Not said, found while checking: the decoded mp4 shows ~1.4/255 at the loop point while the raw frames loop exactly (0.15)</td>
+<td>Encoder I-frame vs end of GOP</td>
+<td>Check seams on raw frames (<code>--only 0</code> vs <code>--only &lt;P-1&gt;</code>); encode the hour continuously or at low CRF so there is no pulse at each loop</td>
+</tr>
+<tr>
+<td>S6</td>
+<td>Flicker v7: "all the lights flicker at the same time including the traffic light.. go back"</td>
+<td>Tried to dim each lamp's light on the ground with soft distance-falloff maps over all warm pixels; the maps overlapped most of the frame, so every flicker pulsed the whole picture</td>
+<td>Keep a flicker local: the lamp head and halo, plus at most one hand-drawn ground pool tied to one lamp (v6, approved direction). Never use frame-wide light maps, and keep traffic lights and other signals out of every flicker mask</td>
+</tr>
+<tr>
+<td>S7</td>
+<td>Flicker v6: "just overlayed dim only.. obvious post edit.. doesn't look real"</td>
+<td>A lamp dimmed by multiplying a circle looks like a brightness slider: real flicker changes the light it throws (glow, glass, sign, cap, bushes) more than the lamp, and a failing bulb stutters, it does not fade</td>
+<td>Make a real "lamp off" picture with the image editor (FLUX.2 klein edit of a crop, <code>--strength 1.0</code>, check alignment), blend the light ratio (≤ 1) inside a zone that excludes other lights, glass straight to the off picture; failing-bulb timing (bursts, blackout + warm-up, twitches); one bad bulb, the rest steady</td>
+</tr>
+<tr>
+<td>S8</td>
+<td>Flicker v8: "still I can see the overlay... off or on, not gradient... like someone reduced the exposure"</td>
+<td>The editor's off picture only changed the glass (linear light loss ≈ 0 beyond 40 px), so a clipped off/on ratio darkened a whole circle; the stutter snapped between near-full on and off</td>
+<td>Model the lamp's light yourself in linear light (share × smooth falloff × warm tint) and remove it in linear space; use the off picture only for the glass; give the timing in-between levels and easing (approved v9)</td>
+</tr>
+<tr>
+<td>S9</td>
+<td>Not said, found while building the snowy-night bed: the rain-calibrated clip limits passed 1 of 19 wind clips</td>
+<td>Wind is gusty by nature (the approved clip itself swings 10 dB)</td>
+<td>Calibrate bed limits on the approved clip (<code>--max_swing 11 --max_tone 32 --centroid_tol 0.40</code> for snow wind) and drop clips far quieter than the rest (−51 dB RMS would be lifted into hiss)</td>
+</tr>
+<tr>
+<td>S10</td>
+<td>Not said, found in QC: ACE-Step pieces asked for 30 s often end at ~23 s and then go silent; the steady-pad prompt still made an hour that failed (143 note jumps after near-silence)</td>
+<td>The model finishes the piece early; sparse piano decays between phrases</td>
+<td>Generate samples at 40 s and cut 30 s; on the hour run <code>upcomp.py --max_up 8 --ratio 0.75 --release 1.8</code> (9/0.8/1.6 added two dropouts) and soften single harsh spots locally with a crossfaded lowpass instead of re-rendering</td>
+</tr>
+</tbody>
+</table>
 <h2 id="d2-images">D2. Images</h2>
 <table>
 <thead>

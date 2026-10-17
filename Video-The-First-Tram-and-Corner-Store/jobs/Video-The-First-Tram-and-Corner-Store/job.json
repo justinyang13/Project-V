@@ -1,0 +1,417 @@
+{
+ "id": "Video-The-First-Tram-and-Corner-Store",
+ "title": "The First Tram and Corner Store",
+ "source": "input/Video-The-First-Tram-and-Corner-Store.png",
+ "source_note": "copy of Project-I/images/AnimePaint/4K/4K_020.png with the store stripes recoloured (jobs/Video-The-First-Tram-and-Corner-Store/recolor_stripes.py)",
+ "source_size": [
+  3840,
+  2112
+ ],
+ "plate": {
+  "crop": [
+   42,
+   0,
+   3797,
+   2112
+  ],
+  "output_size": [
+   1920,
+   1080
+  ]
+ },
+ "loop": {
+  "period_s": 60.0,
+  "fps": 24,
+  "method": "procedural, no AI video (still_loop.py)"
+ },
+ "snow": {
+  "seed": 11,
+  "density": 1.0,
+  "size": 1.0,
+  "strength": 1.0,
+  "slant": 0.12
+ },
+ "regions": {
+  "lamp_left_big": {
+   "role": "lamp",
+   "center": [
+    215,
+    690
+   ],
+   "radius": [
+    140,
+    150
+   ],
+   "dips": 2,
+   "depth": 0.14,
+   "weight": 1.0
+  },
+  "lamp_left_2": {
+   "role": "lamp",
+   "center": [
+    503,
+    848
+   ],
+   "radius": [
+    60,
+    60
+   ],
+   "dips": 2,
+   "depth": 0.14,
+   "weight": 1.0
+  },
+  "lamp_left_3": {
+   "role": "lamp",
+   "center": [
+    540,
+    1047
+   ],
+   "radius": [
+    30,
+    30
+   ],
+   "dips": 1,
+   "depth": 0.16,
+   "weight": 0.5
+  },
+  "lamp_left_4": {
+   "role": "lamp",
+   "center": [
+    562,
+    1102
+   ],
+   "radius": [
+    22,
+    22
+   ],
+   "dips": 1,
+   "depth": 0.16,
+   "weight": 0.5
+  },
+  "lamp_middle": {
+   "role": "lamp",
+   "center": [
+    1345,
+    968
+   ],
+   "radius": [
+    55,
+    60
+   ],
+   "dips": 2,
+   "depth": 0.14,
+   "weight": 1.0
+  },
+  "tree_crown": {
+   "role": "sway",
+   "poly": [
+    [
+     1340,
+     0
+    ],
+    [
+     2045,
+     0
+    ],
+    [
+     2045,
+     430
+    ],
+    [
+     1960,
+     470
+    ],
+    [
+     1700,
+     520
+    ],
+    [
+     1340,
+     470
+    ]
+   ],
+   "root": [
+    1995,
+    520
+   ],
+   "reach": 650,
+   "amp_px": 3.0,
+   "exclude": [
+    [
+     1722,
+     0
+    ],
+    [
+     1798,
+     0
+    ],
+    [
+     1798,
+     600
+    ],
+    [
+     1722,
+     600
+    ]
+   ]
+  },
+  "store_windows": {
+   "role": "shimmer",
+   "poly": [
+    [
+     2200,
+     870
+    ],
+    [
+     3420,
+     770
+    ],
+    [
+     3420,
+     1500
+    ],
+    [
+     2200,
+     1560
+    ]
+   ],
+   "amp": 0.015
+  },
+  "lock_tram": {
+   "role": "lock",
+   "poly": [
+    [
+     700,
+     990
+    ],
+    [
+     1000,
+     990
+    ],
+    [
+     1000,
+     1325
+    ],
+    [
+     700,
+     1325
+    ]
+   ]
+  },
+  "lock_traffic_lights": {
+   "role": "lock",
+   "poly": [
+    [
+     420,
+     680
+    ],
+    [
+     580,
+     680
+    ],
+    [
+     580,
+     780
+    ],
+    [
+     420,
+     780
+    ]
+   ]
+  },
+  "lock_postbox": {
+   "role": "lock",
+   "poly": [
+    [
+     3420,
+     1220
+    ],
+    [
+     3760,
+     1220
+    ],
+    [
+     3760,
+     1850
+    ],
+    [
+     3420,
+     1850
+    ]
+   ]
+  },
+  "lock_traffic_light_mid": {
+   "role": "lock",
+   "poly": [
+    [
+     1125,
+     850
+    ],
+    [
+     1190,
+     850
+    ],
+    [
+     1190,
+     970
+    ],
+    [
+     1125,
+     970
+    ]
+   ]
+  },
+  "lock_traffic_light_right": {
+   "role": "lock",
+   "poly": [
+    [
+     1800,
+     690
+    ],
+    [
+     1885,
+     690
+    ],
+    [
+     1885,
+     820
+    ],
+    [
+     1800,
+     820
+    ]
+   ]
+  },
+  "pool_sidewalk": {
+   "role": "pool",
+   "feather_px": 30,
+   "poly": [
+    [
+     480,
+     1330
+    ],
+    [
+     1150,
+     1330
+    ],
+    [
+     1250,
+     1480
+    ],
+    [
+     1050,
+     1560
+    ],
+    [
+     2300,
+     1560
+    ],
+    [
+     2300,
+     2112
+    ],
+    [
+     1500,
+     2112
+    ],
+    [
+     1000,
+     1700
+    ],
+    [
+     480,
+     1480
+    ]
+   ]
+  },
+  "relight_lamp_left_big": {
+   "role": "relight",
+   "off_image": "jobs/Video-The-First-Tram-and-Corner-Store/lamp_off_big_s101.png",
+   "crop_xy": [
+    0,
+    380
+   ],
+   "seed": 31,
+   "head": {
+    "center": [
+     215,
+     672
+    ],
+    "radius": [
+     95,
+     105
+    ]
+   },
+   "exclude": [
+    {
+     "center": [
+      503,
+      848
+     ],
+     "radius": [
+      70,
+      75
+     ]
+    },
+    {
+     "poly": [
+      [
+       415,
+       670
+      ],
+      [
+       590,
+       670
+      ],
+      [
+       590,
+       790
+      ],
+      [
+       415,
+       790
+      ]
+     ]
+    },
+    {
+     "center": [
+      540,
+      1047
+     ],
+     "radius": [
+      40,
+      40
+     ]
+    }
+   ],
+   "bulb": {
+    "burst_every_s": 16,
+    "twitch_gap_s": [
+     2.2,
+     4.4
+    ]
+   },
+   "r0_px": 170,
+   "fall_pow": 1.2,
+   "share": 0.9
+  }
+ },
+ "flicker": {
+  "seed": 23,
+  "depth": [
+   0.3,
+   0.4
+  ],
+  "dur_s": [
+   0.3,
+   0.5
+  ],
+  "min_gap_s": 2.5,
+  "max_gap_s": 5.0,
+  "lead": "lamp_left_big",
+  "note": "lamp 'dips' keys are kept only so the approved snow v5 random draws stay identical",
+  "pool_every_s": 15.0,
+  "pool_depth": 0.12,
+  "mode": "bad_bulb"
+ }
+}

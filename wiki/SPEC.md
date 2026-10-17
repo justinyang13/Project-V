@@ -62,6 +62,20 @@ The reference run animated only a small part of the frame (snow in the doorway, 
 - **Rain audio comes from a local model, not synthesis.** The procedural rain of `ambience.py` was rejected twice ("white noise"). Use MOSS-SoundEffect (Apache 2.0) via `scripts/rain_gen.py` and `scripts/rain_bed.py` (Music §Rain).
 - **The audio check must be run on the music alone and the rain alone**, because the softness limits were calibrated without rain (Lessons D13).
 
+### 1.4c Style rules from the user (The First Tram and Corner Store, 2026-10-17): snow, lamp flicker, procedural loops
+**Snow (approved v5, reuse as the default for every snowy loop).** Built by `scripts/still_loop.py` (Runbook §S, Lessons S1–S5):
+- **Everywhere, not just at the front:** five depth layers from the depth map; far tiny flakes over the far street and sky, near flakes in front of everything.
+- **Light snow**, about 2,330 flakes on screen in total (130 / 330 / 420 / 650 / 800, near → far).
+- **Random, not uniform:** each flake has its own fall speed, size, drift, two-speed wobble and twinkle, plus a slow gusty wind across bands of flakes.
+- **Speed:** near 63–133 px/s, far 14–35 px/s at 1080p ("v1 too fast/uniform → v2 too slow → v3 right").
+- **Size variation:** lognormal, 0.35–2.4× the layer median, never over 4.5 px radius at 1080p (no big blurry flakes, same as the rain rule).
+- **Some flakes whiter (~22 %) and some sharper (~30 %)**; the rest pick up the colour of the light around them.
+- Judge snow in motion (a full loop), never from a still.
+
+**Lamp flicker (approved v9): one failing bulb, relit for real, never an overlay dim.** Rejected in order: smooth 10–16 % dips ("tiny bit" was too little), 30–40 % dips on circles ("just overlayed dim... obvious post edit"), frame-wide light maps ("all the lights flicker at the same time, including the traffic light"), a ratio to an AI "lamp off" picture ("like someone reduced the exposure"). What works: the glass blends to a "lamp off" picture made with the image editor; the lamp's light on the sign, cap, pole, bushes and glow is removed in **linear light** with a smooth falloff from the lamp (strongest at the glass, ~0 beyond ~150 px at 1080p) and only on warm-lit pixels; other lights are excluded. Timing of a failing bulb: stutter bursts with in-between levels, near-blackouts with a slow warm-up, ~1 s brown-outs, small twitches so something happens at least every 5 s; eased both ways. The other lamps stay steady.
+
+**Procedural loops:** when everything that moves is weather or light (snow, flicker, shimmer, slight branch sway), skip the AI video model entirely: no camera drift, any loop length (60 s here, so the flickers do not repeat every 10 s), 4K for free.
+
 ### 1.5 Roles
 | Who | Does |
 |---|---|

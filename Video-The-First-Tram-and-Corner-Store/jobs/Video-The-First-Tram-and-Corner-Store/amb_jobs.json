@@ -1,0 +1,7 @@
+[{"tag": "bed1", "prompt": "Quiet snowy winter night in a small town street, soft gentle wind, hushed muffled air, snow falling softly, very calm and peaceful, no voices, no music, no traffic", "dur": 30, "seed": 1},
+ {"tag": "bed2", "prompt": "Quiet snowy winter night in a small town street, soft gentle wind, hushed muffled air, snow falling softly, very calm and peaceful, no voices, no music, no traffic", "dur": 30, "seed": 2},
+ {"tag": "hum1", "prompt": "Faint soft electrical hum of a small convenience store heard from outside on a quiet night, low and steady, distant refrigerator hum, no voices, no music", "dur": 30, "seed": 3},
+ {"tag": "hum2", "prompt": "Faint soft electrical hum of a small convenience store heard from outside on a quiet night, low and steady, distant refrigerator hum, no voices, no music", "dur": 30, "seed": 4},
+ {"tag": "bell1", "prompt": "A single old tram bell ringing twice, very far away down a quiet snowy street at night, soft and distant, muffled by snow, no voices, no music", "dur": 10, "seed": 5},
+ {"tag": "bell2", "prompt": "A single old tram bell ringing twice, very far away down a quiet snowy street at night, soft and distant, muffled by snow, no voices, no music", "dur": 10, "seed": 6},
+ {"tag": "bell3", "prompt": "Distant streetcar bell, two soft dings far away in the snowy night, gentle, no voices, no music", "dur": 10, "seed": 7}]
