@@ -189,13 +189,8 @@ No AI video: everything is drawn by `scripts/still_loop.py` from `jobs/<id>/job.
 ```
 Approved job.json block (The First Tram and Corner Store): `"loop": {"period_s": 60.0, "fps": 24}`, `"snow": {"seed": 11, "density": 1.0, "size": 1.0, "strength": 1.0, "slant": 0.12}` (white_share 0.22 and sharp_share 0.3 are the defaults).
 Built-in snow layers (near → far; n flakes, fall speed px/s @1080p, median radius px, depth blur px, alpha, wobble px): z0.22 130 63–133 2.1 1.2 0.70 16 · z0.42 330 45–98 1.5 0.8 0.75 11 · z0.62 420 31–70 1.1 0.6 0.75 7 · z0.80 650 21–49 0.8 0.5 0.70 5 · z0.93 800 14–35 0.6 0.4 0.60 3. Sizes lognormal σ0.55 clipped 0.35–2.4× (max 4.5 px); 22 % near-white, 30 % crisp (blur 0.35 px); gust 18 px; per-flake slant 0.3–1.7× of `slant`.
-**Bad-bulb flicker (approved v9):** 1) crop around the lamp (≤ 1280 px), 2) "lamp off" edit with FLUX.2 klein, 3 seeds, pick the one where only that lamp is off, check alignment (median optical flow < 0.5 px), 3) region `relight` in job.json and `"flicker": {"mode": "bad_bulb"}`:
-```bash
-DRAWTHINGS_MODELS_DIR=/Users/Maxi/Code/Models ~/.claude/bin/dt-cli-26.0928.0/draw-things-cli generate --local --no-download-missing --model flux_2_klein_9b_i8x.ckpt \
-  --prompt-file jobs/<id>/lamp_off_prompt.txt --image work/<id>/lampoff/crop.png --strength 1.0 --width 1280 --height 1280 --seed 101 --output work/<id>/lampoff/off_s101.png   # ~13 s
-```
-Approved region (The First Tram and Corner Store): `{"role": "relight", "off_image": "jobs/<id>/lamp_off_big_s101.png", "crop_xy": [0, 380], "seed": 31, "head": {"center": [215, 672], "radius": [95, 105]}, "r0_px": 170, "fall_pow": 1.2, "share": 0.9, "exclude": [other lamps, traffic light], "bulb": {"burst_every_s": 16, "twitch_gap_s": [2.2, 4.4]}}` (source px). Prompt: "switch OFF only the large street lamp ... All other lights stay exactly as they are ... Keep everything else exactly the same". `--local` matters: without it the CLI may use Draw Things cloud compute.
-Other regions: `lamp` (center, radius, dips per loop, depth), `sway` (poly, root, reach, amp_px, exclude), `shimmer` (poly, amp), `lock` (documentation/overlay only). Seam check on raw frames: render `--only 0` and `--only <P-1>`, mean |diff| must equal a normal frame step (~0.15/255).
+**Lamp flicker: not approved, dropped by the user.** Set `"flicker": {"mode": "off"}` in job.json (no lamp changes at all). The experimental modes `relight_all` / `bad_bulb` are still in `still_loop.py` but the user rejected their results (Lessons S6-S13); do not use them without a new idea and an approved 4K on/off still.
+Other regions: `sway` (poly, root, reach, amp_px, exclude), `shimmer` (poly, amp), `lock` (documentation/overlay only). Seam check on raw frames: render `--only 0` and `--only <P-1>`, mean |diff| must equal a normal frame step (~0.15/255).
 
 ## Y. Upload to YouTube (private)
 See [YouTube uploader](youtube-upload.md). Until the API project passes Google's audit, API uploads are locked private, so upload by hand in YouTube Studio with the text from `jobs/<id>/youtube.md`; after approval:

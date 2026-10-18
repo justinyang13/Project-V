@@ -8,7 +8,7 @@ job.json: plate.crop (source px), loop.period_s/fps, "snow" {seed, density, size
 Snow: depth-sorted layers (work/<id>/depth.npy, 0 = near .. 1 = far); a layer only shows where the scene is farther than it, so far tiny flakes sit over the far street and sky and
 near flakes fall in front of everything. Flakes take the colour of the light around them (warm near lamps and the store, blue-grey in the dark). Each flake falls a whole number of
 screen heights per loop and wobbles with a whole number of cycles per loop, so the last frame runs into the first exactly. No big blurry flakes (Lessons R-series, rain)."""
-import argparse, json, subprocess
+import argparse, json, os, subprocess
 import cv2, numpy as np
 ap = argparse.ArgumentParser()
 ap.add_argument("--job", required=True); ap.add_argument("--out"); ap.add_argument("--size", type=int, nargs=2, default=None)
@@ -70,71 +70,130 @@ for n, r in lamps:
 warm = np.clip((BASE[..., 2] - BASE[..., 0] - 0.05) / 0.25, 0, 1) * np.clip((LUM - 0.2) / 0.3, 0, 1)   # warm-lit pixels only
 for n, r in job["regions"].items():
     if r["role"] == "pool": LAMP.append((n, (pm(r["poly"], r.get("feather_px", 30)) * warm)[..., None], POOL))
-if FL.get("mode") != "bad_bulb": print("flickers (s: lamp):", ", ".join(f"{ts % (P / FPS):.1f}: {n}{' +pool' if l else ''}" for ts, n, l in sorted(EVENTS, key=lambda e: e[0] % (P / FPS))))
+if FL.get("mode") not in ("bad_bulb", "relight_all", "off"): print("flickers (s: lamp):", ", ".join(f"{ts % (P / FPS):.1f}: {n}{' +pool' if l else ''}" for ts, n, l in sorted(EVENTS, key=lambda e: e[0] % (P / FPS))))
 
-if FL.get("mode") == "bad_bulb": LAMP = []                                           # v8: the v6 overlay dips are off; only the relit bad bulb flickers
+if FL.get("mode") in ("bad_bulb", "relight_all", "off"): LAMP = []                  # the v6 overlay dips are off ("off" = no lamp flicker at all)
 
-# ---- bad bulb (v8, user: "the flickers are just an overlayed dim... it doesn't look real"): blend towards a real "lamp off" picture ----
-# region role "relight": off_image (an image-editor version of a source crop with that lamp switched off), crop_xy (where the crop sits in the source),
-# head {center, radius} (the glass, blended to the off picture), r0_px / fall_pow / share (how far and how strongly its light reaches), exclude [ellipses / polys].
-# Light only goes down: per-channel ratio off/on of a blurred copy, clipped to <= 1, so the warm light leaves the sign, pole, cap and bushes while the details stay
-# the original's; the glass itself is blended straight to the off picture. Timing: a failing bulb, i.e. irregular fast stutter bursts, some ending in a short
-# blackout and a warm-up, plus small twitches so that something happens at least every max_gap_s. Filament inertia: off fast, on a little slower.
+# ---- v10: every lamp relit in place (user on v9 at the final review: "the overlay is not exact to the lamp so the no-light effect looks like a
+# square box around the lamp... also the ground area lit by the lamp... create the no-lamp effect for each lamp; only one lamp flickers, that was wrong").
+# v9 pasted an AI "lamp off" picture inside an ellipse; the AI had redrawn the lantern bigger and repainted the bushes, so a whole patch changed.
+# Now nothing is pasted. Per lamp (region role "lamp"):
+#   glass  = the lamp's own bright warm pixels inside its ellipse (exact shape, from the original); off = the same pixels at 3 % light plus a cool ambient;
+#   glow   = its share of nearby light, 1/(1+(d/r0)^2)^1.2 x warm tint (the approved v9 falloff), removed in linear light;
+#   ground = optional "pool" {poly, share}: the warm light it throws on the ground, = warm-light map x a heavily feathered polygon, removed in linear light.
+# Timing: one global timeline of failing-bulb events (twitches, stutter bursts, near-blackouts with a warm-up, brown-outs), an event every 2.2-4.6 s,
+# each given to a lamp by weight (never the same lamp twice in a row, never two at once). Filament inertia as v9.
 RELIGHT = []; yy_, xx_ = np.mgrid[0:OH, 0:OW].astype(np.float32)
 def ell(c, r):
     m = np.zeros((OH, OW), np.float32); cv2.ellipse(m, tuple(int(v) for v in tp(c)), (int(r[0] * sc), int(r[1] * sc)), 0, 0, 360, 1.0, -1); return m
-def bad_bulb_curve(B, rb):
-    k = np.zeros(P, np.float32); events = []
-    nb = max(int(round(P / FPS / B.get("burst_every_s", 16))), 1); t = rb.uniform(1, 4)
-    starts = np.cumsum(rb.uniform(0.7, 1.3, nb)); starts = t + (starts - starts[0]) * (P / FPS - 6) / max(starts[-1] - starts[0], 1e-6) * (nb - 1) / nb if nb > 1 else np.array([t])
-    for st in starts:                                                                # stutter burst
-        f = sec(st); events.append(st)
-        for _ in range(int(rb.integers(4, 10))):
-            hi = rb.uniform(0.35, 0.9); n1 = int(rb.integers(1, 5)); lo = rb.uniform(0.05, 0.35); n2 = int(rb.integers(1, 5))   # v9: in-between levels, not on/off
-            k[np.arange(f, f + n1) % P] = hi; f += n1; k[np.arange(f, f + n2) % P] = lo; f += n2
-        if rb.random() < 0.5:                                                        # short near-blackout, then a slow warm-up with a tiny overshoot
-            n = int(rb.integers(6, 15)); k[np.arange(f, f + n) % P] = rb.uniform(0.85, 1.0); f += n
-            for v in (0.8, 0.6, 0.45, 0.3, 0.18, 0.08, -0.04, -0.03, -0.01): k[f % P] = v; f += 1
-        else:                                                                        # or a brown-out: the light sags and wavers for ~1 s, then recovers
-            n = int(rb.integers(14, 30)); w = rb.uniform(0.25, 0.5)
-            k[np.arange(f, f + n) % P] = w * (0.8 + 0.2 * np.sin(np.arange(n) * rb.uniform(0.6, 1.2))) * np.sin(np.linspace(0.15, 1, n) * np.pi / 2) ** 0.5; f += n
-    gmin, gmax = B.get("twitch_gap_s", [2.5, 5.0]); allev = sorted(events)
-    ext = allev + [allev[0] + P / FPS]
-    for a0, a1 in zip(ext[:-1], ext[1:]):                                            # twitches between bursts, every gmin..gmax s
-        tcur = a0 + rb.uniform(gmin, gmax)
-        while tcur < a1 - gmin * 0.8:
-            f = sec(tcur); v = rb.uniform(0.2, 0.55); k[f % P] = max(k[f % P], v)
-            if rb.random() < 0.4: k[(f + 1) % P] = max(k[(f + 1) % P], v * 0.5)
-            if rb.random() < 0.3: k[(f + 3) % P] = max(k[(f + 3) % P], v * 0.8)
-            allev.append(tcur); tcur += rb.uniform(gmin, gmax)
-    out = k.copy()                                                                   # filament inertia (periodic, two passes): going on is slower than going off
-    for _ in range(2):
-        for i in range(P):
-            prev = out[i - 1]; out[i] = prev + (k[i] - prev) * (0.7 if k[i] > prev else 0.4)   # v9: both ways eased (dims in ~2 frames, recovers in ~3-4)
-    return out, sorted(e % (P / FPS) for e in allev)
-for n, r in job["regions"].items():
-    if r["role"] != "relight": continue
-    full = cv2.imread(job["source"]).copy(); off = cv2.imread(r["off_image"]); ox, oy = r["crop_xy"]
-    full[oy:oy + off.shape[0], ox:ox + off.shape[1]] = off
-    OFF = cv2.resize(full[cy0:cy1, cx0:cx1], (OW, OH), interpolation=cv2.INTER_AREA if sc < 1 else cv2.INTER_LANCZOS4).astype(np.float32) / 255
-    # v9 (user on v8: "I can still see the overlay... like someone reduced the exposure"): the off picture only really changes the glass, and a ratio map
-    # darkened a whole circle. Now the lamp's light is modelled in LINEAR light: its share of each pixel falls off smoothly with distance (1/(1+(d/r0)^2)^p)
-    # and only warm-lit pixels carry it (the blue sky and snow in shadow are not lit by the lamp), so the glow and the light on the sign, cap, pole and
-    # bushes fade with the bulb, strongest at the lamp and gone by a few hundred px. Removing light in linear space, not scaling sRGB, avoids the exposure look.
-    lcx, lcy = tp(r["head"]["center"]); dist = np.hypot(xx_ - lcx, yy_ - lcy)
-    fall = 1 / (1 + (dist / (r.get("r0_px", 140) * sc)) ** 2) ** r.get("fall_pow", 1.2)
-    Bs = cv2.GaussianBlur(BASE, (0, 0), 2 * sc); wt = np.clip((Bs[..., 2] - Bs[..., 0]) / np.maximum(Bs.sum(2), 1e-3) * 4, 0, 1) ** 0.6   # warm tint 0..1
-    share = np.clip(r.get("share", 0.85) * fall * (0.25 + 0.75 * wt), 0, 0.95)
-    for e in r.get("exclude", []):
-        ex = ell(e["center"], e["radius"]) if "center" in e else pm(e["poly"])
-        share *= 1 - cv2.GaussianBlur(ex, (0, 0), 10 * sc)
-    share = cv2.GaussianBlur(share, (0, 0), 3 * sc)
-    LOSS = (np.power(BASE, 2.2) * share[..., None]).astype(np.float32)                # the lamp's light, linear
-    head = cv2.GaussianBlur(ell(r["head"]["center"], r["head"]["radius"]), (0, 0), 3 * sc)
-    curve, evs = bad_bulb_curve(r.get("bulb", {}), np.random.default_rng(r.get("seed", 31)))
-    ys_, xs_ = np.nonzero(share > 2e-3); bb = (ys_.min(), ys_.max() + 1, xs_.min(), xs_.max() + 1)
-    RELIGHT.append((n, bb, LOSS[bb[0]:bb[1], bb[2]:bb[3]], head[bb[0]:bb[1], bb[2]:bb[3], None], OFF[bb[0]:bb[1], bb[2]:bb[3]], curve))
-    gaps = np.diff(evs + [evs[0] + P / FPS]); print(f"bad bulb {n}: {len(evs)} events, max gap {gaps.max():.1f} s, first at", ", ".join(f"{e:.1f}" for e in evs[:8]))
+def bulb_events(rb, names, wts):
+    Psec = P / FPS; t = rb.uniform(0.5, 3.0); evs = []; last = None; had_burst = set()
+    while True:
+        cand = [i for i in range(len(names)) if names[i] != last]; w = np.array([wts[i] for i in cand]); i = cand[rb.choice(len(cand), p=w / w.sum())]
+        need = [j for j in cand if names[j] not in had_burst]                                # v12: every lamp must go properly dark at least once per loop
+        if need and rb.random() < 0.55: i = need[int(rb.integers(len(need)))]
+        kind = rb.choice(["twitch", "burst_black", "burst_brown"], p=[0.62, 0.2, 0.18])
+        if names[i] not in had_burst and (kind == "twitch" and rb.random() < 0.7): kind = rb.choice(["burst_black", "burst_brown"])
+        if kind != "twitch": had_burst.add(names[i])
+        f = sec(t); k = {}
+        if kind == "twitch":
+            v = rb.uniform(0.25, 0.6); k[f] = v
+            if rb.random() < 0.4: k[f + 1] = v * 0.5
+            if rb.random() < 0.3: k[f + 3] = v * 0.8
+        else:
+            for _ in range(int(rb.integers(4, 10))):
+                hi = rb.uniform(0.35, 0.9); n1 = int(rb.integers(1, 5)); lo = rb.uniform(0.05, 0.35); n2 = int(rb.integers(1, 5))
+                for j in range(n1): k[f + j] = hi
+                f += n1
+                for j in range(n2): k[f + j] = lo
+                f += n2
+            if kind == "burst_black":
+                n = int(rb.integers(6, 15))
+                for j in range(n): k[f + j] = rb.uniform(0.85, 1.0)
+                f += n
+                for v in (0.8, 0.6, 0.45, 0.3, 0.18, 0.08, -0.04, -0.03, -0.01): k[f] = v; f += 1
+            else:
+                n = int(rb.integers(14, 30)); w0 = rb.uniform(0.25, 0.5); ph = rb.uniform(0.6, 1.2)
+                for j in range(n): k[f + j] = w0 * (0.8 + 0.2 * np.sin(j * ph)) * np.sin((0.15 + 0.85 * j / max(n - 1, 1)) * np.pi / 2) ** 0.5
+                f += n
+        end_s = (max(k) + 1) / FPS
+        if evs and evs[0][0] + Psec - end_s < 1.5: break                                 # would run into the first event after the wrap
+        evs.append((t, names[i], kind, k)); last = names[i]
+        t = end_s + rb.uniform(1.2, 2.6)
+        if t > Psec - 0.5: break
+    wrap = evs[0][0] + Psec - (max(evs[-1][3]) + 1) / FPS
+    if wrap > 4.6:                                                                      # keep "something at least every ~5 s" across the loop point
+        tm = (max(evs[-1][3]) + 1) / FPS + wrap / 2; cand = [n for n in names if n not in (evs[-1][1], evs[0][1])] or names
+        evs.append((tm, cand[0], "twitch", {sec(tm): rb.uniform(0.3, 0.55)}))
+    return evs
+if FL.get("mode") == "relight_all":
+    LIN = np.power(BASE, 2.2); Bs = cv2.GaussianBlur(BASE, (0, 0), 2 * sc)
+    wt = np.clip((Bs[..., 2] - Bs[..., 0]) / np.maximum(Bs.sum(2), 1e-3) * 4, 0, 1) ** 0.6       # warm tint (glow share)
+    Bg = cv2.GaussianBlur(BASE, (0, 0), 4 * sc); Lg = Bg.mean(2)
+    WARM = np.clip((Bg[..., 2] - Bg[..., 0]) / np.maximum(Bg.sum(2), 1e-3) * 4, 0, 1) * np.clip((Lg - 0.12) / 0.4, 0, 1)   # warm-lit ground
+    EXCL = np.ones((OH, OW), np.float32)
+    for e in FL.get("exclude", []): EXCL *= 1 - cv2.GaussianBlur(ell(e["center"], e["radius"]) if "center" in e else pm(e["poly"]), (0, 0), 8 * sc)
+    names = [n for n, _ in lamps]; wts = [r.get("weight", 1.0) for _, r in lamps]
+    EVS = bulb_events(np.random.default_rng(FL.get("seed", 31)), names, wts)
+    raw = {n: np.zeros(P, np.float32) for n in names}
+    for t0, n, kind, k in EVS:
+        for f, v in k.items(): raw[n][f % P] = v if abs(v) > abs(raw[n][f % P]) else raw[n][f % P]
+    LUMB = cv2.cvtColor(BASE, cv2.COLOR_BGR2GRAY)
+    LDIR = f"jobs/{a.job}/lampoff"; LOFF = json.load(open(f"{LDIR}/lampoff.json")) if os.path.exists(f"{LDIR}/lampoff.json") else {}
+    SRC0 = cv2.imread(job["source"])
+    for n, r in lamps:
+        c = raw[n].copy()
+        for _ in range(2):
+            for i in range(P): prev = c[i - 1]; c[i] = prev + (raw[n][i] - prev) * (0.7 if raw[n][i] > prev else 0.4)
+        c[np.abs(c) < 0.004] = 0                                                         # settled = exactly the original picture
+        cx, cy = tp(r["center"]); dist = np.hypot(xx_ - cx, yy_ - cy); reg = ell(r["center"], r["radius"])
+        lmax = np.percentile(LUMB[reg > 0], 99.5)
+        glass = ((LUMB > r.get("glass_thr", 0.55) * lmax) & (reg > 0) & (wt > 0.15)).astype(np.uint8)
+        glass = cv2.morphologyEx(glass, cv2.MORPH_CLOSE, cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (max(int(5 * sc), 3),) * 2))
+        glass = cv2.GaussianBlur(glass.astype(np.float32), (0, 0), max(1.0 * sc, 0.6))
+        r0 = r.get("glow_r0", r["radius"][0] * 1.2) * sc
+        share = r.get("glow_share", 0.8) / (1 + (dist / r0) ** 2) ** 1.2 * (0.05 + 0.95 * wt)   # v11: the sky around a lamp is hardly lit by it
+        if "pool" in r: share = share + r["pool"].get("share", 0.6) * cv2.GaussianBlur(pm(r["pool"]["poly"]), (0, 0), r["pool"].get("feather_px", 80) * sc) * WARM
+        others = sum(ell(r2["center"], [v * 1.3 for v in r2["radius"]]) for n2, r2 in lamps if n2 != n)
+        share = share * (1 - cv2.GaussianBlur(np.clip(others, 0, 1), (0, 0), 6 * sc))           # a lamp never dims another lamp
+        share = np.clip(share * EXCL, 0, 0.95); share[glass > 0.5] = np.maximum(share[glass > 0.5], 0.6)
+        m = (share > 2e-3) | (glass > 1e-3); ys_, xs_ = np.nonzero(m); bb = (ys_.min(), ys_.max() + 1, xs_.min(), xs_.max() + 1)
+        sl = (slice(bb[0], bb[1]), slice(bb[2], bb[3]))
+        # v12 (user on v11: "big: the overlay is not matching the lamp, the left side has extras; middle: the overlay extends to the right of the lamp; 3 and 4
+        # don't look like a lamp"): no AI pixels at all. The unlit lantern is built from the lamp's OWN pixels: panes (bright warm, inside the traced outline
+        # "body_poly" if given, else the lamp ellipse) become dark cool glass with a faint unlit bulb; the frame, bars, snow and cap stay the original's pixels
+        # (dimmed where the lamp lit them). The outline can therefore never be off: it is the original's own luminance edge.
+        PM = cv2.GaussianBlur(pm(r["body_poly"]), (0, 0), 0.8 * sc) if "body_poly" in r else cv2.GaussianBlur(ell(r["center"], [v * 1.15 for v in r["radius"]]), (0, 0), 1.0 * sc)
+        t_ = LUMB / max(lmax, 1e-3); thr = r.get("glass_thr", 0.55)
+        pane = np.clip((t_ - thr) / 0.25, 0, 1) ** 1.0 * np.clip((wt - 0.1) / 0.2, 0, 1) * PM
+        pane = cv2.GaussianBlur(pane, (0, 0), max(0.6 * sc, 0.5)); pane = np.clip(pane * 1.15, 0, 1)
+        kk, lab_, st_, cen_ = cv2.connectedComponentsWithStats((pane > 0.3).astype(np.uint8))   # only the lamp's own pane cluster, never a neighbouring light
+        if kk > 1:
+            lcx, lcy = tp(r["center"]); main_ = 1 + int(np.argmin([np.hypot(*(cen_[i] - (lcx, lcy))) - 0.02 * st_[i, 4] for i in range(1, kk)]))
+            own = cv2.dilate((lab_ == main_).astype(np.uint8), cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (2 * max(int(round(3 * sc)), 2) + 1,) * 2)).astype(np.float32)
+            pane = pane * own
+        py_, px_ = np.nonzero(pane > 0.5)
+        if len(py_) < 4: py_, px_ = np.nonzero(reg > 0.5)
+        gx0, gx1, gy0, gy1 = px_.min(), px_.max(), py_.min(), py_.max(); gw, gh = max(gx1 - gx0, 2), max(gy1 - gy0, 2)
+        yv = np.clip((yy_ - gy0) / gh, 0, 1)[..., None]
+        top = np.array(r.get("glass_top", [0.024, 0.017, 0.010]), np.float32); bot = np.array(r.get("glass_bot", [0.006, 0.0045, 0.003]), np.float32)
+        glass_col = top * (1 - yv) + bot * yv                                              # BGR linear: the sky reflected in the upper glass, darker below
+        bx_, by_ = (gx0 + gx1) / 2, gy0 + 0.42 * gh; rr = np.hypot((xx_ - bx_) / (0.26 * gw), (yy_ - by_) / (0.32 * gh))
+        glass_col = glass_col + np.exp(-rr ** 2 * 1.6)[..., None] * np.array(r.get("bulb_lin", [0.032, 0.026, 0.016]), np.float32)   # the unlit bulb, faint
+        tint = np.array([1.0, 0.86, 0.62], np.float32)                                      # unlit frame / trim: lamp light gone, cooler
+        band = cv2.dilate((pane > 0.3).astype(np.uint8), cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (2 * max(int(round(r.get("frame_px", 5) * sc)), 2) + 1,) * 2)).astype(np.float32)
+        band = cv2.GaussianBlur(band, (0, 0), max(0.7 * sc, 0.5)) * PM                      # panes + a thin band of lit frame/trim around them, nothing else
+        lit = np.clip((wt[..., None] - 0.1) / 0.25, 0, 1)
+        frame = LIN * (1 - lit) + LIN * (0.10 * tint) * lit                                # lit frame/trim -> unlit (10 %), cooler
+        offfull = pane[..., None] * glass_col + (1 - pane[..., None]) * frame
+        glass = np.clip(np.maximum(pane * 3, band), 0, 1)                                   # blend weight = the lantern body, not a halo or neighbours
+        share = np.clip(share, 0, 0.95)
+        m = (share > 2e-3) | (glass > 1e-3); ys_, xs_ = np.nonzero(m); bb = (ys_.min(), ys_.max() + 1, xs_.min(), xs_.max() + 1)
+        sl = (slice(bb[0], bb[1]), slice(bb[2], bb[3])); off = offfull[sl]
+        RELIGHT.append((n, bb, (LIN[sl] * share[sl][..., None]).astype(np.float32), glass[sl][..., None], off.astype(np.float32), c))
+    st = sorted(e[0] for e in EVS); gaps = np.diff(st + [st[0] + P / FPS])
+    print(f"relight_all: {len(EVS)} events, max gap {gaps.max():.1f} s; per lamp:", {n: sum(1 for e in EVS if e[1] == n) for n in names})
+    print("events (s lamp kind):", ", ".join(f"{e[0]:.1f} {e[1].replace('lamp_', '')} {e[2]}" for e in EVS))
 
 # ---- branch sway ----
 SWAY = []
@@ -215,13 +274,12 @@ def frame(t):
     img = sway(BASE.copy(), t) if SWAY else BASE.copy()
     for m, amp, ph in SHIM:
         g = 1 + amp * np.sin(2 * np.pi * 2 * TT[t] + ph); img = img + m * (img * np.array([g * 0.995, g, g * 1.005], np.float32) - img)
-    for n, (y0, y1, x0, x1), loss, hm, off, c in RELIGHT:
+    for n, (y0, y1, x0, x1), loss, gl, off, c in RELIGHT:
         k = float(c[t])
         if k != 0:
-            sub = img[y0:y1, x0:x1]
-            sub = np.power(np.clip(np.power(np.clip(sub, 0, 1), 2.2) - k * loss, 0, 1), 1 / 2.2)   # remove (k < 0: add) the lamp's light in linear space
-            if k > 0: sub = sub + k * hm * (off - sub)                                  # the glass itself goes dark like the off picture
-            img[y0:y1, x0:x1] = sub
+            lin = np.power(np.clip(img[y0:y1, x0:x1], 0, 1), 2.2) - k * loss                 # remove (k < 0: add) the lamp's light in linear space
+            if k > 0: lin = lin + k * gl * (off - lin)                                       # its own glass goes dark, exact to the panes
+            img[y0:y1, x0:x1] = np.power(np.clip(lin, 0, 1), 1 / 2.2)
     for n, m, c in LAMP:
         if c[t] < 1: g = c[t]; img = img + m * (img * np.array([g * 1.03, g, g * 0.97], np.float32) - img)   # BGR: a dimmer lamp is a touch redder
     if not a.no_snow: img = snow(img, t)

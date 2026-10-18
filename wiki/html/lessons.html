@@ -413,7 +413,7 @@ hr{border:0;border-top:1px solid var(--line);margin:2em 0}
 </tr>
 </tbody>
 </table>
-<h2 id="s-snow-animation-the-first-tram-and-corner-store-user-feedback-in-order-approved-v5">S. Snow animation (The First Tram and Corner Store; user feedback in order, approved v5)</h2>
+<h2 id="s-snow-animation-approved-v5-and-the-lamp-flicker-that-was-dropped-the-first-tram-and-corner-store-user-feedback-in-order">S. Snow animation (approved v5) and the lamp flicker that was dropped (The First Tram and Corner Store; user feedback in order)</h2>
 <table>
 <thead>
 <tr>
@@ -456,7 +456,7 @@ hr{border:0;border-top:1px solid var(--line);margin:2em 0}
 </tr>
 <tr>
 <td>S6</td>
-<td>Flicker v7: "all the lights flicker at the same time including the traffic light.. go back"</td>
+<td>(flicker, all dropped in the end, see S14) Flicker v7: "all the lights flicker at the same time including the traffic light.. go back"</td>
 <td>Tried to dim each lamp's light on the ground with soft distance-falloff maps over all warm pixels; the maps overlapped most of the frame, so every flicker pulsed the whole picture</td>
 <td>Keep a flicker local: the lamp head and halo, plus at most one hand-drawn ground pool tied to one lamp (v6, approved direction). Never use frame-wide light maps, and keep traffic lights and other signals out of every flicker mask</td>
 </tr>
@@ -483,6 +483,30 @@ hr{border:0;border-top:1px solid var(--line);margin:2em 0}
 <td>Not said, found in QC: ACE-Step pieces asked for 30 s often end at ~23 s and then go silent; the steady-pad prompt still made an hour that failed (143 note jumps after near-silence)</td>
 <td>The model finishes the piece early; sparse piano decays between phrases</td>
 <td>Generate samples at 40 s and cut 30 s; on the hour run <code>upcomp.py --max_up 8 --ratio 0.75 --release 1.8</code> (9/0.8/1.6 added two dropouts) and soften single harsh spots locally with a crossfaded lowpass instead of re-rendering</td>
+</tr>
+<tr>
+<td>S11</td>
+<td>Flicker v9 final review: "the overlay is not exact to the lamp, the no-light effect looks like a square box; only one lamp flickered, that was wrong" (and the 1 h + 4K files were deleted)</td>
+<td>v9 pasted an AI "lamp off" picture in an ellipse; at 4K the AI lantern is bigger and the bushes behind it repainted. Only the big lamp was wired up</td>
+<td>Never paste AI pixels over the picture; flicker every lamp; check every lamp on/off at 4K (diff map) before any long render</td>
+</tr>
+<tr>
+<td>S12</td>
+<td>Flicker v10: "it looks very bad... when the light is off the real lamp needs to show"</td>
+<td>Replaced the glass by a flat dark grey</td>
+<td>The unlit lantern needs structure: sky-reflection gradient in the glass, a faint bulb, the original frame and bars</td>
+</tr>
+<tr>
+<td>S13</td>
+<td>Flicker v11 (AI unlit lantern per lamp, aligned with ECC and cut with a pane hull): "big: extras on the left; middle: extends to the right; 3 and 4 do not look like off / look like a circle"</td>
+<td>ECC alignment is never exact enough for a pasted lantern, the hull picked up glow, tiny blurred lamps give blobs, twitches never took small lamps fully dark</td>
+<td>Build the "off" from the lamp's own pixels (panes -&gt; dark glass, thin frame band), outline = its own luminance edge, hand-traced polygon for big lamps, only the pane cluster nearest the lamp centre, forced full-dark burst per lamp (approved v12)</td>
+</tr>
+<tr>
+<td>S14</td>
+<td>After v12 (the unlit lantern built from the lamp's own pixels, all lamps, glow and pool): "forget the flicker.. it's still not good", then "let's not do flicker anymore"</td>
+<td>Twelve versions in a row were judged "overlay / post-edit": a painted still lit by lamps cannot get a convincing off state from pixel edits, however exact the outline</td>
+<td>Stop after two rejected rounds and offer the option to drop it; a calm steady loop the user approves beats a flicker they dislike. Ship the approved parts (snow v5, everything else "great") first</td>
 </tr>
 </tbody>
 </table>

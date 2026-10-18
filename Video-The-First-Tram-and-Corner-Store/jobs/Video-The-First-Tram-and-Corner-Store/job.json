@@ -44,7 +44,65 @@
    ],
    "dips": 2,
    "depth": 0.14,
-   "weight": 1.0
+   "weight": 1.4,
+   "pool": {
+    "poly": [
+     [
+      560,
+      1560
+     ],
+     [
+      1500,
+      1560
+     ],
+     [
+      1650,
+      1800
+     ],
+     [
+      560,
+      1800
+     ]
+    ],
+    "share": 0.6,
+    "feather_px": 90
+   },
+   "glass_thr": 0.5,
+   "body_poly": [
+    [
+     143,
+     626
+    ],
+    [
+     268,
+     624
+    ],
+    [
+     292,
+     640
+    ],
+    [
+     256,
+     752
+    ],
+    [
+     254,
+     760
+    ],
+    [
+     166,
+     758
+    ],
+    [
+     166,
+     744
+    ],
+    [
+     143,
+     632
+    ]
+   ],
+   "frame_px": 4
   },
   "lamp_left_2": {
    "role": "lamp",
@@ -58,7 +116,32 @@
    ],
    "dips": 2,
    "depth": 0.14,
-   "weight": 1.0
+   "weight": 1.2,
+   "pool": {
+    "poly": [
+     [
+      450,
+      1340
+     ],
+     [
+      1200,
+      1340
+     ],
+     [
+      1200,
+      1500
+     ],
+     [
+      450,
+      1500
+     ]
+    ],
+    "share": 0.7,
+    "feather_px": 60
+   },
+   "glow_share": 0.6,
+   "glass_thr": 0.7,
+   "frame_px": 3
   },
   "lamp_left_3": {
    "role": "lamp",
@@ -72,7 +155,31 @@
    ],
    "dips": 1,
    "depth": 0.16,
-   "weight": 0.5
+   "weight": 0.6,
+   "pool": {
+    "poly": [
+     [
+      470,
+      1200
+     ],
+     [
+      720,
+      1200
+     ],
+     [
+      720,
+      1340
+     ],
+     [
+      470,
+      1340
+     ]
+    ],
+    "share": 0.5,
+    "feather_px": 40
+   },
+   "glass_thr": 0.7,
+   "frame_px": 2
   },
   "lamp_left_4": {
    "role": "lamp",
@@ -86,7 +193,31 @@
    ],
    "dips": 1,
    "depth": 0.16,
-   "weight": 0.5
+   "weight": 0.6,
+   "pool": {
+    "poly": [
+     [
+      470,
+      1200
+     ],
+     [
+      720,
+      1200
+     ],
+     [
+      720,
+      1340
+     ],
+     [
+      470,
+      1340
+     ]
+    ],
+    "share": 0.35,
+    "feather_px": 40
+   },
+   "glass_thr": 0.7,
+   "frame_px": 2
   },
   "lamp_middle": {
    "role": "lamp",
@@ -100,7 +231,44 @@
    ],
    "dips": 2,
    "depth": 0.14,
-   "weight": 1.0
+   "weight": 1.2,
+   "glow_share": 0.45,
+   "glass_thr": 0.5,
+   "body_poly": [
+    [
+     1322,
+     951
+    ],
+    [
+     1374,
+     953
+    ],
+    [
+     1366,
+     958
+    ],
+    [
+     1359,
+     994
+    ],
+    [
+     1360,
+     998
+    ],
+    [
+     1334,
+     998
+    ],
+    [
+     1334,
+     994
+    ],
+    [
+     1328,
+     958
+    ]
+   ],
+   "frame_px": 3
   },
   "tree_crown": {
    "role": "sway",
@@ -281,137 +449,118 @@
      820
     ]
    ]
-  },
-  "pool_sidewalk": {
-   "role": "pool",
-   "feather_px": 30,
-   "poly": [
-    [
-     480,
-     1330
-    ],
-    [
-     1150,
-     1330
-    ],
-    [
-     1250,
-     1480
-    ],
-    [
-     1050,
-     1560
-    ],
-    [
-     2300,
-     1560
-    ],
-    [
-     2300,
-     2112
-    ],
-    [
-     1500,
-     2112
-    ],
-    [
-     1000,
-     1700
-    ],
-    [
-     480,
-     1480
-    ]
-   ]
-  },
-  "relight_lamp_left_big": {
-   "role": "relight",
-   "off_image": "jobs/Video-The-First-Tram-and-Corner-Store/lamp_off_big_s101.png",
-   "crop_xy": [
-    0,
-    380
-   ],
-   "seed": 31,
-   "head": {
-    "center": [
-     215,
-     672
-    ],
-    "radius": [
-     95,
-     105
-    ]
-   },
-   "exclude": [
-    {
-     "center": [
-      503,
-      848
-     ],
-     "radius": [
-      70,
-      75
-     ]
-    },
-    {
-     "poly": [
-      [
-       415,
-       670
-      ],
-      [
-       590,
-       670
-      ],
-      [
-       590,
-       790
-      ],
-      [
-       415,
-       790
-      ]
-     ]
-    },
-    {
-     "center": [
-      540,
-      1047
-     ],
-     "radius": [
-      40,
-      40
-     ]
-    }
-   ],
-   "bulb": {
-    "burst_every_s": 16,
-    "twitch_gap_s": [
-     2.2,
-     4.4
-    ]
-   },
-   "r0_px": 170,
-   "fall_pow": 1.2,
-   "share": 0.9
   }
  },
  "flicker": {
-  "seed": 23,
-  "depth": [
-   0.3,
-   0.4
+  "mode": "off",
+  "seed": 31,
+  "glass_off_lin": [
+   0.01,
+   0.008,
+   0.007
   ],
-  "dur_s": [
-   0.3,
-   0.5
+  "exclude": [
+   {
+    "poly": [
+     [
+      415,
+      670
+     ],
+     [
+      590,
+      670
+     ],
+     [
+      590,
+      790
+     ],
+     [
+      415,
+      790
+     ]
+    ]
+   },
+   {
+    "poly": [
+     [
+      1125,
+      850
+     ],
+     [
+      1190,
+      850
+     ],
+     [
+      1190,
+      970
+     ],
+     [
+      1125,
+      970
+     ]
+    ]
+   },
+   {
+    "poly": [
+     [
+      1800,
+      690
+     ],
+     [
+      1885,
+      690
+     ],
+     [
+      1885,
+      820
+     ],
+     [
+      1800,
+      820
+     ]
+    ]
+   },
+   {
+    "poly": [
+     [
+      700,
+      990
+     ],
+     [
+      1000,
+      990
+     ],
+     [
+      1000,
+      1325
+     ],
+     [
+      700,
+      1325
+     ]
+    ]
+   },
+   {
+    "poly": [
+     [
+      2150,
+      780
+     ],
+     [
+      3840,
+      780
+     ],
+     [
+      3840,
+      1720
+     ],
+     [
+      2150,
+      1720
+     ]
+    ]
+   }
   ],
-  "min_gap_s": 2.5,
-  "max_gap_s": 5.0,
-  "lead": "lamp_left_big",
-  "note": "lamp 'dips' keys are kept only so the approved snow v5 random draws stay identical",
-  "pool_every_s": 15.0,
-  "pool_depth": 0.12,
-  "mode": "bad_bulb"
+  "note": "Lamp flicker dropped by the user on 2026-10-17 after 12 attempts (see Lessons S6-S13); the lamps stay steady. The snow-seed draws below are kept so the approved snow stays identical."
  }
 }
