@@ -197,6 +197,12 @@ DRAWTHINGS_MODELS_DIR=/Users/Maxi/Code/Models ~/.claude/bin/dt-cli-26.0928.0/dra
 Approved region (The First Tram and Corner Store): `{"role": "relight", "off_image": "jobs/<id>/lamp_off_big_s101.png", "crop_xy": [0, 380], "seed": 31, "head": {"center": [215, 672], "radius": [95, 105]}, "r0_px": 170, "fall_pow": 1.2, "share": 0.9, "exclude": [other lamps, traffic light], "bulb": {"burst_every_s": 16, "twitch_gap_s": [2.2, 4.4]}}` (source px). Prompt: "switch OFF only the large street lamp ... All other lights stay exactly as they are ... Keep everything else exactly the same". `--local` matters: without it the CLI may use Draw Things cloud compute.
 Other regions: `lamp` (center, radius, dips per loop, depth), `sway` (poly, root, reach, amp_px, exclude), `shimmer` (poly, amp), `lock` (documentation/overlay only). Seam check on raw frames: render `--only 0` and `--only <P-1>`, mean |diff| must equal a normal frame step (~0.15/255).
 
+## Y. Upload to YouTube (private)
+See [YouTube uploader](youtube-upload.md). Until the API project passes Google's audit, API uploads are locked private, so upload by hand in YouTube Studio with the text from `jobs/<id>/youtube.md`; after approval:
+```bash
+/Users/Maxi/Code/Tools/yt-venv/bin/python ../scripts/yt_upload.py --file output/<id>_1hr_4k24.mp4 --meta jobs/<id>/youtube.md
+```
+
 ## Swap. Put different audio on the picture later
 ```bash
 ffmpeg -y -stream_loop 359 -i output/<id>_loop10s_1080p24_silent.mp4 -i <new_audio>.m4a -map 0:v -map 1:a -c copy -t 3600 -movflags +faststart output/<id>_1hr_v2.mp4

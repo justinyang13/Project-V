@@ -1,0 +1,61 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>YouTube uploader — Project-V</title><style>:root{--bg:#fbfaf8;--card:#ffffff;--ink:#1d2129;--mute:#5f6875;--line:#e3e0da;--accent:#2f6f8f;--accent-ink:#ffffff;--code:#f2efe9;--ok:#1f7a4d;--ok-bg:#e3f3ea;--warn:#8a5a00;--warn-bg:#fdf1d6;--claude:#7a4fb5;--script:#2f6f8f;--user:#b5561f}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#14171c;--card:#1b1f26;--ink:#e8e6e1;--mute:#98a1ad;--line:#2b313a;--accent:#7ab6d3;--accent-ink:#0d1a22;--code:#222730;--ok:#63c790;--ok-bg:#183326;--warn:#e8b95a;--warn-bg:#3a2f14;--claude:#b79be0;--script:#7ab6d3;--user:#eb9a6c}}
+:root[data-theme="dark"]{--bg:#14171c;--card:#1b1f26;--ink:#e8e6e1;--mute:#98a1ad;--line:#2b313a;--accent:#7ab6d3;--accent-ink:#0d1a22;--code:#222730;--ok:#63c790;--ok-bg:#183326;--warn:#e8b95a;--warn-bg:#3a2f14;--claude:#b79be0;--script:#7ab6d3;--user:#eb9a6c}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+header.top{position:sticky;top:0;z-index:5;background:var(--card);border-bottom:1px solid var(--line)}
+header.top nav{max-width:1000px;margin:0 auto;padding:10px 16px;display:flex;gap:6px 18px;flex-wrap:wrap;align-items:center}
+header.top .brand{font-weight:700;margin-right:auto}
+header.top a{color:var(--mute);text-decoration:none;font-size:14px}
+header.top a:hover,header.top a.on{color:var(--accent);text-decoration:underline}
+main{max-width:1000px;margin:0 auto;padding:24px 16px 80px}
+h1{font-size:2rem;line-height:1.2;margin:.2em 0 .4em}h2{margin-top:2.2em;padding-top:.4em;border-top:1px solid var(--line);font-size:1.4rem}h3{margin-top:1.6em;font-size:1.1rem}
+a{color:var(--accent)}
+code{background:var(--code);padding:.1em .35em;border-radius:4px;font:13.5px/1.4 ui-monospace,SFMono-Regular,Menlo,monospace}
+pre{background:var(--code);border:1px solid var(--line);border-radius:8px;padding:12px 14px;overflow:auto;position:relative}pre code{background:none;padding:0;font-size:13px;white-space:pre}
+table{border-collapse:collapse;width:100%;margin:1em 0;font-size:14.5px;display:block;overflow-x:auto}
+th,td{border:1px solid var(--line);padding:7px 10px;text-align:left;vertical-align:top}th{background:var(--code)}
+blockquote{margin:1em 0;padding:.6em 1em;border-left:4px solid var(--accent);background:var(--code);border-radius:0 8px 8px 0}
+hr{border:0;border-top:1px solid var(--line);margin:2em 0}
+.badge{display:inline-block;padding:0 .5em;border-radius:99px;font-size:.78em;font-weight:600;white-space:nowrap}
+.badge.unv{background:var(--warn-bg);color:var(--warn)}.badge.ver{background:var(--ok-bg);color:var(--ok)}
+.copy{position:absolute;top:6px;right:6px;font-size:12px;padding:3px 9px;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:6px;cursor:pointer}
+.lede{font-size:1.15rem;color:var(--mute);max-width:70ch}
+.hero{padding:8px 0 4px}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:12px;margin:14px 0}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.card h3{margin:.1em 0 .3em;font-size:1.02rem}.card p{margin:.3em 0;font-size:14.5px;color:var(--mute)}
+.card .num{display:inline-grid;place-items:center;width:26px;height:26px;border-radius:50%;background:var(--accent);color:var(--accent-ink);font-weight:700;font-size:13px;margin-right:8px}
+.tag{display:inline-block;font-size:12px;font-weight:600;padding:1px 8px;border-radius:99px;border:1px solid currentColor;margin:2px 4px 0 0}
+.tag.c{color:var(--claude)}.tag.s{color:var(--script)}.tag.u{color:var(--user)}
+.gate{font-size:13.5px;border-top:1px dashed var(--line);margin-top:8px;padding-top:6px;color:var(--ink)}
+.out{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
+.kick{position:relative}
+@media (max-width:600px){h1{font-size:1.6rem}}
+</style></head><body>
+<header class="top"><nav><span class="brand">Project-V</span><a href="index.html">Home</a><a href="spec.html">Spec</a><a href="runbook.html">Runbook</a><a href="lessons.html">Lessons</a><a href="music.html">Music</a><a href="models.html">Models</a><a href="posting-plan.html">Posting plan</a><a href="youtube-upload.html" class=on>YouTube uploader</a></nav></header><main><h1 id="youtube-uploader-zen-hour-music">YouTube uploader (Zen Hour Music)</h1>
+<p><code>scripts/yt_upload.py</code> uploads a finished video with the YouTube Data API: <strong>private</strong> by default, resumable (big 4K files are fine), title and description from the video's <code>jobs/&lt;id&gt;/youtube.md</code>, category Music, not made for kids. Own venv: <code>/Users/Maxi/Code/Tools/yt-venv</code> (google-api-python-client, google-auth-oauthlib). Credentials stay <strong>outside the repo</strong> in <code>~/.config/youtube-upload/</code> (never commit or back them up to jCore).</p>
+<blockquote>
+<p><strong>Important:</strong> until Google has audited the API project, every API upload is <strong>locked as private</strong> and cannot be made public later. Until the audit passes, upload by hand in YouTube Studio (title/description from <code>youtube.md</code>); use the uploader only for a small test or after approval.</p>
+</blockquote>
+<h2 id="one-time-setup-in-the-zen-hour-google-account-10-min">One-time setup (in the Zen Hour Google account, ~10 min)</h2>
+<ol>
+<li>Open https://console.cloud.google.com signed in as the <strong>Zen Hour</strong> account → project picker → <strong>New project</strong> → name <code>zen-hour-uploader</code> → Create, and select it.</li>
+<li><strong>APIs &amp; Services → Library</strong> → search <strong>YouTube Data API v3</strong> → <strong>Enable</strong>.</li>
+<li><strong>Google Auth Platform</strong> (OAuth consent screen) → <strong>Get started</strong>: app name <code>Zen Hour Uploader</code>, support email = the Zen Hour address → Audience <strong>External</strong> → contact email → agree → Create.</li>
+<li><strong>Audience → Test users → Add users</strong> → the Zen Hour Gmail address → Save.</li>
+<li><strong>Clients → Create client</strong> → Application type <strong>Desktop app</strong> → name <code>zen-hour-desktop</code> → Create → <strong>Download JSON</strong>.</li>
+<li>Save the downloaded file as <code>~/.config/youtube-upload/client_secret.json</code> (or leave it in Downloads and tell Claude).</li>
+<li>Claude runs <code>--auth-only</code>: a browser opens → choose the Zen Hour account → "Google hasn't verified this app" → <strong>Continue</strong> → allow <strong>Manage your YouTube videos</strong> (upload) → done. <code>token.json</code> is saved (chmod 600).</li>
+<li>Apply for the audit so uploads can go public: YouTube API Services audit form https://support.google.com/youtube/contact/yt_api_form — say it is a private tool that uploads the owner's own videos to their own channel (Zen Hour Music), private-by-default, ~2 uploads a week, no other users.</li>
+</ol>
+<h2 id="use-from-the-video-folder">Use (from the video folder)</h2>
+<pre style="line-height: 125%;"><span></span><code>/Users/Maxi/Code/Tools/yt-venv/bin/python<span> </span>../scripts/yt_upload.py<span> </span>--file<span> </span>output/&lt;id&gt;_1hr_4k24.mp4<span> </span>--meta<span> </span>jobs/&lt;id&gt;/youtube.md<span> </span>--dry-run<span>    </span><span># check title/description</span>
+/Users/Maxi/Code/Tools/yt-venv/bin/python<span> </span>../scripts/yt_upload.py<span> </span>--file<span> </span>output/&lt;id&gt;_1hr_4k24.mp4<span> </span>--meta<span> </span>jobs/&lt;id&gt;/youtube.md<span> </span><span>[</span>--thumbnail<span> </span>t.jpg<span>]</span>
+</code></pre>
+
+<p>Options: <code>--privacy private|unlisted|public</code>, <code>--publish-at 2026-10-20T20:00:00-07:00</code> (scheduled; private until then), <code>--synthetic</code> (YouTube's altered/synthetic label), <code>--tags "a,b"</code>, <code>--auth-only</code>. Every upload is logged in <code>~/.config/youtube-upload/uploads.log</code>. Uploading publishes to the channel, so Claude uploads only when the user asks.</p></main>
+<script>document.querySelectorAll('pre').forEach(function(p){var b=document.createElement('button');b.className='copy';b.textContent='Copy';
+b.onclick=function(){navigator.clipboard&&navigator.clipboard.writeText(p.innerText.replace(/Copy$/,'').trim());b.textContent='Copied';setTimeout(function(){b.textContent='Copy'},1200)};p.appendChild(b)});</script>
+</body></html>

@@ -15,11 +15,12 @@ PAGES = [  # (output file, title, source md files joined in order)
     ("music.html", "Music", ["wiki/music.md"]),
     ("models.html", "Models", ["wiki/models.md"]),
     ("posting-plan.html", "Posting plan", ["wiki/posting-plan.md"]),
+    ("youtube-upload.html", "YouTube uploader", ["wiki/youtube-upload.md"]),
 ]
 VIDEO_PAGES = [(f"{d}/RUNLOG.html", d, [f"{d}/RUNLOG.md"] + ([f"{d}/qc-report.md"] if os.path.isfile(f"{d}/qc-report.md") else [])) for d in VIDEO_DIRS]
 SITE = "https://justinyang13.github.io/Project-V/"
 MD2HTML = {"SPEC.md": "spec.html", "runbook.md": "runbook.html", "lessons.md": "lessons.html", "music.md": "music.html",
-           "models.md": "models.html", "posting-plan.md": "posting-plan.html", "README.md": "index.html"}
+           "models.md": "models.html", "posting-plan.md": "posting-plan.html", "youtube-upload.md": "youtube-upload.html", "README.md": "index.html"}
 CSS = open("wiki/html-src/style.css").read()
 NAV = [("index.html", "Home")] + [(p[0], p[1]) for p in PAGES]
 
