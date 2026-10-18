@@ -571,6 +571,31 @@ hr{border:0;border-top:1px solid var(--line);margin:2em 0}
 <td>Only 4 candidates gave too little to choose from once the direction was wrong</td>
 <td>When the user rejects the direction, generate <strong>8 candidates from two compositions</strong>, not another 4 of the same</td>
 </tr>
+<tr>
+<td>P5</td>
+<td>Flicker took 12 versions and was finally dropped Cause: Each version was sent after checking one lamp or one still, and the user found the next defect (box around the lamp, one lamp only, flat glass, outline off, small lamps blobs)</td>
+<td>(1) Before sending an effect, check <strong>every instance at final resolution</strong> (4K crop, on/off + diff map) and the whole loop timeline; (2) after the <strong>second</strong> rejection of the same effect, say what is not working and <strong>offer to drop it or change the approach</strong>, do not iterate silently; (3) never promise "natural" without a measurement or a look at every item</td>
+</tr>
+<tr>
+<td>P6</td>
+<td>After the user approved the audio I deleted <code>work/</code>; the user then said "keep the 60 s and the music we use so we can change them" and the music pieces, music alone and ambience alone were already gone Cause: "Clean up work/" was read as "delete everything but the final mix"</td>
+<td>Keep the stems (music alone, ambience alone, loop) in <code>output/</code> until the user says the video is final (SPEC 1.2); regenerating an hour of piano costs ~50 min</td>
+</tr>
+<tr>
+<td>P7</td>
+<td>Approved parts (snow v5) could have been broken by later flicker code Cause: Shared random generator and shared frame function</td>
+<td>After every change render one reference frame and compare with the saved one: <strong>0 changed pixels</strong> outside the part being changed; keep each effect on its own random generator</td>
+</tr>
+<tr>
+<td>P8</td>
+<td>Committing in a repo that holds ~46 uncommitted edits by the user Cause: <code>git add -A</code> would have published their half-done work</td>
+<td><code>scripts/stage_hunks.py</code> (Runbook §G): stage only your own hunks, rebuild HTML from a clean worktree, check the staged diff for their words</td>
+</tr>
+<tr>
+<td>P9</td>
+<td>"Push to YouTube as private" could not be done from here Cause: vidIQ's uploader takes ≤ 299 MB into its own hosting, the Chrome extension's file upload is ≤ 10 MB, and an unaudited API project locks API uploads to private</td>
+<td><code>wiki/youtube-upload.md</code>; until Google's audit passes, upload by hand in Studio with <code>jobs/&lt;id&gt;/youtube.md</code></td>
+</tr>
 </tbody>
 </table>
 <h2 id="e-working-style-that-worked">E. Working style that worked</h2>

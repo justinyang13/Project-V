@@ -26,6 +26,8 @@ Kept in `Video-<Name>/output/`:
 | `<id>_audio_60min.m4a` | The full-length mix (music + ambience) | Kept separately so the audio can be replaced later. About 110 MB. |
 | `<id>_loop10s_1080p24_silent.mp4` | The seamless 10-second loop, no audio | The master picture. Re-mux with any audio to make a new long video (Runbook §Swap). |
 
+**Keep the stems too (rule from the user, 2026-10-17: "keep the 60 s and the music we use so we can change them if we need to"):** besides the files above, keep the **loop** (any length: 10 s or 60 s, 1080p and 4K) and, before `work/` is deleted, the **music alone and the ambience alone** as `<id>_music_60min.m4a` and `<id>_ambience_60min.m4a` (about 100 MB each), so the mix or the picture can be changed later without regenerating an hour of audio (~50 min of music). "Clean up work/" means scratch only, never the stems.
+
 Everything else (frames, candidates, samples, ProRes, previews, listening packs) is scratch and is deleted at the end (stage 9). The folder keeps only: `input/<id>.png` (the chosen image), `jobs/` (prompts, masks, settings), `README.md`, `RUNLOG.md`, `RUNLOG.html` (its own page, built by `build_docs.py`) and `qc-report.md`.
 
 ### 1.3 Human approvals (the only times you're needed)
@@ -131,6 +133,7 @@ Project-V/                         one git repo (private, GitHub justinyang13/Pr
     README.md  RUNLOG.md  qc-report.md
 ```
 - **Naming:** `Video-<Shortname><n>` where the shortname is one word for the series/scene (`Zen`, `Autumn`, `Rain`) and `<n>` counts up within it. The video's `<id>` is the folder name (`Video-Zen3`); inside `jobs/` use `jobs/<id>/`.
+- **Full-title folders are fine:** the user may name a video by its full title; use `Video-<Title-With-Hyphens>` (e.g. `Video-The-First-Tram-and-Corner-Store`). Keep the `Video-` prefix so the `.gitignore` rules (`Video-*/output/`, `Video-*/work/`) and `build_docs.py` still work.
 - **Run everything from the video folder**, calling shared scripts as `../scripts/…` and Python as `../.venv/bin/python` (the Runbook uses these forms).
 - **Existing folders:** `Video-Zen2` and `Video-BeachSunset1` predate this layout; they keep their own copies of scripts/docs, are not in git, and are left untouched.
 

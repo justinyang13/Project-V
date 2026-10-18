@@ -89,6 +89,15 @@ hr{border:0;border-top:1px solid var(--line);margin:2em 0}
   Every lamp now gets at least one real off (burst) per loop (forced in the schedule); 19 events/min: big 5, lamp 2 6, lamp 3 2, lamp 4 4, middle 2; max 5.3 s between event starts; never two at once. Raw seam 0.154. Preview: work/<id>/preview_loop60_v12.mp4, sheet v12_lamps_on_off_4k.jpg.</li>
 <li><strong>Flicker v12 approved</strong> (2026-10-17). Rebuilding the final loops (1080p CRF 18, 4K CRF 16) and both hours with the approved audio.</li>
 <li>User on v12: first "ok forget the flicker.. it's still not good", then "let's not do flicker anymore". <strong>Lamp flicker dropped</strong> (12 attempts, Lessons S6–S13). job.json <code>flicker.mode = "off"</code>: lamps steady, snow still pixel-identical to the approved v5 (frame 500), big-lamp head brightness constant over the loop. Partial renders containing v12 deleted. Rendering the final loops again (1080p CRF 18, 4K CRF 16), then both hours with the approved audio.</li>
+<li>Final files rebuilt without flicker and verified: loops 1080p 14.2 MB / 4K 43.7 MB (1440 frames each; big lamp head brightness 43.6–44.6 over the loop = steady), hours 1080p 968 MB and 4K 2.74 GB, both 3600.000 s, H.264 + AAC 256k, decode-checked at 30:00 and the last 10 s; a 12 s frame of the 4K loop looked right. Audio unchanged (approved earlier).</li>
+<li>Clean-up: deleted work/ (kept only the five files in output/, git-ignored). Flicker experiments stay documented as dropped (SPEC §1.4c, Runbook §S, Lessons S6–S14). YouTube uploader paused/ready (wiki/youtube-upload.md).</li>
+</ul>
+<h2 id="2026-10-17-wrap-up-what-we-learned-documented-in-the-wiki">2026-10-17 — wrap-up: what we learned (documented in the wiki)</h2>
+<ul>
+<li><strong>Runbook §S0</strong> (new): the whole workflow for a procedural loop video with timings; <strong>§G</strong> (new) saving with <code>scripts/stage_hunks.py</code> when the tree holds the user's edits; stage 9 now exports the stems.</li>
+<li><strong>SPEC 1.2</strong> (new rule): keep the loop and the stems (music alone, ambience alone) in output/; "clean up work/" means scratch only. <strong>SPEC 1.4c</strong>: snow approved (v5), lamp flicker NOT solved and dropped, do not offer unasked. <strong>SPEC §3</strong>: full-title folder names are fine.</li>
+<li><strong>Lessons</strong>: S1–S14 (snow rounds, 12 flicker attempts, bed limits, short samples), P5 (verify every instance at 4K; after 2 rejections offer to drop), P6 (keep stems), P7 (regression frame = 0 changed pixels), P8 (stage only your hunks), P9 (YouTube upload limits). <strong>music.md</strong>: approved piano A prompt, other styles and which failed, hour recipe and fixes, ambience recipe. <strong>models.md</strong>: FLUX.2 klein as an editor and its limit. Registry and memory notes updated.</li>
+<li><strong>Kept (user: "keep the 60 s and the music we use so we can change them"):</strong> output/ = 1 h 1080p, 1 h 4K, <code>audio_60min.m4a</code> (music + ambience mixed), 60 s loops 1080p and 4K. <strong>Lost earlier:</strong> the separate music pieces, music alone and ambience alone (deleted with work/ after the audio approval); regenerating = ~50 min of ACE-Step (recipe in jobs/<id>/music.md).</li>
 </ul>
 <hr />
 <h1 id="qc-report-the-first-tram-and-corner-store-2026-10-17">QC report — The First Tram and Corner Store (2026-10-17)</h1>
@@ -96,7 +105,7 @@ hr{border:0;border-top:1px solid var(--line);margin:2em 0}
 <ul>
 <li>Loop: 60 s, 1440 frames, 24 fps, procedural (no AI video, so no camera drift). Raw frames loop exactly (frame 1439 → 0 differs like any normal frame step, ~0.15/255).</li>
 <li>Snow v5 approved (5 depth layers, ~2,330 flakes, random speed/size/drift, 22 % white, 30 % crisp). <strong>No lamp flicker</strong> (dropped by the user after 12 attempts; lamps measured constant over the loop, snow pixel-identical to the approved v5). Window shimmer and branch sway as approved.</li>
-<li>4K frame checked at 30 s. Both hours decode cleanly around a loop boundary (30:00) and in the last 10 s.</li>
+<li>4K frame checked at 12 s of the final loop. Both hours decode cleanly around a loop boundary (30:00) and in the last 10 s.</li>
 </ul>
 <h2 id="audio">Audio</h2>
 <ul>
@@ -115,11 +124,11 @@ hr{border:0;border-top:1px solid var(--line);margin:2em 0}
 <tbody>
 <tr>
 <td>Video-The-First-Tram-and-Corner-Store_1hr_1080p24.mp4</td>
-<td>979 MB, 3600.000 s, H.264 1920×1080 + AAC 256k</td>
+<td>968 MB, 3600.000 s, H.264 1920×1080 + AAC 256k</td>
 </tr>
 <tr>
 <td>Video-The-First-Tram-and-Corner-Store_1hr_4k24.mp4</td>
-<td>2.80 GB, 3600.000 s, H.264 3840×2160 + AAC 256k</td>
+<td>2.74 GB, 3600.000 s, H.264 3840×2160 + AAC 256k</td>
 </tr>
 <tr>
 <td>Video-The-First-Tram-and-Corner-Store_audio_60min.m4a</td>
@@ -127,11 +136,11 @@ hr{border:0;border-top:1px solid var(--line);margin:2em 0}
 </tr>
 <tr>
 <td>Video-The-First-Tram-and-Corner-Store_loop60s_1080p24_silent.mp4</td>
-<td>14.4 MB</td>
+<td>14.2 MB</td>
 </tr>
 <tr>
 <td>Video-The-First-Tram-and-Corner-Store_loop60s_4k24_silent.mp4</td>
-<td>44.7 MB</td>
+<td>43.7 MB</td>
 </tr>
 </tbody>
 </table>

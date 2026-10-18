@@ -149,7 +149,9 @@ ffprobe -v error -show_entries format=duration,size -of default=nw=1 output/<id>
 ffprobe -v error -select_streams v:0 -count_packets -show_entries stream=nb_read_packets -of csv=p=0 output/<id>_1hr_1080p24.mp4   # 86400
 cp work/<id>/music_60min.m4a output/<id>_audio_60min.m4a
 cp work/<id>/loop/<id>_loop10s_1080p24.mp4 output/<id>_loop10s_1080p24_silent.mp4
-rm -rf work                                                              # scratch; the three files in output/ stay
+ffmpeg -y -i work/<id>/music_60min_fixed.wav -c:a aac -b:a 256k output/<id>_music_60min.m4a              # KEEP the stems (SPEC 1.2): music alone ...
+ffmpeg -y -i work/<id>/amb_61min.wav -t 3600 -c:a aac -b:a 192k output/<id>_ambience_60min.m4a             # ... and ambience alone, so the mix can be changed later
+rm -rf work                                                              # scratch only; the stems, the loop and the final files in output/ stay
 pkill -f start_api_server_macos; pkill -f acestep-api                    # stop the music server
 cd .. && .venv/bin/python scripts/build_docs.py                          # rebuild wiki/html
 ```
@@ -191,6 +193,30 @@ Approved job.json block (The First Tram and Corner Store): `"loop": {"period_s":
 Built-in snow layers (near → far; n flakes, fall speed px/s @1080p, median radius px, depth blur px, alpha, wobble px): z0.22 130 63–133 2.1 1.2 0.70 16 · z0.42 330 45–98 1.5 0.8 0.75 11 · z0.62 420 31–70 1.1 0.6 0.75 7 · z0.80 650 21–49 0.8 0.5 0.70 5 · z0.93 800 14–35 0.6 0.4 0.60 3. Sizes lognormal σ0.55 clipped 0.35–2.4× (max 4.5 px); 22 % near-white, 30 % crisp (blur 0.35 px); gust 18 px; per-flake slant 0.3–1.7× of `slant`.
 **Lamp flicker: not approved, dropped by the user.** Set `"flicker": {"mode": "off"}` in job.json (no lamp changes at all). The experimental modes `relight_all` / `bad_bulb` are still in `still_loop.py` but the user rejected their results (Lessons S6-S13); do not use them without a new idea and an approved 4K on/off still.
 Other regions: `sway` (poly, root, reach, amp_px, exclude), `shimmer` (poly, amp), `lock` (documentation/overlay only). Seam check on raw frames: render `--only 0` and `--only <P-1>`, mean |diff| must equal a normal frame step (~0.15/255).
+
+## S0. Whole workflow: a procedural loop video from the user's own image (The First Tram and Corner Store, 2026-10-17; total about 7 h with feedback rounds)
+Use this when everything that moves is weather or light. Order and what each step cost:
+1. **Intake (10 min).** Copy the user's image into `input/<id>.png` (never touch the original). Brand check: if a sign or stripe copies a real chain, recolour it in the copy only (HSV hue shift masked to the sign area, see `jobs/<id>/recolor_stripes.py` of the Tram video: green → teal, orange → amber) and tell the user. Folder name = what the user says (`Video-<Full-Title>`).
+2. **Plate and depth (3 min).** `job.json`: `plate.crop` to 16:9 of the source (3840×2112 → crop [42,0,3797,2112]), then `depth_map.py` → `work/<id>/depth.npy`.
+3. **Questions first, in one message (3 min).** Moving parts, what stays still (tram, traffic lights), loop length (60 s so periodic things never repeat every 10 s), extras ("as long as it is natural"), brand recolour, audio, 4K yes/no. Defaults in bold; the user answers by number.
+4. **Overlay + preview loop (1 h, then feedback rounds).** `jobs/<id>/mask_overlay.py`, then a 60 s 1080p preview (~5 min per render, 0.06 s per frame; 4K ~9 min). Send **every** version as an mp4; judge motion, never stills. Snow took 5 rounds (v1–v5, Lessons S1–S5). Freeze each approved part: after every change render one old frame (`--only 500`) and compare with the saved reference, it must be **0 changed pixels**.
+5. **Audio samples (1 h).** 3 piano styles × 30 s (generate 40 s, cut 30 s) + ambience sample; all must pass `audio_qc.py`; send MP3s; the user may ask for another batch.
+6. **Final loops, hours (2 h).** 1080p CRF 18 and 4K CRF 16 loops; piano hour `music_build.py` (26 pieces, ~50 min), `upcomp.py`, local softening of single harsh spots, MOSS wind bed + `amb_layers.py` (hum + distant bell), mix, `audio_qc.py`, listening pack, then mux with `-stream_loop 59 ... -c copy` (1 h 1080p ≈ 970 MB, 4K ≈ 2.7 GB) and decode-check at 30:00 and the last 10 s.
+7. **Review and save.** Send loop + listening pack, wait for OK; keep the stems (SPEC 1.2), delete scratch, commit only your own files (§G).
+**Do not offer** lamp flicker on a painted still (SPEC 1.4c: 12 attempts rejected). If the user asks for it, get an on/off still approved at 4K first.
+
+## G. Saving when the working tree holds other people's edits (done on 2026-10-17; the repo had ~46 uncommitted edits by the user)
+Never `git add -A` and never commit pre-existing edits. Recipe:
+```bash
+# 1) new files of this video + scripts you wrote: git add <paths>
+# 2) shared files with the user's own edits (wiki/SPEC.md, runbook.md, lessons.md): stage only YOUR hunks
+python3 scripts/stage_hunks.py wiki/SPEC.md wiki/runbook.md wiki/lessons.md --skip 'justin|Volumes/SSD-4T|SSD'   # skips hunks that remove the user's old paths (their rewrite); --dry-run first
+# 3) wiki/html/*: rebuild from a clean worktree so only your changes show up
+git worktree add --detach /tmp/pv_wt HEAD && git diff --cached --binary | (cd /tmp/pv_wt && git apply) && (cd /tmp/pv_wt && ../path/.venv/bin/python scripts/build_docs.py)
+#    then git hash-object -w + git update-index --add --cacheinfo for each changed html file; git worktree remove --force /tmp/pv_wt
+# 4) git commit (with the attribution line), git push origin main; if origin moved: cherry-pick your commit onto origin/main in a temp worktree and push
+```
+`git config core.fileMode false` avoids the 755/644 mode noise. Check `git diff --cached | grep -ci justin` = 0 before committing.
 
 ## Y. Upload to YouTube (private)
 See [YouTube uploader](youtube-upload.md). Until the API project passes Google's audit, API uploads are locked private, so upload by hand in YouTube Studio with the text from `jobs/<id>/youtube.md`; after approval:

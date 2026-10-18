@@ -81,6 +81,7 @@ hr{border:0;border-top:1px solid var(--line);margin:2em 0}
 </tr>
 </tbody>
 </table>
+<p><strong>Keep the stems too (rule from the user, 2026-10-17: "keep the 60 s and the music we use so we can change them if we need to"):</strong> besides the files above, keep the <strong>loop</strong> (any length: 10 s or 60 s, 1080p and 4K) and, before <code>work/</code> is deleted, the <strong>music alone and the ambience alone</strong> as <code>&lt;id&gt;_music_60min.m4a</code> and <code>&lt;id&gt;_ambience_60min.m4a</code> (about 100 MB each), so the mix or the picture can be changed later without regenerating an hour of audio (~50 min of music). "Clean up work/" means scratch only, never the stems.</p>
 <p>Everything else (frames, candidates, samples, ProRes, previews, listening packs) is scratch and is deleted at the end (stage 9). The folder keeps only: <code>input/&lt;id&gt;.png</code> (the chosen image), <code>jobs/</code> (prompts, masks, settings), <code>README.md</code>, <code>RUNLOG.md</code>, <code>RUNLOG.html</code> (its own page, built by <code>build_docs.py</code>) and <code>qc-report.md</code>.</p>
 <h3 id="13-human-approvals-the-only-times-youre-needed">1.3 Human approvals (the only times you're needed)</h3>
 <p><strong>Phase 1 — approve before any heavy rendering</strong> (about 15 minutes of your time). Claude does not start video rendering until all three are approved:
@@ -193,6 +194,7 @@ hr{border:0;border-top:1px solid var(--line);margin:2em 0}
 
 <ul>
 <li><strong>Naming:</strong> <code>Video-&lt;Shortname&gt;&lt;n&gt;</code> where the shortname is one word for the series/scene (<code>Zen</code>, <code>Autumn</code>, <code>Rain</code>) and <code>&lt;n&gt;</code> counts up within it. The video's <code>&lt;id&gt;</code> is the folder name (<code>Video-Zen3</code>); inside <code>jobs/</code> use <code>jobs/&lt;id&gt;/</code>.</li>
+<li><strong>Full-title folders are fine:</strong> the user may name a video by its full title; use <code>Video-&lt;Title-With-Hyphens&gt;</code> (e.g. <code>Video-The-First-Tram-and-Corner-Store</code>). Keep the <code>Video-</code> prefix so the <code>.gitignore</code> rules (<code>Video-*/output/</code>, <code>Video-*/work/</code>) and <code>build_docs.py</code> still work.</li>
 <li><strong>Run everything from the video folder</strong>, calling shared scripts as <code>../scripts/…</code> and Python as <code>../.venv/bin/python</code> (the Runbook uses these forms).</li>
 <li><strong>Existing folders:</strong> <code>Video-Zen2</code> and <code>Video-BeachSunset1</code> predate this layout; they keep their own copies of scripts/docs, are not in git, and are left untouched.</li>
 </ul>
