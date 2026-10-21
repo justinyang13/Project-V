@@ -1,0 +1,367 @@
+[
+ {
+  "file": "d17_s11.png",
+  "face_px": 119,
+  "face": 0.731,
+  "hair_V": 0.63,
+  "hair_S": 0.19,
+  "suit_white": 0.122,
+  "suit_dark": 0.367,
+  "suit_glow": 0.0031,
+  "body_ratio": 9.55,
+  "feet_cut": false,
+  "auto_fail": [],
+  "auto_pass": true
+ },
+ {
+  "file": "d17_s22.png",
+  "face_px": 118,
+  "face": 0.646,
+  "hair_V": 0.63,
+  "hair_S": 0.19,
+  "suit_white": 0.115,
+  "suit_dark": 0.407,
+  "suit_glow": 0.003,
+  "body_ratio": 9.07,
+  "feet_cut": false,
+  "auto_fail": [],
+  "auto_pass": true
+ },
+ {
+  "file": "d17_s33.png",
+  "face_px": 118,
+  "face": 0.632,
+  "hair_V": 0.64,
+  "hair_S": 0.18,
+  "suit_white": 0.138,
+  "suit_dark": 0.366,
+  "suit_glow": 0.003,
+  "body_ratio": 9.22,
+  "feet_cut": false,
+  "auto_fail": [],
+  "auto_pass": true
+ },
+ {
+  "file": "d17_s44.png",
+  "face_px": 122,
+  "face": 0.663,
+  "hair_V": 0.63,
+  "hair_S": 0.18,
+  "suit_white": 0.146,
+  "suit_dark": 0.334,
+  "suit_glow": 0.0066,
+  "body_ratio": 9.32,
+  "feet_cut": false,
+  "auto_fail": [],
+  "auto_pass": true
+ },
+ {
+  "file": "d18_s11.png",
+  "face_px": 102,
+  "face": 0.419,
+  "hair_V": 0.56,
+  "hair_S": 0.21,
+  "suit_white": 0.256,
+  "suit_dark": 0.287,
+  "suit_glow": 0.0071,
+  "body_ratio": 9.35,
+  "feet_cut": false,
+  "auto_fail": [
+   "face"
+  ],
+  "auto_pass": false
+ },
+ {
+  "file": "d18_s22.png",
+  "face_px": 104,
+  "face": 0.533,
+  "hair_V": 0.6,
+  "hair_S": 0.2,
+  "suit_white": 0.232,
+  "suit_dark": 0.283,
+  "suit_glow": 0.0069,
+  "body_ratio": 9.21,
+  "feet_cut": false,
+  "auto_fail": [
+   "face"
+  ],
+  "auto_pass": false
+ },
+ {
+  "file": "d18_s33.png",
+  "face_px": 106,
+  "face": 0.375,
+  "hair_V": 0.59,
+  "hair_S": 0.18,
+  "suit_white": 0.298,
+  "suit_dark": 0.259,
+  "suit_glow": 0.0055,
+  "body_ratio": 9.4,
+  "feet_cut": false,
+  "auto_fail": [
+   "face"
+  ],
+  "auto_pass": false
+ },
+ {
+  "file": "d18_s44.png",
+  "face_px": 106,
+  "face": 0.352,
+  "hair_V": 0.57,
+  "hair_S": 0.21,
+  "suit_white": 0.258,
+  "suit_dark": 0.287,
+  "suit_glow": 0.004,
+  "body_ratio": 8.91,
+  "feet_cut": false,
+  "auto_fail": [
+   "face",
+   "body_proportions"
+  ],
+  "auto_pass": false
+ },
+ {
+  "file": "d19_s11.png",
+  "face_px": 120,
+  "face": 0.799,
+  "hair_V": 0.63,
+  "hair_S": 0.11,
+  "suit_white": 0.158,
+  "suit_dark": 0.325,
+  "suit_glow": 0.0474,
+  "body_ratio": 9.77,
+  "feet_cut": false,
+  "auto_fail": [],
+  "auto_pass": true
+ },
+ {
+  "file": "d19_s22.png",
+  "face_px": 120,
+  "face": 0.775,
+  "hair_V": 0.67,
+  "hair_S": 0.09,
+  "suit_white": 0.258,
+  "suit_dark": 0.305,
+  "suit_glow": 0.049,
+  "body_ratio": 9.54,
+  "feet_cut": false,
+  "auto_fail": [],
+  "auto_pass": true
+ },
+ {
+  "file": "d19_s33.png",
+  "face_px": 118,
+  "face": 0.782,
+  "hair_V": 0.68,
+  "hair_S": 0.08,
+  "suit_white": 0.184,
+  "suit_dark": 0.297,
+  "suit_glow": 0.0447,
+  "body_ratio": 9.93,
+  "feet_cut": false,
+  "auto_fail": [],
+  "auto_pass": true
+ },
+ {
+  "file": "d19_s44.png",
+  "face_px": 122,
+  "face": 0.731,
+  "hair_V": 0.63,
+  "hair_S": 0.09,
+  "suit_white": 0.179,
+  "suit_dark": 0.299,
+  "suit_glow": 0.0287,
+  "body_ratio": 9.58,
+  "feet_cut": false,
+  "auto_fail": [],
+  "auto_pass": true
+ },
+ {
+  "file": "d20_s11.png",
+  "face_px": 116,
+  "face": 0.63,
+  "hair_V": 0.67,
+  "hair_S": 0.17,
+  "suit_white": 0.268,
+  "suit_dark": 0.285,
+  "suit_glow": 0.003,
+  "body_ratio": 9.66,
+  "feet_cut": false,
+  "auto_fail": [],
+  "auto_pass": true
+ },
+ {
+  "file": "d20_s22.png",
+  "face_px": 120,
+  "face": 0.634,
+  "hair_V": 0.68,
+  "hair_S": 0.15,
+  "suit_white": 0.239,
+  "suit_dark": 0.295,
+  "suit_glow": 0.0027,
+  "body_ratio": 9.59,
+  "feet_cut": false,
+  "auto_fail": [],
+  "auto_pass": true
+ },
+ {
+  "file": "d20_s33.png",
+  "face_px": 116,
+  "face": 0.602,
+  "hair_V": 0.7,
+  "hair_S": 0.12,
+  "suit_white": 0.302,
+  "suit_dark": 0.267,
+  "suit_glow": 0.0029,
+  "body_ratio": 9.65,
+  "feet_cut": false,
+  "auto_fail": [],
+  "auto_pass": true
+ },
+ {
+  "file": "d20_s44.png",
+  "face_px": 125,
+  "face": 0.617,
+  "hair_V": 0.68,
+  "hair_S": 0.15,
+  "suit_white": 0.278,
+  "suit_dark": 0.252,
+  "suit_glow": 0.0046,
+  "body_ratio": 9.36,
+  "feet_cut": false,
+  "auto_fail": [],
+  "auto_pass": true
+ },
+ {
+  "file": "d21_s11.png",
+  "face_px": 128,
+  "face": 0.758,
+  "hair_V": 0.62,
+  "hair_S": 0.3,
+  "suit_white": 0.072,
+  "suit_dark": 0.371,
+  "suit_glow": 0.0229,
+  "body_ratio": 9.48,
+  "feet_cut": false,
+  "auto_fail": [
+   "suit_colours"
+  ],
+  "auto_pass": false
+ },
+ {
+  "file": "d21_s22.png",
+  "face_px": 126,
+  "face": 0.663,
+  "hair_V": 0.63,
+  "hair_S": 0.35,
+  "suit_white": 0.042,
+  "suit_dark": 0.351,
+  "suit_glow": 0.0667,
+  "body_ratio": 9.95,
+  "feet_cut": false,
+  "auto_fail": [
+   "suit_colours"
+  ],
+  "auto_pass": false
+ },
+ {
+  "file": "d21_s33.png",
+  "face_px": 123,
+  "face": 0.711,
+  "hair_V": 0.64,
+  "hair_S": 0.29,
+  "suit_white": 0.06,
+  "suit_dark": 0.35,
+  "suit_glow": 0.0288,
+  "body_ratio": 9.83,
+  "feet_cut": false,
+  "auto_fail": [
+   "suit_colours"
+  ],
+  "auto_pass": false
+ },
+ {
+  "file": "d21_s44.png",
+  "face_px": 131,
+  "face": 0.423,
+  "hair_V": 0.59,
+  "hair_S": 0.42,
+  "suit_white": 0.022,
+  "suit_dark": 0.328,
+  "suit_glow": 0.1517,
+  "body_ratio": 9.6,
+  "feet_cut": false,
+  "auto_fail": [
+   "face",
+   "hair",
+   "suit_colours"
+  ],
+  "auto_pass": false
+ },
+ {
+  "file": "d22_s11.png",
+  "face_px": 123,
+  "face": 0.638,
+  "hair_V": 0.56,
+  "hair_S": 0.19,
+  "suit_white": 0.052,
+  "suit_dark": 0.364,
+  "suit_glow": 0.0016,
+  "body_ratio": 9.58,
+  "feet_cut": false,
+  "auto_fail": [
+   "suit_colours"
+  ],
+  "auto_pass": false
+ },
+ {
+  "file": "d22_s22.png",
+  "face_px": 127,
+  "face": 0.551,
+  "hair_V": 0.55,
+  "hair_S": 0.17,
+  "suit_white": 0.03,
+  "suit_dark": 0.347,
+  "suit_glow": 0.0015,
+  "body_ratio": 9.5,
+  "feet_cut": false,
+  "auto_fail": [
+   "suit_colours"
+  ],
+  "auto_pass": false
+ },
+ {
+  "file": "d22_s33.png",
+  "face_px": 121,
+  "face": 0.549,
+  "hair_V": 0.56,
+  "hair_S": 0.15,
+  "suit_white": 0.057,
+  "suit_dark": 0.362,
+  "suit_glow": 0.0016,
+  "body_ratio": 9.8,
+  "feet_cut": false,
+  "auto_fail": [
+   "face",
+   "suit_colours"
+  ],
+  "auto_pass": false
+ },
+ {
+  "file": "d22_s44.png",
+  "face_px": 124,
+  "face": 0.462,
+  "hair_V": 0.52,
+  "hair_S": 0.14,
+  "suit_white": 0.037,
+  "suit_dark": 0.338,
+  "suit_glow": 0.0016,
+  "body_ratio": 9.33,
+  "feet_cut": false,
+  "auto_fail": [
+   "face",
+   "suit_colours"
+  ],
+  "auto_pass": false
+ }
+]

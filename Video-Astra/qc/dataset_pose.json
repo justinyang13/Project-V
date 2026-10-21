@@ -1,0 +1,168 @@
+[
+ {
+  "file": "astra_d01.png",
+  "shld": 1.98,
+  "E_px": 303.4
+ },
+ {
+  "file": "astra_d02.png",
+  "shld": 1.98,
+  "E_px": 366.6
+ },
+ {
+  "file": "astra_d03.png",
+  "shld": 2.27,
+  "E_px": 368.0
+ },
+ {
+  "file": "astra_d04.png",
+  "shld": 2.07,
+  "E_px": 374.2
+ },
+ {
+  "file": "astra_d05.png",
+  "shld": 1.93,
+  "E_px": 376.0
+ },
+ {
+  "file": "astra_d06.png",
+  "shld": 2.51,
+  "E_px": 331.4
+ },
+ {
+  "file": "astra_d07.png",
+  "shld": 2.12,
+  "E_px": 310.9
+ },
+ {
+  "file": "astra_d09.png",
+  "shld": 2.7,
+  "E_px": 276.8
+ },
+ {
+  "file": "astra_d10.png",
+  "shld": 2.27,
+  "E_px": 369.5
+ },
+ {
+  "file": "astra_d11.png",
+  "torso": 3.4,
+  "shld": 2.4,
+  "E_px": 174.1
+ },
+ {
+  "file": "astra_d12.png",
+  "torso": 3.4,
+  "shld": 2.07,
+  "E_px": 223.1
+ },
+ {
+  "file": "astra_d13.png",
+  "torso": 3.35,
+  "shld": 2.42,
+  "E_px": 217.7
+ },
+ {
+  "file": "astra_d14.png",
+  "torso": 3.0,
+  "shld": 1.52,
+  "E_px": 191.6
+ },
+ {
+  "file": "astra_d15.png",
+  "leg": 7.43,
+  "torso": 3.87,
+  "shld": 2.44,
+  "E_px": 111.5
+ },
+ {
+  "file": "astra_d16.png",
+  "leg": 7.14,
+  "torso": 3.69,
+  "shld": 2.05,
+  "E_px": 115.2
+ },
+ {
+  "file": "astra_d17.png",
+  "leg": 7.53,
+  "torso": 3.85,
+  "shld": 2.29,
+  "E_px": 101.2
+ },
+ {
+  "file": "astra_d18.png",
+  "leg": 7.42,
+  "torso": 4.19,
+  "shld": 1.46,
+  "E_px": 105.5
+ },
+ {
+  "file": "astra_d19.png",
+  "leg": 8.02,
+  "torso": 4.28,
+  "shld": 2.52,
+  "E_px": 100.6
+ },
+ {
+  "file": "astra_d20.png",
+  "leg": 7.15,
+  "torso": 3.84,
+  "shld": 2.33,
+  "E_px": 105.7
+ },
+ {
+  "file": "astra_d21.png",
+  "leg": 7.78,
+  "torso": 4.0,
+  "shld": 2.16,
+  "E_px": 107.2
+ },
+ {
+  "file": "astra_d22.png",
+  "leg": 7.46,
+  "torso": 3.63,
+  "shld": 2.19,
+  "E_px": 105.9
+ },
+ {
+  "file": "astra_d23.png",
+  "shld": 2.09,
+  "E_px": 378.8
+ },
+ {
+  "file": "astra_d24.png",
+  "shld": 2.3,
+  "E_px": 365.7
+ },
+ {
+  "file": "astra_d25.png",
+  "shld": 2.58,
+  "E_px": 312.4
+ },
+ {
+  "file": "astra_d26.png",
+  "shld": 2.19,
+  "E_px": 280.6
+ },
+ {
+  "file": "astra_d27.png",
+  "shld": 2.53,
+  "E_px": 339.3
+ },
+ {
+  "file": "astra_d29.png",
+  "shld": 1.57,
+  "E_px": 379.0
+ },
+ {
+  "file": "astra_d30.png",
+  "shld": 2.09,
+  "E_px": 303.6
+ },
+ {
+  "file": "astra_d32.png",
+  "torso": 3.4,
+  "shld": 2.21,
+  "E_px": 216.9
+ }
+]

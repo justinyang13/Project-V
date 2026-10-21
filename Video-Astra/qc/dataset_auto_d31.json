@@ -1,0 +1,42 @@
+[
+ {
+  "file": "d31_s11.png",
+  "face_px": 490,
+  "face": 0.52,
+  "hair_V": 0.59,
+  "hair_S": 0.19,
+  "suit_white": 0.352,
+  "suit_dark": 0.195,
+  "suit_glow": 0.0,
+  "auto_fail": [
+   "face"
+  ],
+  "auto_pass": false
+ },
+ {
+  "file": "d31_s22.png",
+  "face_px": 485,
+  "face": 0.566,
+  "hair_V": 0.61,
+  "hair_S": 0.23,
+  "suit_white": 0.321,
+  "suit_dark": 0.21,
+  "suit_glow": 0.0005,
+  "auto_fail": [],
+  "auto_pass": true
+ },
+ {
+  "file": "d31_s33.png",
+  "face_px": 484,
+  "face": 0.534,
+  "hair_V": 0.63,
+  "hair_S": 0.18,
+  "suit_white": 0.502,
+  "suit_dark": 0.183,
+  "suit_glow": 0.0,
+  "auto_fail": [
+   "face"
+  ],
+  "auto_pass": false
+ }
+]

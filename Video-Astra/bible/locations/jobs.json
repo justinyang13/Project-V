@@ -1,0 +1,61 @@
+{
+ "model": "qwen_image_2.1_q8p.ckpt",
+ "defaults": {},
+ "jobs": [
+  {
+   "id": "L1",
+   "prompt": "Cinematic film still, anamorphic widescreen composition, photorealistic, highly detailed, sharp, no people. Interior of a circular stone observatory room at the top of an ancient mountain tower. Rough grey stone walls, a tall arched leaded-glass window on the far wall showing a grey sky with falling ash and a pale dead sun disc. Tall brass clockwork and gear machines, unlit hanging brass lanterns, shelves of old books and tools, a heavy oak workbench with several lit candles, a low stone table in the middle of the room. Low-key warm candlelight from the workbench, cool grey daylight from the window, thin dust in the light shafts, deep brown shadows.",
+   "seeds": [
+    5,
+    6,
+    7
+   ],
+   "width": 1920,
+   "height": 1088
+  },
+  {
+   "id": "L2",
+   "prompt": "Cinematic film still, anamorphic widescreen composition, photorealistic, highly detailed, sharp, no people. A vast valley of grey ash dunes under a grey-white overcast sky with a pale dead sun disc low on the horizon. Colossal fallen stone statues of ancient kings, a giant stone head and a broken stone hand, each many times taller than a person, half-buried in ash. Dead black trees. Soft ash falling like snow, distant mountains fading into haze. Cold desaturated grey-blue palette, soft top light, deep atmospheric perspective.",
+   "seeds": [
+    5,
+    6,
+    7
+   ],
+   "width": 1920,
+   "height": 1088
+  },
+  {
+   "id": "L3",
+   "prompt": "Cinematic film still, anamorphic widescreen composition, photorealistic, highly detailed, sharp, no people. A narrow ancient stone bridge with broken balustrades and weathered carved pillars spanning a bottomless dark chasm between two cliffs, some sections of the bridge missing, an ash storm with wind-driven ash, lightning flashing inside dark clouds behind, stormy dusk. Near-black blues, white-violet lightning backlight, strong silhouettes.",
+   "seeds": [
+    5,
+    6,
+    7
+   ],
+   "width": 1920,
+   "height": 1088
+  },
+  {
+   "id": "L4",
+   "prompt": "Cinematic film still, anamorphic widescreen composition, photorealistic, highly detailed, sharp, no people. A high rocky cliff top at the edge of the world above an endless sea of clouds at blue hour. A colossal ancient upright stone ring, many times taller than a person, carved with sun runes, standing at the cliff edge; a wide brass brazier on a stone dais at its foot. Clear still air, deep blue sky with the last stars, soft cool light.",
+   "seeds": [
+    5,
+    6,
+    7
+   ],
+   "width": 1920,
+   "height": 1088
+  },
+  {
+   "id": "L4gold",
+   "prompt": "Cinematic film still, anamorphic widescreen composition, photorealistic, highly detailed, sharp, no people. A high rocky cliff top at the edge of the world above an endless sea of clouds at sunrise. A colossal ancient upright stone ring, many times taller than a person, carved with sun runes, standing at the cliff edge; a wide brass brazier on a stone dais at its foot. A brilliant new golden sun rising inside the stone ring, warm golden light flooding across the cloud sea, god rays through the ring, long shadows, gold and pink clouds.",
+   "seeds": [
+    5,
+    6,
+    7
+   ],
+   "width": 1920,
+   "height": 1088
+  }
+ ]
+}

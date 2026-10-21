@@ -1,0 +1,307 @@
+{
+ "items": {
+  "lantern": {
+   "canon": "old brass hurricane lantern, glass panes, bail handle, ~30 cm tall, small warm flame INSIDE the glass only",
+   "rules": "never a torch; flame stays inside the glass; one lantern only"
+  },
+  "energy_blade": {
+   "canon": "straight rigid blade of bright blue energy from her open RIGHT palm, ~1 m long, glowing cyan",
+   "rules": "always perfectly straight, no sword hilt, appears only B06-C09/C08-C09 shots"
+  },
+  "ash_wraiths": {
+   "canon": "tall faceless humanoids of dark grey ash, ember-orange eyes, edges dissolving",
+   "rules": "die by dissolving into fine drifting ash that vanishes; no explosions, blobs or fireballs"
+  },
+  "maker": {
+   "canon": "old man, dark-brown wool robe, grey hair",
+   "rules": "seen from behind only, never his face; only in tower A shots"
+  },
+  "astra_state": {
+   "canon": "S0 clean -> S1 ash dust (B) -> S2 + cracked right shoulder plate (C) -> S3 dim LEDs/marks (D01-D06) -> S4 LEDs/marks dark (D07-D09), marks relight in D10",
+   "rules": "see shot state field"
+  },
+  "brazier_ring": {
+   "canon": "wide brass brazier on a stone dais at the foot of a 30 m stone sun-ring on the cliff top",
+   "rules": "same ring and brazier in every D shot; ring ignites in D08"
+  },
+  "bridge": {
+   "canon": "narrow ancient stone bridge, broken balustrades over a chasm",
+   "rules": "collapses in C03 (stones fall); wraiths and Astra on it in C shots"
+  }
+ },
+ "shots": {
+  "A01": {
+   "lantern": {
+    "where": "in the maker's hands / not yet with Astra",
+    "state": "small warm flame"
+   },
+   "state": "S0"
+  },
+  "A02": {
+   "lantern": {
+    "where": "in the maker's hands / not yet with Astra",
+    "state": "small warm flame"
+   },
+   "state": "S0"
+  },
+  "A03": {
+   "lantern": {
+    "where": "in the maker's hands / not yet with Astra",
+    "state": "small warm flame"
+   },
+   "state": "S0"
+  },
+  "A04": {
+   "lantern": {
+    "where": "in the maker's hands / not yet with Astra",
+    "state": "small warm flame"
+   },
+   "state": "S0"
+  },
+  "A05": {
+   "lantern": {
+    "where": "maker hands it to Astra (ends in HER hands)",
+    "state": "small warm flame"
+   },
+   "state": "S0"
+  },
+  "A06": {
+   "lantern": {
+    "where": "Astra's hand (left or right, always gripped by the handle); visible or its glow visible",
+    "state": "warm flame"
+   },
+   "state": "S0"
+  },
+  "A07": {
+   "lantern": {
+    "where": "Astra's hand (left or right, always gripped by the handle); visible or its glow visible",
+    "state": "warm flame"
+   },
+   "state": "S0"
+  },
+  "A08": {
+   "lantern": {
+    "where": "Astra's hand (left or right, always gripped by the handle); visible or its glow visible",
+    "state": "warm flame"
+   },
+   "state": "S0"
+  },
+  "A09": {
+   "lantern": {
+    "where": "Astra's hand (left or right, always gripped by the handle); visible or its glow visible",
+    "state": "warm flame"
+   },
+   "state": "S0"
+  },
+  "B01": {
+   "lantern": {
+    "where": "Astra's hand (left or right, always gripped by the handle); visible or its glow visible",
+    "state": "warm flame, wind-shielded"
+   },
+   "state": "S1"
+  },
+  "B02": {
+   "lantern": {
+    "where": "Astra's hand (left or right, always gripped by the handle); visible or its glow visible",
+    "state": "warm flame, wind-shielded"
+   },
+   "state": "S1"
+  },
+  "B03": {
+   "lantern": {
+    "where": "Astra's hand (left or right, always gripped by the handle); visible or its glow visible",
+    "state": "warm flame, wind-shielded"
+   },
+   "state": "S1"
+  },
+  "B04": {
+   "lantern": {
+    "where": "Astra's hand (left or right, always gripped by the handle); visible or its glow visible",
+    "state": "warm flame, wind-shielded"
+   },
+   "state": "S1"
+  },
+  "B05": {
+   "lantern": {
+    "where": "Astra's hand (left or right, always gripped by the handle); visible or its glow visible",
+    "state": "warm flame, wind-shielded"
+   },
+   "state": "S1"
+  },
+  "B06": {
+   "lantern": {
+    "where": "Astra's hand (left or right, always gripped by the handle); visible or its glow visible",
+    "state": "warm flame, wind-shielded"
+   },
+   "state": "S1"
+  },
+  "B07": {
+   "lantern": {
+    "where": "Astra's hand (left or right, always gripped by the handle); visible or its glow visible",
+    "state": "warm flame, wind-shielded"
+   },
+   "state": "S1"
+  },
+  "B08": {
+   "lantern": {
+    "where": "Astra's hand (left or right, always gripped by the handle); visible or its glow visible",
+    "state": "warm flame, wind-shielded"
+   },
+   "state": "S1"
+  },
+  "B09": {
+   "lantern": {
+    "where": "Astra's hand (left or right, always gripped by the handle); visible or its glow visible",
+    "state": "warm flame, wind-shielded"
+   },
+   "state": "S1"
+  },
+  "B10": {
+   "lantern": {
+    "where": "Astra's hand (left or right, always gripped by the handle); visible or its glow visible",
+    "state": "warm flame, wind-shielded"
+   },
+   "state": "S1"
+  },
+  "C01": {
+   "lantern": {
+    "where": "Astra's hand (left or right, always gripped by the handle); visible or its glow visible",
+    "state": "warm flame"
+   },
+   "state": "S1"
+  },
+  "C02": {
+   "lantern": {
+    "where": "Astra's hand",
+    "state": "warm flame"
+   },
+   "state": "S1"
+  },
+  "C03": {
+   "lantern": {
+    "where": "Astra's hand",
+    "state": "warm flame"
+   },
+   "state": "S1"
+  },
+  "C04": {
+   "lantern": {
+    "where": "Astra's hand",
+    "state": "flame low"
+   },
+   "state": "S2"
+  },
+  "C05": {
+   "lantern": {
+    "where": "insert: the lantern on the bridge stones, her hand not shown",
+    "state": "flame nearly dead (ember)"
+   },
+   "state": "S2"
+  },
+  "C06": {
+   "lantern": {
+    "where": "Astra's hand",
+    "state": "flame low"
+   },
+   "state": "S2"
+  },
+  "C07": {
+   "lantern": {
+    "where": "cupped in both her hands",
+    "state": "flame small inside the glass; blue thread feeds it; grows slightly brighter, NEVER outside the glass"
+   },
+   "state": "S2"
+  },
+  "C08": {
+   "lantern": {
+    "where": "left hand at her side",
+    "state": "warm steady flame"
+   },
+   "state": "S2"
+  },
+  "C09": {
+   "lantern": {
+    "where": "on the stones beside her (she drives the blade down)",
+    "state": "warm flame"
+   },
+   "state": "S2"
+  },
+  "C10": {
+   "lantern": {
+    "where": "right hand at her side",
+    "state": "warm flame"
+   },
+   "state": "S2"
+  },
+  "D01": {
+   "lantern": {
+    "where": "Astra's right hand while climbing",
+    "state": "small flame"
+   },
+   "state": "S3"
+  },
+  "D02": {
+   "lantern": {
+    "where": "in her hands, then set on the dais; flame goes out",
+    "state": "flame goes out, smoke thread"
+   },
+   "state": "S3"
+  },
+  "D03": {
+   "lantern": {
+    "where": "on the stone dais (dead wick) / not in hand",
+    "state": "out"
+   },
+   "state": "S3"
+  },
+  "D04": {
+   "lantern": {
+    "where": "on the stone dais (dead wick) / not in hand",
+    "state": "out"
+   },
+   "state": "S3"
+  },
+  "D05": {
+   "lantern": {
+    "where": "on the stone dais (dead wick) / not in hand",
+    "state": "out"
+   },
+   "state": "S3"
+  },
+  "D06": {
+   "lantern": {
+    "where": "on the stone dais (dead wick) / not in hand",
+    "state": "out"
+   },
+   "state": "S3"
+  },
+  "D07": {
+   "lantern": {
+    "where": "on the stone dais (dead wick) / not in hand",
+    "state": "out"
+   },
+   "state": "S4"
+  },
+  "D08": {
+   "lantern": {
+    "where": "on the stone dais (dead wick) / not in hand",
+    "state": "out"
+   },
+   "state": "S4"
+  },
+  "D09": {
+   "lantern": {
+    "where": "on the stone dais (dead wick) / not in hand",
+    "state": "out"
+   },
+   "state": "S4"
+  },
+  "D10": {
+   "lantern": {
+    "where": "on the stone dais (dead wick) / not in hand",
+    "state": "out"
+   },
+   "state": "S4"
+  }
+ }
+}

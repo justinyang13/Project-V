@@ -18,4 +18,24 @@ Video-Story1/input/refs/book_bible.md
 Video-Story1/input/refs/cover_front_art.png
 Video-Story1/input/canon_src/
 Video-Story1/research/draw_things_cli_help.txt
-Video-*/jobs/*/mask_overlay_preview*.png
+archived/
+# Video-Astra (video-cinematic skill): big generated files stay local
+Video-Astra/input/*.png
+Video-Astra/input/*.webp
+Video-Astra/dataset/
+Video-Astra/lora/*.ckpt
+Video-Astra/keyframes/
+Video-Astra/clips/
+Video-Astra/audio/
+Video-Astra/edit/
+Video-Astra/upscale/
+Video-Astra/lora/qa/
+Video-Astra/lora/v2_rejected/
+Video-Astra/work/
+Video-Astra/output/
+Video-Astra/qc/*.jpg
+Video-Astra/qc/review_v1/
+Video-Astra/bible/refs/
+*.mp4
+*.wav
+Video-Astra/????????-????-????-????-????????????

@@ -11,12 +11,15 @@ Claude always **starts by asking the user for a scene description** (SPEC 1.0; a
 - **Use `draw-things-cli`, never the Draw Things app**, for images and video, so closing the app can't affect a render. (CLI video is still unverified: validate it at stage 0.) The CLI has no "projects"; the video folder is the project.
 - **Audio must be soft:** check every music piece and the final hour with `scripts/audio_qc.py` (screech, harshness, scratch, crackle, clicks, clipping, dropouts); regenerate bad pieces; give the user the listening pack. Claude cannot hear: report measurements and let the user's ears decide.
 - **Keep only three final files per video** in `output/`: `<id>_1hr_1080p24.mp4`, `<id>_audio_60min.m4a`, `<id>_loop10s_1080p24_silent.mp4`. Delete all other output and `work/` at the end.
-- **Models:** one flat folder `/Volumes/SSD-4T-LR/AI/Models`; never download a model that already exists there; new downloads go there.
+- **Models:** one flat folder `/Users/Maxi/Code/Models`; never download a model that already exists there; new downloads go there.
 - **Camera drift is the main risk:** use the cinemagraph prompt (never mention the camera) and measure drift on 3 seeds before final clips.
 - One heavy model at a time on the 64 GB Mac (video, music, LLMs never together).
 
 ## Layout
-`wiki/` (SPEC, runbook, lessons, music, models, posting-plan, `html/`, `html-src/`, `archive/`) · `scripts/` (shared) · `tools/ACE-Step-1.5` (git-ignored) · `.venv/` (git-ignored) · `Video-*/` (one per video: `input/ jobs/ output/ work/ README.md RUNLOG.md qc-report.md`). `Video-Zen2` and `Video-BeachSunset1` predate this layout; leave them alone unless asked.
+`wiki/` (SPEC, runbook, lessons, music, models, posting-plan, `html/`, `html-src/`, `archive/`) · `scripts/` (shared) · `/Users/Maxi/Code/Tools/ACE-Step-1.5` (git-ignored) · `.venv/` (git-ignored) · `Video-*/` (one per video: `input/ jobs/ output/ work/ README.md RUNLOG.md qc-report.md`). `Video-Zen2` and `Video-BeachSunset1` predate this layout; leave them alone unless asked.
 
 ## Git
 One **public** repo `justinyang13/Project-V` (docs site: https://justinyang13.github.io/Project-V/, deployed from `wiki/html` by `.github/workflows/pages.yml`; keep secrets and personal data out) (small files only; videos, scratch, tools and venvs are git-ignored). Rebuild HTML with `.venv/bin/python scripts/build_docs.py` before committing doc changes. Master pages go to `wiki/html/` (the Pages site); each video's page is `Video-<Name>/RUNLOG.html` and stays in its folder.
+
+## Character-sheet cinematic trailers (skill `video-cinematic`)
+When the user gives a character sheet and asks for a cinematic video, use the skill `video-cinematic`: fully autonomous (no approvals, overrides the "approve first" rules above for that run only), folder `Video-<Name>/` with Name read from the sheet. First one: `Video-Astra/`.
